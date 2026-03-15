@@ -1,0 +1,3 @@
+/home/autumn/write_cpp/redis-list/build/CMakeFiles/redis-list.dir
+/home/autumn/write_cpp/redis-list/build/CMakeFiles/edit_cache.dir
+/home/autumn/write_cpp/redis-list/build/CMakeFiles/rebuild_cache.dir
