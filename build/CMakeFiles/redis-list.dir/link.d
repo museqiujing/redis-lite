@@ -2,8 +2,9 @@ redis-list: \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/Scrt1.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crti.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o \
-  CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o \
   CMakeFiles/redis-list.dir/src/skiplist.cpp.o \
+  CMakeFiles/redis-list.dir/src/sds.cpp.o \
+  CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
@@ -38,9 +39,11 @@ redis-list: \
 
 /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
 
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o:
-
 CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
+
+CMakeFiles/redis-list.dir/src/sds.cpp.o:
+
+CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so:
 

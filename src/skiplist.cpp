@@ -42,7 +42,8 @@ int SkipList::compare(double score1, double score2) const {
 int SkipList::compare(double score, const std::string& member, const Node* node) const {
     int score_cmp = compare(score, node->score);
     if (score_cmp != 0) return score_cmp;
-    return member.compare(node->member);
+    SDS member_sds(member);
+    return member_sds.compare(node->member);
 }
 
 // 插入操作
@@ -177,7 +178,7 @@ bool SkipList::remove(const std::string& member) {
 
 
     // 如果成员不存在
-    if (!found || !target_node||target_node->member!=member) {
+    if (!found || !target_node||target_node->member.to_string()!=member) {
         return false;
     }
   
@@ -236,7 +237,7 @@ int SkipList::get_rank(const std::string& member) {
     
     auto node = it->second;
     double score = node->score;
-    const std::string& member_name = node->member;
+    std::string member_name = node->member.to_string();
     
     // 使用分数和成员名称计算排名
     unsigned long rank = 0;
@@ -276,7 +277,7 @@ std::string SkipList::get_by_rank(int rank) {
     }
     
     current = current->levels[0].forward;
-    return current->member;
+    return current->member.to_string();
 }
 
 // 根据分数范围查询
@@ -295,7 +296,7 @@ std::vector<std::pair<double, std::string>> SkipList::range(double min_score, do
     // 开始收集结果
     current = current->levels[0].forward;
     while (current && current->score <= max_score) {
-        result.emplace_back(current->score, current->member);
+        result.emplace_back(current->score, current->member.to_string());
         current = current->levels[0].forward;
     }
 
@@ -334,7 +335,7 @@ std::vector<std::pair<double, std::string>> SkipList::range(int start_rank, int 
     
     // 收集结果
     for (int i = start_rank; i <= end_rank && current; i++) {
-        result.emplace_back(current->score, current->member);
+        result.emplace_back(current->score, current->member.to_string());
         current = current->levels[0].forward;
     }
     

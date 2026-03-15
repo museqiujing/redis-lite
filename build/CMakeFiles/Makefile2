@@ -85,12 +85,12 @@ clean: CMakeFiles/redis-list.dir/clean
 CMakeFiles/redis-list.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=1,2,3 "Built target redis-list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=1,2,3,4 "Built target redis-list"
 .PHONY : CMakeFiles/redis-list.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/redis-list.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/autumn/write_cpp/redis-list/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/autumn/write_cpp/redis-list/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/redis-list.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/autumn/write_cpp/redis-list/build/CMakeFiles 0
 .PHONY : CMakeFiles/redis-list.dir/rule
@@ -102,7 +102,7 @@ redis-list: CMakeFiles/redis-list.dir/rule
 # codegen rule for target.
 CMakeFiles/redis-list.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target redis-list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target redis-list"
 .PHONY : CMakeFiles/redis-list.dir/codegen
 
 # clean rule for target.

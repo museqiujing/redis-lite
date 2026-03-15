@@ -72,24 +72,10 @@ include CMakeFiles/redis-list.dir/flags.make
 CMakeFiles/redis-list.dir/codegen:
 .PHONY : CMakeFiles/redis-list.dir/codegen
 
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o: CMakeFiles/redis-list.dir/flags.make
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o: /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o -MF CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o.d -o CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o -c /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp
-
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp > CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i
-
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp -o CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s
-
 CMakeFiles/redis-list.dir/src/skiplist.cpp.o: CMakeFiles/redis-list.dir/flags.make
 CMakeFiles/redis-list.dir/src/skiplist.cpp.o: /home/autumn/write_cpp/redis-list/src/skiplist.cpp
 CMakeFiles/redis-list.dir/src/skiplist.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/redis-list.dir/src/skiplist.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/redis-list.dir/src/skiplist.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/src/skiplist.cpp.o -MF CMakeFiles/redis-list.dir/src/skiplist.cpp.o.d -o CMakeFiles/redis-list.dir/src/skiplist.cpp.o -c /home/autumn/write_cpp/redis-list/src/skiplist.cpp
 
 CMakeFiles/redis-list.dir/src/skiplist.cpp.i: cmake_force
@@ -100,20 +86,50 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/src/skiplist.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/src/skiplist.cpp -o CMakeFiles/redis-list.dir/src/skiplist.cpp.s
 
+CMakeFiles/redis-list.dir/src/sds.cpp.o: CMakeFiles/redis-list.dir/flags.make
+CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/sds.cpp
+CMakeFiles/redis-list.dir/src/sds.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/redis-list.dir/src/sds.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/src/sds.cpp.o -MF CMakeFiles/redis-list.dir/src/sds.cpp.o.d -o CMakeFiles/redis-list.dir/src/sds.cpp.o -c /home/autumn/write_cpp/redis-list/src/sds.cpp
+
+CMakeFiles/redis-list.dir/src/sds.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/redis-list.dir/src/sds.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/autumn/write_cpp/redis-list/src/sds.cpp > CMakeFiles/redis-list.dir/src/sds.cpp.i
+
+CMakeFiles/redis-list.dir/src/sds.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/src/sds.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/src/sds.cpp -o CMakeFiles/redis-list.dir/src/sds.cpp.s
+
+CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o: CMakeFiles/redis-list.dir/flags.make
+CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o: /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp
+CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o -MF CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o.d -o CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o -c /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp
+
+CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp > CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i
+
+CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/test/skiplist_test.cpp -o CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s
+
 # Object files for target redis-list
 redis__list_OBJECTS = \
-"CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o" \
-"CMakeFiles/redis-list.dir/src/skiplist.cpp.o"
+"CMakeFiles/redis-list.dir/src/skiplist.cpp.o" \
+"CMakeFiles/redis-list.dir/src/sds.cpp.o" \
+"CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o"
 
 # External object files for target redis-list
 redis__list_EXTERNAL_OBJECTS =
 
-redis-list: CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o
 redis-list: CMakeFiles/redis-list.dir/src/skiplist.cpp.o
+redis-list: CMakeFiles/redis-list.dir/src/sds.cpp.o
+redis-list: CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o
 redis-list: CMakeFiles/redis-list.dir/build.make
 redis-list: CMakeFiles/redis-list.dir/compiler_depend.ts
 redis-list: CMakeFiles/redis-list.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable redis-list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable redis-list"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/redis-list.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 源文件
 set(SOURCE_FILES
-    test/skiplist_test.cpp
     src/skiplist.cpp
+    src/sds.cpp
+    test/skiplist_test.cpp
 )
 
 # 可执行文件

@@ -129,6 +129,30 @@ redis-list/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/build
 .PHONY : redis-list/fast
 
+src/sds.o: src/sds.cpp.o
+.PHONY : src/sds.o
+
+# target to build an object file
+src/sds.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.o
+.PHONY : src/sds.cpp.o
+
+src/sds.i: src/sds.cpp.i
+.PHONY : src/sds.i
+
+# target to preprocess a source file
+src/sds.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.i
+.PHONY : src/sds.cpp.i
+
+src/sds.s: src/sds.cpp.s
+.PHONY : src/sds.s
+
+# target to generate assembly for a file
+src/sds.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.s
+.PHONY : src/sds.cpp.s
+
 src/skiplist.o: src/skiplist.cpp.o
 .PHONY : src/skiplist.o
 
@@ -186,6 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... redis-list"
+	@echo "... src/sds.o"
+	@echo "... src/sds.i"
+	@echo "... src/sds.s"
 	@echo "... src/skiplist.o"
 	@echo "... src/skiplist.i"
 	@echo "... src/skiplist.s"

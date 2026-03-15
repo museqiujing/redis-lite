@@ -8,6 +8,7 @@
 #include <random>
 #include <iostream>
 #include <unordered_map>
+#include "sds.h"
 
 class SkipList {
 public:
@@ -35,8 +36,7 @@ private:
     // 跳表节点结构
     struct Node {
         double score;
-        std::string member;
-        
+        SDS member;
         struct Level {
             std::shared_ptr<Node> forward; // 指向下一个节点的指针
             unsigned long span; // 到下一个节点的距离
