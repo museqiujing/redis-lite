@@ -46,11 +46,18 @@ SDS::SDS(const SDS& other) {
 // 赋值运算符
 SDS& SDS::operator=(const SDS& other) {
     if (this != &other) {
-        reallocate(other.len);
-        if (other.len) {
-            memcpy(buf, other.buf, other.len);
-            buf[len] = '\0';
+        // 释放旧内存
+        if (buf) {
+            delete[] buf;
         }
+        // 分配新内存
+        len = other.len;
+        free = other.free;
+        buf = new char[len + free + 1];
+        if (len > 0) {
+            memcpy(buf, other.buf, len);
+        }
+        buf[len] = '\0';
     }
     return *this;
 }
@@ -105,12 +112,17 @@ void SDS::reallocate(size_t new_cap) {
     }
     
     // 空间预分配策略
-    size_t newlen = len + free;
+    size_t newlen = len;
     size_t newcap;
     if (newlen < SDS_MAX_PREALLOC) {
         newcap = newlen * 2;
     } else {
         newcap = newlen + SDS_MAX_PREALLOC;
+    }
+    
+    // 确保newcap至少为new_cap
+    if (newcap < new_cap) {
+        newcap = new_cap;
     }
     
     char* new_buf = new char[newcap + 1];
@@ -129,8 +141,9 @@ void SDS::reallocate(size_t new_cap) {
 
 // 预留空间
 void SDS::reserve(size_t needed) {
-    if (free < needed) {
-        reallocate(len + needed);
+    size_t required = len + needed;
+    if (required > len + free) {
+        reallocate(required);
     }
 }
 

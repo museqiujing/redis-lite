@@ -129,12 +129,26 @@ redis-list/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/build
 .PHONY : redis-list/fast
 
+#=============================================================================
+# Target rules for targets named sds-test
+
+# Build rule for target.
+sds-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sds-test
+.PHONY : sds-test
+
+# fast build rule for target.
+sds-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/build
+.PHONY : sds-test/fast
+
 src/sds.o: src/sds.cpp.o
 .PHONY : src/sds.o
 
 # target to build an object file
 src/sds.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.o
 .PHONY : src/sds.cpp.o
 
 src/sds.i: src/sds.cpp.i
@@ -143,6 +157,7 @@ src/sds.i: src/sds.cpp.i
 # target to preprocess a source file
 src/sds.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.i
 .PHONY : src/sds.cpp.i
 
 src/sds.s: src/sds.cpp.s
@@ -151,6 +166,7 @@ src/sds.s: src/sds.cpp.s
 # target to generate assembly for a file
 src/sds.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.s
 .PHONY : src/sds.cpp.s
 
 src/skiplist.o: src/skiplist.cpp.o
@@ -176,6 +192,30 @@ src/skiplist.s: src/skiplist.cpp.s
 src/skiplist.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/skiplist.cpp.s
 .PHONY : src/skiplist.cpp.s
+
+test/sds_test.o: test/sds_test.cpp.o
+.PHONY : test/sds_test.o
+
+# target to build an object file
+test/sds_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/test/sds_test.cpp.o
+.PHONY : test/sds_test.cpp.o
+
+test/sds_test.i: test/sds_test.cpp.i
+.PHONY : test/sds_test.i
+
+# target to preprocess a source file
+test/sds_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/test/sds_test.cpp.i
+.PHONY : test/sds_test.cpp.i
+
+test/sds_test.s: test/sds_test.cpp.s
+.PHONY : test/sds_test.s
+
+# target to generate assembly for a file
+test/sds_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/test/sds_test.cpp.s
+.PHONY : test/sds_test.cpp.s
 
 test/skiplist_test.o: test/skiplist_test.cpp.o
 .PHONY : test/skiplist_test.o
@@ -210,12 +250,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... redis-list"
+	@echo "... sds-test"
 	@echo "... src/sds.o"
 	@echo "... src/sds.i"
 	@echo "... src/sds.s"
 	@echo "... src/skiplist.o"
 	@echo "... src/skiplist.i"
 	@echo "... src/skiplist.s"
+	@echo "... test/sds_test.o"
+	@echo "... test/sds_test.i"
+	@echo "... test/sds_test.s"
 	@echo "... test/skiplist_test.o"
 	@echo "... test/skiplist_test.i"
 	@echo "... test/skiplist_test.s"

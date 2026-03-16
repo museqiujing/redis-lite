@@ -13,6 +13,8 @@ set(SOURCE_FILES
 
 # 可执行文件
 add_executable(redis-list ${SOURCE_FILES})
+add_executable(sds-test src/sds.cpp test/sds_test.cpp)
 
 # 包含目录
 target_include_directories(redis-list PRIVATE src)
+target_include_directories(sds-test PRIVATE src)

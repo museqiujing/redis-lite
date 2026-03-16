@@ -11,7 +11,7 @@
 class SDS {
 public:
     // 构造函数
-    SDS() : len(0), free(0), buf(nullptr) {}
+   SDS() : len(0), free(0) { buf = new char[1]; buf[0] = '\0'; }
     explicit SDS(const char* init);
     explicit SDS(const std::string& init);
     SDS(const char* init, size_t initlen);
