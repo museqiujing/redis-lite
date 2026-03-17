@@ -42,8 +42,8 @@ int SkipList::compare(double score1, double score2) const {
 int SkipList::compare(double score, const std::string& member, const Node* node) const {
     int score_cmp = compare(score, node->score);
     if (score_cmp != 0) return score_cmp;
-    SDS member_sds(member);
-    return member_sds.compare(node->member);
+    SDS member_sds(member); 
+    return member_sds.compare(node->member); 
 }
 
 // 插入操作

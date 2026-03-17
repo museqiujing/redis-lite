@@ -142,6 +142,19 @@ sds-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/build
 .PHONY : sds-test/fast
 
+#=============================================================================
+# Target rules for targets named string-test
+
+# Build rule for target.
+string-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 string-test
+.PHONY : string-test
+
+# fast build rule for target.
+string-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/build
+.PHONY : string-test/fast
+
 src/sds.o: src/sds.cpp.o
 .PHONY : src/sds.o
 
@@ -149,6 +162,7 @@ src/sds.o: src/sds.cpp.o
 src/sds.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.o
 .PHONY : src/sds.cpp.o
 
 src/sds.i: src/sds.cpp.i
@@ -158,6 +172,7 @@ src/sds.i: src/sds.cpp.i
 src/sds.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.i
 .PHONY : src/sds.cpp.i
 
 src/sds.s: src/sds.cpp.s
@@ -167,6 +182,7 @@ src/sds.s: src/sds.cpp.s
 src/sds.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.s
 .PHONY : src/sds.cpp.s
 
 src/skiplist.o: src/skiplist.cpp.o
@@ -192,6 +208,30 @@ src/skiplist.s: src/skiplist.cpp.s
 src/skiplist.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/skiplist.cpp.s
 .PHONY : src/skiplist.cpp.s
+
+src/string_type.o: src/string_type.cpp.o
+.PHONY : src/string_type.o
+
+# target to build an object file
+src/string_type.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.o
+.PHONY : src/string_type.cpp.o
+
+src/string_type.i: src/string_type.cpp.i
+.PHONY : src/string_type.i
+
+# target to preprocess a source file
+src/string_type.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.i
+.PHONY : src/string_type.cpp.i
+
+src/string_type.s: src/string_type.cpp.s
+.PHONY : src/string_type.s
+
+# target to generate assembly for a file
+src/string_type.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.s
+.PHONY : src/string_type.cpp.s
 
 test/sds_test.o: test/sds_test.cpp.o
 .PHONY : test/sds_test.o
@@ -241,6 +281,30 @@ test/skiplist_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s
 .PHONY : test/skiplist_test.cpp.s
 
+test/string_type_test.o: test/string_type_test.cpp.o
+.PHONY : test/string_type_test.o
+
+# target to build an object file
+test/string_type_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/test/string_type_test.cpp.o
+.PHONY : test/string_type_test.cpp.o
+
+test/string_type_test.i: test/string_type_test.cpp.i
+.PHONY : test/string_type_test.i
+
+# target to preprocess a source file
+test/string_type_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/test/string_type_test.cpp.i
+.PHONY : test/string_type_test.cpp.i
+
+test/string_type_test.s: test/string_type_test.cpp.s
+.PHONY : test/string_type_test.s
+
+# target to generate assembly for a file
+test/string_type_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/test/string_type_test.cpp.s
+.PHONY : test/string_type_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -251,18 +315,25 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... redis-list"
 	@echo "... sds-test"
+	@echo "... string-test"
 	@echo "... src/sds.o"
 	@echo "... src/sds.i"
 	@echo "... src/sds.s"
 	@echo "... src/skiplist.o"
 	@echo "... src/skiplist.i"
 	@echo "... src/skiplist.s"
+	@echo "... src/string_type.o"
+	@echo "... src/string_type.i"
+	@echo "... src/string_type.s"
 	@echo "... test/sds_test.o"
 	@echo "... test/sds_test.i"
 	@echo "... test/sds_test.s"
 	@echo "... test/skiplist_test.o"
 	@echo "... test/skiplist_test.i"
 	@echo "... test/skiplist_test.s"
+	@echo "... test/string_type_test.o"
+	@echo "... test/string_type_test.i"
+	@echo "... test/string_type_test.s"
 .PHONY : help
 
 

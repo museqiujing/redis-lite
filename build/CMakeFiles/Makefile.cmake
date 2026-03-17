@@ -56,4 +56,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/redis-list.dir/DependInfo.cmake"
   "CMakeFiles/sds-test.dir/DependInfo.cmake"
+  "CMakeFiles/string-test.dir/DependInfo.cmake"
   )

@@ -1,4 +1,5 @@
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/redis-list.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/sds-test.dir
+/home/autumn/write_cpp/redis-list/build/CMakeFiles/string-test.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/edit_cache.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/rebuild_cache.dir
