@@ -15,8 +15,10 @@ set(SOURCE_FILES
 add_executable(redis-list ${SOURCE_FILES})
 add_executable(sds-test src/sds.cpp test/sds_test.cpp)
 add_executable(string-test src/sds.cpp src/string_type.cpp test/string_type_test.cpp)
+add_executable(list-test src/sds.cpp src/list.cpp test/list_test.cpp)
 
 # 包含目录
 target_include_directories(redis-list PRIVATE src)
 target_include_directories(sds-test PRIVATE src)
 target_include_directories(string-test PRIVATE src)
+target_include_directories(list-test PRIVATE src)

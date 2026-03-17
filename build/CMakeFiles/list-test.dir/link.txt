@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/list-test.dir/link.d "CMakeFiles/list-test.dir/src/sds.cpp.o" "CMakeFiles/list-test.dir/src/list.cpp.o" "CMakeFiles/list-test.dir/test/list_test.cpp.o" -o list-test

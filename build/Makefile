@@ -155,6 +155,43 @@ string-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/build
 .PHONY : string-test/fast
 
+#=============================================================================
+# Target rules for targets named list-test
+
+# Build rule for target.
+list-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 list-test
+.PHONY : list-test
+
+# fast build rule for target.
+list-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/build
+.PHONY : list-test/fast
+
+src/list.o: src/list.cpp.o
+.PHONY : src/list.o
+
+# target to build an object file
+src/list.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.o
+.PHONY : src/list.cpp.o
+
+src/list.i: src/list.cpp.i
+.PHONY : src/list.i
+
+# target to preprocess a source file
+src/list.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.i
+.PHONY : src/list.cpp.i
+
+src/list.s: src/list.cpp.s
+.PHONY : src/list.s
+
+# target to generate assembly for a file
+src/list.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.s
+.PHONY : src/list.cpp.s
+
 src/sds.o: src/sds.cpp.o
 .PHONY : src/sds.o
 
@@ -163,6 +200,7 @@ src/sds.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.o
 .PHONY : src/sds.cpp.o
 
 src/sds.i: src/sds.cpp.i
@@ -173,6 +211,7 @@ src/sds.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.i
 .PHONY : src/sds.cpp.i
 
 src/sds.s: src/sds.cpp.s
@@ -183,6 +222,7 @@ src/sds.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.s
 .PHONY : src/sds.cpp.s
 
 src/skiplist.o: src/skiplist.cpp.o
@@ -232,6 +272,30 @@ src/string_type.s: src/string_type.cpp.s
 src/string_type.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.s
 .PHONY : src/string_type.cpp.s
+
+test/list_test.o: test/list_test.cpp.o
+.PHONY : test/list_test.o
+
+# target to build an object file
+test/list_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/test/list_test.cpp.o
+.PHONY : test/list_test.cpp.o
+
+test/list_test.i: test/list_test.cpp.i
+.PHONY : test/list_test.i
+
+# target to preprocess a source file
+test/list_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/test/list_test.cpp.i
+.PHONY : test/list_test.cpp.i
+
+test/list_test.s: test/list_test.cpp.s
+.PHONY : test/list_test.s
+
+# target to generate assembly for a file
+test/list_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/test/list_test.cpp.s
+.PHONY : test/list_test.cpp.s
 
 test/sds_test.o: test/sds_test.cpp.o
 .PHONY : test/sds_test.o
@@ -313,9 +377,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... list-test"
 	@echo "... redis-list"
 	@echo "... sds-test"
 	@echo "... string-test"
+	@echo "... src/list.o"
+	@echo "... src/list.i"
+	@echo "... src/list.s"
 	@echo "... src/sds.o"
 	@echo "... src/sds.i"
 	@echo "... src/sds.s"
@@ -325,6 +393,9 @@ help:
 	@echo "... src/string_type.o"
 	@echo "... src/string_type.i"
 	@echo "... src/string_type.s"
+	@echo "... test/list_test.o"
+	@echo "... test/list_test.i"
+	@echo "... test/list_test.s"
 	@echo "... test/sds_test.o"
 	@echo "... test/sds_test.i"
 	@echo "... test/sds_test.s"
