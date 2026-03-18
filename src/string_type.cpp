@@ -36,12 +36,12 @@ void String::setex(const std::string& key, int seconds, const std::string& value
 
 // 获取值
 std::string String::get(const std::string& key) {
-    clean_expired(key);
+    clean_expired(key); 
     auto it = storage.find(key);
     if (it == storage.end()) {
         return "";
     }
-    return it->second->data.to_string();
+    return it->second->data.to_string(); 
 }
 
 // 设置过期时间（秒）

@@ -8,11 +8,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SOURCE_FILES
     src/skiplist.cpp
     src/sds.cpp
-    test/skiplist_test.cpp
+    src/epoll_server.cpp
+    src/resp_parser.cpp
+    src/resp_serializer.cpp
+    src/command_handler.cpp
+    src/string_type.cpp
+    src/list.cpp
+    src/main.cpp
 )
 
 # 可执行文件
 add_executable(redis-list ${SOURCE_FILES})
+# 测试可执行文件
+add_executable(skiplist-test src/skiplist.cpp src/sds.cpp test/skiplist_test.cpp)
 add_executable(sds-test src/sds.cpp test/sds_test.cpp)
 add_executable(string-test src/sds.cpp src/string_type.cpp test/string_type_test.cpp)
 add_executable(list-test src/sds.cpp src/list.cpp test/list_test.cpp)

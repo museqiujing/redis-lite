@@ -4,7 +4,13 @@ redis-list: \
   /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o \
   CMakeFiles/redis-list.dir/src/skiplist.cpp.o \
   CMakeFiles/redis-list.dir/src/sds.cpp.o \
-  CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o \
+  CMakeFiles/redis-list.dir/src/epoll_server.cpp.o \
+  CMakeFiles/redis-list.dir/src/resp_parser.cpp.o \
+  CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o \
+  CMakeFiles/redis-list.dir/src/command_handler.cpp.o \
+  CMakeFiles/redis-list.dir/src/string_type.cpp.o \
+  CMakeFiles/redis-list.dir/src/list.cpp.o \
+  CMakeFiles/redis-list.dir/src/main.cpp.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
@@ -43,7 +49,19 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 CMakeFiles/redis-list.dir/src/sds.cpp.o:
 
-CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o:
+CMakeFiles/redis-list.dir/src/epoll_server.cpp.o:
+
+CMakeFiles/redis-list.dir/src/resp_parser.cpp.o:
+
+CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o:
+
+CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
+
+CMakeFiles/redis-list.dir/src/string_type.cpp.o:
+
+CMakeFiles/redis-list.dir/src/list.cpp.o:
+
+CMakeFiles/redis-list.dir/src/main.cpp.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so:
 

@@ -281,7 +281,7 @@ std::string SkipList::get_by_rank(int rank) {
 }
 
 // 根据分数范围查询
-std::vector<std::pair<double, std::string>> SkipList::range(double min_score, double max_score) {
+std::vector<std::pair<double, std::string>> SkipList::range(double min_score, double max_score) { 
     std::vector<std::pair<double, std::string>> result;
     
     auto current = header;
@@ -308,17 +308,31 @@ std::vector<std::pair<double, std::string>> SkipList::range(double min_score, do
 }
 
 // 根据排名范围查询
-std::vector<std::pair<double, std::string>> SkipList::range(int start_rank, int end_rank) {
+std::vector<std::pair<double, std::string>> SkipList::range(int start, int stop) {
     std::vector<std::pair<double, std::string>> result;
     // 验证排名范围是否有效
-     if (start_rank <= 0 || end_rank <= 0 || start_rank > end_rank) {
-        throw std::invalid_argument("错误的排名范围");
+     // 处理负索引
+     // 处理负索引
+    if (start < 0) {
+        start = count + start;
+    }
+    if (stop < 0) {
+        stop = count + stop;
+    }
+    
+    // 验证范围
+    if (start < 0 || start >= count || stop < start) {
         return result;
     }
-    // 确保结束排名不超过总元素数
-    if(end_rank>count){
-        end_rank=count;
+    
+    // 确保结束索引不超过总元素数
+    if (stop >= count) {
+        stop = count - 1;
     }
+
+    // 转换为1-based排名
+    int start_rank = start + 1;
+    int end_rank = stop + 1;
 
     auto current = header;
     unsigned long traversed = 0;

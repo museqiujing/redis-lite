@@ -130,6 +130,19 @@ redis-list/fast:
 .PHONY : redis-list/fast
 
 #=============================================================================
+# Target rules for targets named skiplist-test
+
+# Build rule for target.
+skiplist-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 skiplist-test
+.PHONY : skiplist-test
+
+# fast build rule for target.
+skiplist-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/build
+.PHONY : skiplist-test/fast
+
+#=============================================================================
 # Target rules for targets named sds-test
 
 # Build rule for target.
@@ -168,11 +181,60 @@ list-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/build
 .PHONY : list-test/fast
 
+src/command_handler.o: src/command_handler.cpp.o
+.PHONY : src/command_handler.o
+
+# target to build an object file
+src/command_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/command_handler.cpp.o
+.PHONY : src/command_handler.cpp.o
+
+src/command_handler.i: src/command_handler.cpp.i
+.PHONY : src/command_handler.i
+
+# target to preprocess a source file
+src/command_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/command_handler.cpp.i
+.PHONY : src/command_handler.cpp.i
+
+src/command_handler.s: src/command_handler.cpp.s
+.PHONY : src/command_handler.s
+
+# target to generate assembly for a file
+src/command_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/command_handler.cpp.s
+.PHONY : src/command_handler.cpp.s
+
+src/epoll_server.o: src/epoll_server.cpp.o
+.PHONY : src/epoll_server.o
+
+# target to build an object file
+src/epoll_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/epoll_server.cpp.o
+.PHONY : src/epoll_server.cpp.o
+
+src/epoll_server.i: src/epoll_server.cpp.i
+.PHONY : src/epoll_server.i
+
+# target to preprocess a source file
+src/epoll_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/epoll_server.cpp.i
+.PHONY : src/epoll_server.cpp.i
+
+src/epoll_server.s: src/epoll_server.cpp.s
+.PHONY : src/epoll_server.s
+
+# target to generate assembly for a file
+src/epoll_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/epoll_server.cpp.s
+.PHONY : src/epoll_server.cpp.s
+
 src/list.o: src/list.cpp.o
 .PHONY : src/list.o
 
 # target to build an object file
 src/list.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/list.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.o
 .PHONY : src/list.cpp.o
 
@@ -181,6 +243,7 @@ src/list.i: src/list.cpp.i
 
 # target to preprocess a source file
 src/list.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/list.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.i
 .PHONY : src/list.cpp.i
 
@@ -189,8 +252,81 @@ src/list.s: src/list.cpp.s
 
 # target to generate assembly for a file
 src/list.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/list.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.s
 .PHONY : src/list.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
+src/resp_parser.o: src/resp_parser.cpp.o
+.PHONY : src/resp_parser.o
+
+# target to build an object file
+src/resp_parser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/resp_parser.cpp.o
+.PHONY : src/resp_parser.cpp.o
+
+src/resp_parser.i: src/resp_parser.cpp.i
+.PHONY : src/resp_parser.i
+
+# target to preprocess a source file
+src/resp_parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/resp_parser.cpp.i
+.PHONY : src/resp_parser.cpp.i
+
+src/resp_parser.s: src/resp_parser.cpp.s
+.PHONY : src/resp_parser.s
+
+# target to generate assembly for a file
+src/resp_parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/resp_parser.cpp.s
+.PHONY : src/resp_parser.cpp.s
+
+src/resp_serializer.o: src/resp_serializer.cpp.o
+.PHONY : src/resp_serializer.o
+
+# target to build an object file
+src/resp_serializer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o
+.PHONY : src/resp_serializer.cpp.o
+
+src/resp_serializer.i: src/resp_serializer.cpp.i
+.PHONY : src/resp_serializer.i
+
+# target to preprocess a source file
+src/resp_serializer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/resp_serializer.cpp.i
+.PHONY : src/resp_serializer.cpp.i
+
+src/resp_serializer.s: src/resp_serializer.cpp.s
+.PHONY : src/resp_serializer.s
+
+# target to generate assembly for a file
+src/resp_serializer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/resp_serializer.cpp.s
+.PHONY : src/resp_serializer.cpp.s
 
 src/sds.o: src/sds.cpp.o
 .PHONY : src/sds.o
@@ -198,6 +334,7 @@ src/sds.o: src/sds.cpp.o
 # target to build an object file
 src/sds.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.o
@@ -209,6 +346,7 @@ src/sds.i: src/sds.cpp.i
 # target to preprocess a source file
 src/sds.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.i
@@ -220,6 +358,7 @@ src/sds.s: src/sds.cpp.s
 # target to generate assembly for a file
 src/sds.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/sds.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.s
@@ -231,6 +370,7 @@ src/skiplist.o: src/skiplist.cpp.o
 # target to build an object file
 src/skiplist.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/skiplist.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/src/skiplist.cpp.o
 .PHONY : src/skiplist.cpp.o
 
 src/skiplist.i: src/skiplist.cpp.i
@@ -239,6 +379,7 @@ src/skiplist.i: src/skiplist.cpp.i
 # target to preprocess a source file
 src/skiplist.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/skiplist.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/src/skiplist.cpp.i
 .PHONY : src/skiplist.cpp.i
 
 src/skiplist.s: src/skiplist.cpp.s
@@ -247,6 +388,7 @@ src/skiplist.s: src/skiplist.cpp.s
 # target to generate assembly for a file
 src/skiplist.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/skiplist.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/src/skiplist.cpp.s
 .PHONY : src/skiplist.cpp.s
 
 src/string_type.o: src/string_type.cpp.o
@@ -254,6 +396,7 @@ src/string_type.o: src/string_type.cpp.o
 
 # target to build an object file
 src/string_type.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/string_type.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.o
 .PHONY : src/string_type.cpp.o
 
@@ -262,6 +405,7 @@ src/string_type.i: src/string_type.cpp.i
 
 # target to preprocess a source file
 src/string_type.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/string_type.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.i
 .PHONY : src/string_type.cpp.i
 
@@ -270,6 +414,7 @@ src/string_type.s: src/string_type.cpp.s
 
 # target to generate assembly for a file
 src/string_type.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/string_type.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.s
 .PHONY : src/string_type.cpp.s
 
@@ -326,7 +471,7 @@ test/skiplist_test.o: test/skiplist_test.cpp.o
 
 # target to build an object file
 test/skiplist_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/test/skiplist_test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/test/skiplist_test.cpp.o
 .PHONY : test/skiplist_test.cpp.o
 
 test/skiplist_test.i: test/skiplist_test.cpp.i
@@ -334,7 +479,7 @@ test/skiplist_test.i: test/skiplist_test.cpp.i
 
 # target to preprocess a source file
 test/skiplist_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/test/skiplist_test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/test/skiplist_test.cpp.i
 .PHONY : test/skiplist_test.cpp.i
 
 test/skiplist_test.s: test/skiplist_test.cpp.s
@@ -342,7 +487,7 @@ test/skiplist_test.s: test/skiplist_test.cpp.s
 
 # target to generate assembly for a file
 test/skiplist_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/test/skiplist_test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/skiplist-test.dir/build.make CMakeFiles/skiplist-test.dir/test/skiplist_test.cpp.s
 .PHONY : test/skiplist_test.cpp.s
 
 test/string_type_test.o: test/string_type_test.cpp.o
@@ -380,10 +525,26 @@ help:
 	@echo "... list-test"
 	@echo "... redis-list"
 	@echo "... sds-test"
+	@echo "... skiplist-test"
 	@echo "... string-test"
+	@echo "... src/command_handler.o"
+	@echo "... src/command_handler.i"
+	@echo "... src/command_handler.s"
+	@echo "... src/epoll_server.o"
+	@echo "... src/epoll_server.i"
+	@echo "... src/epoll_server.s"
 	@echo "... src/list.o"
 	@echo "... src/list.i"
 	@echo "... src/list.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/resp_parser.o"
+	@echo "... src/resp_parser.i"
+	@echo "... src/resp_parser.s"
+	@echo "... src/resp_serializer.o"
+	@echo "... src/resp_serializer.i"
+	@echo "... src/resp_serializer.s"
 	@echo "... src/sds.o"
 	@echo "... src/sds.i"
 	@echo "... src/sds.s"
