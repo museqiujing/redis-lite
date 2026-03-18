@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/autumn/write_cpp/redis-list/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
