@@ -163,7 +163,10 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: \
  /usr/include/c++/13/pstl/execution_defs.h \
  /home/autumn/write_cpp/redis-list/src/sds.h /usr/include/c++/13/cstdint \
  /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/13/stdexcept /usr/include/c++/13/chrono \
+ /usr/include/c++/13/stdexcept /usr/include/c++/13/vector \
+ /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_bvector.h \
+ /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/chrono \
  /usr/include/c++/13/bits/chrono.h /usr/include/c++/13/ratio \
  /usr/include/c++/13/limits /usr/include/c++/13/ctime \
  /usr/include/c++/13/bits/parse_numbers.h

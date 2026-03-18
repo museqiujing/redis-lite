@@ -181,6 +181,30 @@ list-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/build
 .PHONY : list-test/fast
 
+src/aof.o: src/aof.cpp.o
+.PHONY : src/aof.o
+
+# target to build an object file
+src/aof.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/aof.cpp.o
+.PHONY : src/aof.cpp.o
+
+src/aof.i: src/aof.cpp.i
+.PHONY : src/aof.i
+
+# target to preprocess a source file
+src/aof.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/aof.cpp.i
+.PHONY : src/aof.cpp.i
+
+src/aof.s: src/aof.cpp.s
+.PHONY : src/aof.s
+
+# target to generate assembly for a file
+src/aof.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/aof.cpp.s
+.PHONY : src/aof.cpp.s
+
 src/command_handler.o: src/command_handler.cpp.o
 .PHONY : src/command_handler.o
 
@@ -418,6 +442,30 @@ src/string_type.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.s
 .PHONY : src/string_type.cpp.s
 
+src/zset.o: src/zset.cpp.o
+.PHONY : src/zset.o
+
+# target to build an object file
+src/zset.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/zset.cpp.o
+.PHONY : src/zset.cpp.o
+
+src/zset.i: src/zset.cpp.i
+.PHONY : src/zset.i
+
+# target to preprocess a source file
+src/zset.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/zset.cpp.i
+.PHONY : src/zset.cpp.i
+
+src/zset.s: src/zset.cpp.s
+.PHONY : src/zset.s
+
+# target to generate assembly for a file
+src/zset.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/zset.cpp.s
+.PHONY : src/zset.cpp.s
+
 test/list_test.o: test/list_test.cpp.o
 .PHONY : test/list_test.o
 
@@ -527,6 +575,9 @@ help:
 	@echo "... sds-test"
 	@echo "... skiplist-test"
 	@echo "... string-test"
+	@echo "... src/aof.o"
+	@echo "... src/aof.i"
+	@echo "... src/aof.s"
 	@echo "... src/command_handler.o"
 	@echo "... src/command_handler.i"
 	@echo "... src/command_handler.s"
@@ -554,6 +605,9 @@ help:
 	@echo "... src/string_type.o"
 	@echo "... src/string_type.i"
 	@echo "... src/string_type.s"
+	@echo "... src/zset.o"
+	@echo "... src/zset.i"
+	@echo "... src/zset.s"
 	@echo "... test/list_test.o"
 	@echo "... test/list_test.i"
 	@echo "... test/list_test.s"

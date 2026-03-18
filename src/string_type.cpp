@@ -1,6 +1,7 @@
 #include "string_type.h"
 #include <chrono>
 
+
 // 检查键是否过期
 bool String::is_expired(const std::string& key) const {
     auto it = storage.find(key);
@@ -129,4 +130,15 @@ int String::ttl(const std::string& key) {
     }
     int ttl_seconds = static_cast<int>(ttl_ms / 1000);
     return ttl_seconds;
+}
+
+std::vector<std::pair<std::string, std::string>> String::get_all_data() {
+    std::vector<std::pair<std::string, std::string>> result;
+    for (const auto& pair : storage) {
+        // 跳过过期的键
+        if (!is_expired(pair.first)) {
+            result.emplace_back(pair.first, pair.second->data.to_string());
+        }
+    }
+    return result;
 }

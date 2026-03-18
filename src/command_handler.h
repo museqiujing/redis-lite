@@ -7,18 +7,31 @@
 #include "string_type.h"
 #include "list.h"
 #include "skiplist.h"
-
+#include "aof.h"
+#include "zset.h"
 class CommandHandler {
 public:
     CommandHandler();
     std::string handle_command(const std::vector<std::string>& command);
 
+     // 获取所有String数据
+    std::vector<std::pair<std::string, std::string>> get_all_string_data(); 
+
+     // 获取所有List数据
+    std::vector<std::pair<std::string, std::vector<std::string>>> get_all_list_data();
+    
+    // 获取所有ZSet数据
+    std::vector<std::pair<std::string, std::vector<std::pair<double, std::string>>>> get_all_zset_data();
+  
 private:
 
     String string_type;  
     List list_type; 
     SkipList skiplist_type;
+    AofManager aof_manager;
+    ZSetManager zset_manager;
     
+    std::string handle_bgrewriteaof(const std::vector<std::string>& args);
     std::string handle_get(const std::vector<std::string>& args);
     std::string handle_set(const std::vector<std::string>& args);
     std::string handle_setex(const std::vector<std::string>& args);

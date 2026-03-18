@@ -47,6 +47,9 @@ public:
     // 返回链表长度
     long long llen(const std::string& key);
     
+     // 获取所有数据
+    std::vector<std::pair<std::string, std::vector<std::string>>> get_all_data();
+    
     // 设置过期时间（秒）
     bool expire(const std::string& key, int seconds);
     

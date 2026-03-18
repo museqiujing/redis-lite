@@ -1,5 +1,4 @@
 // command_handler.cpp
-// 修改 command_handler.cpp 文件
 #include "command_handler.h"
 #include "resp_serializer.h"
 #include "string_type.h"
@@ -7,7 +6,11 @@
 #include "skiplist.h"
 #include <stdexcept>
 
-CommandHandler::CommandHandler() {}
+CommandHandler::CommandHandler() {
+    aof_manager.init(this);
+    // 加载AOF文件
+    aof_manager.load();
+}
 
 std::string CommandHandler::handle_command(const std::vector<std::string>& command) {
     if (command.empty()) {
@@ -20,63 +23,109 @@ std::string CommandHandler::handle_command(const std::vector<std::string>& comma
     }
     
     try {
+        std::string response;
+        
         if (cmd == "GET") {
-            return handle_get(command);
+            response = handle_get(command);
         } else if (cmd == "SET") {
-            return handle_set(command);
+            response = handle_set(command);
+            aof_manager.write_command(command);
         } else if (cmd == "SETEX") {
-            return handle_setex(command);
+            response = handle_setex(command);
+            aof_manager.write_command(command);
         } else if (cmd == "EXPIRE") {
-            return handle_expire(command);
+            response = handle_expire(command);
+            aof_manager.write_command(command);
         } else if (cmd == "TTL") {
-            return handle_ttl(command);
+            response = handle_ttl(command);
         } else if (cmd == "INCR") {
-            return handle_incr(command);
+            response = handle_incr(command);
+            aof_manager.write_command(command);
         } else if (cmd == "DECR") {
-            return handle_decr(command);
+            response = handle_decr(command);
+            aof_manager.write_command(command);
         } else if (cmd == "INCRBY") {
-            return handle_incrby(command);
+            response = handle_incrby(command);
+            aof_manager.write_command(command);
         } else if (cmd == "DECRBY") {
-            return handle_decrby(command);
+            response = handle_decrby(command);
+            aof_manager.write_command(command);
         } else if (cmd == "EXISTS") {
-            return handle_exists(command);
+            response = handle_exists(command);
         } else if (cmd == "DEL") {
-            return handle_del(command);
+            response = handle_del(command);
+            aof_manager.write_command(command);
         } else if (cmd == "LPUSH") {
-            return handle_lpush(command);
+            response = handle_lpush(command);
+            aof_manager.write_command(command);
         } else if (cmd == "RPUSH") {
-            return handle_rpush(command);
+            response = handle_rpush(command);
+            aof_manager.write_command(command);
         } else if (cmd == "LPOP") {
-            return handle_lpop(command);
+            response = handle_lpop(command);
+            aof_manager.write_command(command);
         } else if (cmd == "RPOP") {
-            return handle_rpop(command);
+            response = handle_rpop(command);
+            aof_manager.write_command(command);
         } else if (cmd == "LRANGE") {
-            return handle_lrange(command);
+            response = handle_lrange(command);
         } else if (cmd == "LLEN") {
-            return handle_llen(command);
+            response = handle_llen(command);
         } else if (cmd == "ZADD") {
-            return handle_zadd(command);
+            response = handle_zadd(command);
+            aof_manager.write_command(command);
         } else if (cmd == "ZRANK") {
-            return handle_zrank(command);
+            response = handle_zrank(command);
         } else if (cmd == "ZRANGE") {
-            return handle_zrange(command);
+            response = handle_zrange(command);
         } else if (cmd == "ZREM") {
-            return handle_zrem(command);
+            response = handle_zrem(command);
+            aof_manager.write_command(command);
+        } else if (cmd == "BGREWRITEAOF") {
+            response = handle_bgrewriteaof(command);
         } else if (cmd == "COMMAND") {
-            // 返回一个包含命令名的数组，每个元素都是字符串
-               return "*0\r\n";
-            // return "*11\r\n*2\r\n$3\r\nGET\r\n*0\r\n*2\r\n$3\r\nSET\r\n*0\r\n*2\r\n$5\r\nSETEX\r\n*0\r\n*2\r\n$6\r\nEXPIRE\r\n*0\r\n*2\r\n$3\r\nTTL\r\n*0\r\n*2\r\n$4\r\nINCR\r\n*0\r\n*2\r\n$4\r\nDECR\r\n*0\r\n*2\r\n$6\r\nINCRBY\r\n*0\r\n*2\r\n$6\r\nDECRBY\r\n*0\r\n*2\r\n$6\r\nEXISTS\r\n*0\r\n*2\r\n$3\r\nDEL\r\n*0\r\n";
-        } else if (cmd == "PING") {
-            return handle_ping(command);
+               response = "*0\r\n";// 返回一个空数组
+         } else if (cmd == "PING") {
+            response = handle_ping(command);
         } else {
-            return handle_error("Unknown command");
+            response = handle_error("Unknown command");
         }
+        
+        return response;
     } catch (const std::exception& e) {
         return handle_error(e.what());
     }
 }
 
-std::string CommandHandler::handle_get(const std::vector<std::string>& args) {
+std::vector<std::pair<std::string, std::string>> CommandHandler::get_all_string_data()
+{
+    return string_type.get_all_data();
+}
+
+std::vector<std::pair<std::string, std::vector<std::string>>> CommandHandler::get_all_list_data()
+{
+    return list_type.get_all_data();
+}
+
+std::vector<std::pair<std::string, std::vector<std::pair<double, std::string>>>> CommandHandler::get_all_zset_data()
+{
+    return zset_manager.get_all_zset_data();
+}
+
+std::string CommandHandler::handle_bgrewriteaof(const std::vector<std::string>& args) {
+    if (args.size() != 1) {
+        return handle_error("Wrong number of arguments for BGREWRITEAOF");
+    }
+    
+    if (aof_manager.rewrite()) {
+        return RespSerializer::serialize_simple_string("Background AOF rewrite started");
+    } else {
+        return handle_error("Failed to start AOF rewrite");
+    }
+}
+
+std::string CommandHandler::handle_get(const std::vector<std::string> &args)
+{
     if (args.size() != 2) {
         return handle_error("Wrong number of arguments for GET");
     }
@@ -257,10 +306,13 @@ std::string CommandHandler::handle_zadd(const std::vector<std::string>& args) {
         return handle_error("Wrong number of arguments for ZADD");
     }
     
+    const std::string& key = args[1];
+    SkipList* zset = zset_manager.get_zset(key);
+    
     int count = 0;
     for (size_t i = 2; i < args.size(); i += 2) {
         double score = std::stod(args[i]);
-        skiplist_type.insert(score, args[i+1]);
+        zset->insert(score, args[i+1]);
         count++;
     }
     
@@ -272,7 +324,10 @@ std::string CommandHandler::handle_zrank(const std::vector<std::string>& args) {
         return handle_error("Wrong number of arguments for ZRANK");
     }
     
-    int rank = skiplist_type.get_rank(args[2]);
+    const std::string& key = args[1];
+    SkipList* zset = zset_manager.get_zset(key);
+    
+    int rank = zset->get_rank(args[2]);
     if (rank == -1) {
         return RespSerializer::serialize_null_bulk_string();
     }
@@ -283,10 +338,14 @@ std::string CommandHandler::handle_zrange(const std::vector<std::string>& args) 
     if (args.size() != 4) {
         return handle_error("Wrong number of arguments for ZRANGE");
     }
+    
     try{
+    const std::string& key = args[1];
+    SkipList* zset = zset_manager.get_zset(key);
+    
     int start = std::stoi(args[2]);
     int stop = std::stoi(args[3]);
-    auto pairs = skiplist_type.range(start, stop);
+    auto pairs = zset->range(start, stop);
     std::vector<std::string> values;
     for (const auto& pair : pairs) {
         values.push_back(pair.second);
@@ -302,9 +361,12 @@ std::string CommandHandler::handle_zrem(const std::vector<std::string>& args) {
         return handle_error("Wrong number of arguments for ZREM");
     }
     
+    const std::string& key = args[1];
+    SkipList* zset = zset_manager.get_zset(key);
+    
     int count = 0;
     for (size_t i = 2; i < args.size(); i++) {
-        bool success = skiplist_type.remove(args[i]);
+        bool success = zset->remove(args[i]);
         if (success) {
             count++;
         }

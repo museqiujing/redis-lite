@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/redis-list.dir/link.d"
+  "CMakeFiles/redis-list.dir/src/aof.cpp.o"
+  "CMakeFiles/redis-list.dir/src/aof.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/command_handler.cpp.o"
   "CMakeFiles/redis-list.dir/src/command_handler.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/epoll_server.cpp.o"
@@ -18,6 +20,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/redis-list.dir/src/skiplist.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/string_type.cpp.o"
   "CMakeFiles/redis-list.dir/src/string_type.cpp.o.d"
+  "CMakeFiles/redis-list.dir/src/zset.cpp.o"
+  "CMakeFiles/redis-list.dir/src/zset.cpp.o.d"
   "redis-list"
   "redis-list.pdb"
 )

@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include "sds.h"
+#include <vector>
 
 class String {
 private:
@@ -60,6 +61,9 @@ public:
     
     // 获取键的剩余过期时间（秒）
     int ttl(const std::string& key);
+
+    // 获取所有String数据
+    std::vector<std::pair<std::string, std::string>> get_all_data();
 };
 
 #endif // STRING_H

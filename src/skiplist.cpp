@@ -280,6 +280,17 @@ std::string SkipList::get_by_rank(int rank) {
     return current->member.to_string();
 }
 
+// 获取所有数据
+std::vector<std::pair<double, std::string>> SkipList::get_all_data() {
+    std::vector<std::pair<double, std::string>> result;
+    auto current = header->levels[0].forward;
+    while (current) {
+        result.emplace_back(current->score, current->member.to_string());
+        current = current->levels[0].forward;
+    }
+    return result;
+}
+
 // 根据分数范围查询
 std::vector<std::pair<double, std::string>> SkipList::range(double min_score, double max_score) { 
     std::vector<std::pair<double, std::string>> result;

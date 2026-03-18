@@ -184,10 +184,38 @@ CMakeFiles/redis-list.dir/src/list.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/src/list.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/src/list.cpp -o CMakeFiles/redis-list.dir/src/list.cpp.s
 
+CMakeFiles/redis-list.dir/src/aof.cpp.o: CMakeFiles/redis-list.dir/flags.make
+CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/aof.cpp
+CMakeFiles/redis-list.dir/src/aof.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/redis-list.dir/src/aof.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/src/aof.cpp.o -MF CMakeFiles/redis-list.dir/src/aof.cpp.o.d -o CMakeFiles/redis-list.dir/src/aof.cpp.o -c /home/autumn/write_cpp/redis-list/src/aof.cpp
+
+CMakeFiles/redis-list.dir/src/aof.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/redis-list.dir/src/aof.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/autumn/write_cpp/redis-list/src/aof.cpp > CMakeFiles/redis-list.dir/src/aof.cpp.i
+
+CMakeFiles/redis-list.dir/src/aof.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/src/aof.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/src/aof.cpp -o CMakeFiles/redis-list.dir/src/aof.cpp.s
+
+CMakeFiles/redis-list.dir/src/zset.cpp.o: CMakeFiles/redis-list.dir/flags.make
+CMakeFiles/redis-list.dir/src/zset.cpp.o: /home/autumn/write_cpp/redis-list/src/zset.cpp
+CMakeFiles/redis-list.dir/src/zset.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/redis-list.dir/src/zset.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/src/zset.cpp.o -MF CMakeFiles/redis-list.dir/src/zset.cpp.o.d -o CMakeFiles/redis-list.dir/src/zset.cpp.o -c /home/autumn/write_cpp/redis-list/src/zset.cpp
+
+CMakeFiles/redis-list.dir/src/zset.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/redis-list.dir/src/zset.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/autumn/write_cpp/redis-list/src/zset.cpp > CMakeFiles/redis-list.dir/src/zset.cpp.i
+
+CMakeFiles/redis-list.dir/src/zset.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/redis-list.dir/src/zset.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/autumn/write_cpp/redis-list/src/zset.cpp -o CMakeFiles/redis-list.dir/src/zset.cpp.s
+
 CMakeFiles/redis-list.dir/src/main.cpp.o: CMakeFiles/redis-list.dir/flags.make
 CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/main.cpp
 CMakeFiles/redis-list.dir/src/main.cpp.o: CMakeFiles/redis-list.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/redis-list.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/redis-list.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/redis-list.dir/src/main.cpp.o -MF CMakeFiles/redis-list.dir/src/main.cpp.o.d -o CMakeFiles/redis-list.dir/src/main.cpp.o -c /home/autumn/write_cpp/redis-list/src/main.cpp
 
 CMakeFiles/redis-list.dir/src/main.cpp.i: cmake_force
@@ -208,6 +236,8 @@ redis__list_OBJECTS = \
 "CMakeFiles/redis-list.dir/src/command_handler.cpp.o" \
 "CMakeFiles/redis-list.dir/src/string_type.cpp.o" \
 "CMakeFiles/redis-list.dir/src/list.cpp.o" \
+"CMakeFiles/redis-list.dir/src/aof.cpp.o" \
+"CMakeFiles/redis-list.dir/src/zset.cpp.o" \
 "CMakeFiles/redis-list.dir/src/main.cpp.o"
 
 # External object files for target redis-list
@@ -221,11 +251,13 @@ redis-list: CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o
 redis-list: CMakeFiles/redis-list.dir/src/command_handler.cpp.o
 redis-list: CMakeFiles/redis-list.dir/src/string_type.cpp.o
 redis-list: CMakeFiles/redis-list.dir/src/list.cpp.o
+redis-list: CMakeFiles/redis-list.dir/src/aof.cpp.o
+redis-list: CMakeFiles/redis-list.dir/src/zset.cpp.o
 redis-list: CMakeFiles/redis-list.dir/src/main.cpp.o
 redis-list: CMakeFiles/redis-list.dir/build.make
 redis-list: CMakeFiles/redis-list.dir/compiler_depend.ts
 redis-list: CMakeFiles/redis-list.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable redis-list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/autumn/write_cpp/redis-list/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable redis-list"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/redis-list.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

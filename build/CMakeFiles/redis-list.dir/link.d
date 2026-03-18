@@ -10,6 +10,8 @@ redis-list: \
   CMakeFiles/redis-list.dir/src/command_handler.cpp.o \
   CMakeFiles/redis-list.dir/src/string_type.cpp.o \
   CMakeFiles/redis-list.dir/src/list.cpp.o \
+  CMakeFiles/redis-list.dir/src/aof.cpp.o \
+  CMakeFiles/redis-list.dir/src/zset.cpp.o \
   CMakeFiles/redis-list.dir/src/main.cpp.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
@@ -60,6 +62,10 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 CMakeFiles/redis-list.dir/src/string_type.cpp.o:
 
 CMakeFiles/redis-list.dir/src/list.cpp.o:
+
+CMakeFiles/redis-list.dir/src/aof.cpp.o:
+
+CMakeFiles/redis-list.dir/src/zset.cpp.o:
 
 CMakeFiles/redis-list.dir/src/main.cpp.o:
 

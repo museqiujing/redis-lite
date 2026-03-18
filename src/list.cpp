@@ -118,6 +118,29 @@ long long List::llen(const std::string& key) {
     return it->second->data.size();
 }
 
+std::vector<std::pair<std::string, std::vector<std::string>>> List::get_all_data() {
+    // 首先收集所有键并清理过期键
+    std::vector<std::string> keys;
+    for (const auto& pair : storage) {
+        keys.push_back(pair.first);
+    }
+    for (const auto& key : keys) {
+        clean_expired(key);
+    }
+    
+    // 收集所有非过期键的数据
+    std::vector<std::pair<std::string, std::vector<std::string>>> result;
+    for (const auto& pair : storage) {
+        const std::string& key = pair.first;
+        const auto& value = pair.second;
+        std::vector<std::string> elements;
+        for (const auto& element : value->data) {
+            elements.push_back(element.to_string());
+        }
+        result.emplace_back(key, elements);
+    }
+    return result;
+}
 // 设置过期时间（秒）
 bool List::expire(const std::string& key, int seconds) {
     clean_expired(key);

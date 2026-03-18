@@ -14,6 +14,8 @@ set(SOURCE_FILES
     src/command_handler.cpp
     src/string_type.cpp
     src/list.cpp
+    src/aof.cpp
+    src/zset.cpp
     src/main.cpp
 )
 

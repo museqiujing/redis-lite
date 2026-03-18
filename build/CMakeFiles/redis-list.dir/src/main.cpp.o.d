@@ -217,4 +217,6 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
+ /home/autumn/write_cpp/redis-list/src/aof.h \
+ /home/autumn/write_cpp/redis-list/src/zset.h \
  /home/autumn/write_cpp/redis-list/src/resp_parser.h

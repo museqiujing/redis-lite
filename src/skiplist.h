@@ -28,6 +28,9 @@ public:
     int size() const { return count; }
     int get_level() const { return level; }
     
+     // 获取所有数据
+    std::vector<std::pair<double, std::string>> get_all_data();
+    
     // 范围查询
     std::vector<std::pair<double, std::string>> range(double min_score, double max_score);
     std::vector<std::pair<double, std::string>> range(int start_rank, int end_rank);

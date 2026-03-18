@@ -246,6 +246,7 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/stl_algobase.h \
+  /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -255,6 +256,7 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
+  /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/unique_ptr.h \
@@ -262,6 +264,7 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
+  /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/chrono \
@@ -299,6 +302,7 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -460,6 +464,7 @@ CMakeFiles/string-test.dir/test/string_type_test.cpp.o: /home/autumn/write_cpp/r
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/std_thread.h \
   /usr/include/c++/13/bits/stl_algobase.h \
+  /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -469,6 +474,7 @@ CMakeFiles/string-test.dir/test/string_type_test.cpp.o: /home/autumn/write_cpp/r
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
+  /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
@@ -479,6 +485,7 @@ CMakeFiles/string-test.dir/test/string_type_test.cpp.o: /home/autumn/write_cpp/r
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
+  /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/chrono \
@@ -524,6 +531,7 @@ CMakeFiles/string-test.dir/test/string_type_test.cpp.o: /home/autumn/write_cpp/r
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -682,8 +690,6 @@ CMakeFiles/string-test.dir/src/sds.cpp.o:
 
 /usr/include/wctype.h:
 
-/usr/include/c++/13/thread:
-
 /usr/include/c++/13/streambuf:
 
 /usr/include/c++/13/istream:
@@ -712,6 +718,8 @@ CMakeFiles/string-test.dir/src/sds.cpp.o:
 
 /home/autumn/write_cpp/redis-list/test/string_type_test.cpp:
 
+/usr/include/c++/13/vector:
+
 /usr/include/c++/13/unordered_map:
 
 CMakeFiles/string-test.dir/src/string_type.cpp.o:
@@ -723,6 +731,10 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o:
 /usr/include/c++/13/ctime:
 
 /usr/include/c++/13/bits/unordered_map.h:
+
+/usr/include/c++/13/thread:
+
+/usr/include/c++/13/bits/stl_bvector.h:
 
 /usr/include/c++/13/bits/hashtable_policy.h:
 
@@ -930,6 +942,8 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o:
 
 /usr/include/c++/13/bits/basic_string.h:
 
+/usr/include/c++/13/bits/stl_vector.h:
+
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/c++/13/bits/cxxabi_forced.h:
@@ -973,6 +987,8 @@ CMakeFiles/string-test.dir/src/string_type.cpp.o:
 /usr/include/c++/13/ext/type_traits.h:
 
 /usr/include/c++/13/chrono:
+
+/usr/include/c++/13/bits/vector.tcc:
 
 /usr/include/c++/13/cstdint:
 
