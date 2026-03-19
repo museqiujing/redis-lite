@@ -9,7 +9,7 @@
 #include "resp_parser.h"
 class EpollServer {
 public:
-    EpollServer(int port = 6379, int max_events = 1024);
+    EpollServer(int port , int max_events = 1024);
     ~EpollServer();
     void start();
 
@@ -18,7 +18,7 @@ private:
     int epoll_fd;
     int server_fd;
     int max_events;
-    std::vector<struct epoll_event> events;
+    std::vector<struct epoll_event> events; 
     CommandHandler handler;
     struct ClientInfo {
     int fd; // 客户端socket文件描述符

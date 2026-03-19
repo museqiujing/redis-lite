@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
     
     // 创建Epoll服务器，监听指定端口
     EpollServer server(port);
-    std::cout << "EpollServer对象创建成功" << std::endl;
+    std::cout << "EpollServer对象创建成功" << "\n";
     
     // 启动服务器
-    std::cout << "开始启动服务器主循环..." << std::endl;
+    std::cout << "开始启动服务器主循环..." << "\n";
     server.start();
     return 0;
 }

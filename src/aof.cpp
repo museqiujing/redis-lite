@@ -36,7 +36,7 @@ void AofManager::write_command(const std::vector<std::string>& command) {
     std::string resp = command_to_resp(command);
     ssize_t written = write(file_fd, resp.c_str(), resp.size());
     if (written != (ssize_t)resp.size()) {
-        std::cerr << "Failed to write to AOF file" << std::endl;
+        std::cerr << "Failed to write to AOF file" << std::endl; 
     }
 
     // 强制刷新到磁盘
@@ -78,7 +78,7 @@ bool AofManager::load() {
                     break;
                 }
             } catch (const std::exception& e) {
-                std::cerr << "Error parsing AOF file: " << e.what() << std::endl;
+                std::cerr << "Error parsing AOF file: " << e.what() << "\n"; 
                 break;
             }
         }
@@ -151,7 +151,7 @@ bool AofManager::rewrite() {
         return false;
     }
 
-    std::cout << "AOF rewrite completed successfully" << std::endl;
+    std::cout << "AOF rewrite completed successfully\n" ;
     return true;
 }
 
