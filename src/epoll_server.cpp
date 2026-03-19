@@ -148,37 +148,70 @@ void EpollServer::handle_client_data(int client_fd) {
         close(client_fd);
         clients.erase(client_fd);
     } else {
-        // 处理接收到的数据
-        clients[client_fd].buffer.append(buffer, n);
-        
-        try {
-            // 使用客户端的parser实例
-            std::vector<std::string> command = clients[client_fd].parser.parse(clients[client_fd].buffer);
-            
-            if (!command.empty()) {
-                // 打印接收到的命令
-                std::cout << " 接收到命令: ";
-                for (const auto& arg : command) {
-                    std::cout << arg << " ";
-                }
-                std::cout << std::endl;
-                
-                // 处理命令
-                std::string response = handler.handle_command(command);
-                // 打印响应
-                std::cout << " 响应: " << response << std::endl;
-                // 发送响应
-                send_response(client_fd, response);
-                
-                 // 清空缓冲区，因为解析已经完成
-                clients[client_fd].buffer.clear();
+          /*  // 打印原始接收的字节
+            std::cout << " 原始数据 (" << n << " 字节): ";
+            for (ssize_t i = 0; i < n; i++) {
+                printf("%02x ", (unsigned char)buffer[i]);
             }
-        } catch (const std::exception& e) {
-            // 解析失败，保留未解析的数据
-            clients[client_fd].buffer = clients[client_fd].parser.get_remaining_data();
-            std::cerr << "Error parsing command: " << e.what() << std::endl;
+            std::cout << std::endl;
+            */
+            // 处理接收到的数据
+            clients[client_fd].buffer.append(buffer, n);
+            
+            try {
+                // 使用客户端的parser实例
+                std::vector<std::string> command = clients[client_fd].parser.parse(clients[client_fd].buffer);
+                
+                if (!command.empty()) {
+                    // 打印接收到的命令
+                    std::cout << " 接收到命令: ";
+                    for (const auto& arg : command) {
+                        std::cout << arg << " ";
+                    }
+                   /* for (size_t i = 0; i < command.size(); i++) {
+                        const auto& arg = command[i];
+                        if (i > 0) {
+                            std::cout << " ";
+                        }
+                        // 检查是否是二进制数据
+                        bool is_binary = false;
+                        for (char c : arg) {
+                            if (c < 32 || c > 126) {
+                                is_binary = true;
+                                break;
+                            }
+                        }
+                        if (is_binary) {
+                            printf("[二进制数据，长度: %zu]", arg.size());
+                        } else {
+                            std::cout << arg;
+                        }
+                    }*/
+                    std::cout << std::endl;
+                    
+                    // 处理命令
+                    std::string response = handler.handle_command(command);
+                    // 打印响应
+                    std::cout << " 响应: " << response << std::endl;
+                    // 发送响应
+                    send_response(client_fd, response);
+                    
+                    // 使用get_consumed_bytes()来获取实际消耗的字节数
+                    size_t consumed = clients[client_fd].parser.get_consumed_bytes();
+                    if (consumed > 0) {
+                        // 保留未解析的数据
+                        clients[client_fd].buffer = clients[client_fd].buffer.substr(consumed);
+                    } else {
+                        // 清空缓冲区
+                        clients[client_fd].buffer.clear();
+                    }
+                }
+            } catch (const std::exception& e) {
+                // 解析失败，保留未解析的数据
+                clients[client_fd].buffer = clients[client_fd].parser.get_remaining_data();
+                std::cerr << "Error parsing command: " << e.what() << std::endl;
+            }
         }
-    }
 }
 
 void EpollServer::send_response(int client_fd, const std::string& response) {

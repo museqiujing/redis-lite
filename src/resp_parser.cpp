@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 std::vector<std::string> RespParser::parse(const std::string& data) {
+    input_data_size =data.size();
     buffer += data;
     std::vector<std::string> result;
     
@@ -34,12 +35,24 @@ std::vector<std::string> RespParser::parse(const std::string& data) {
         // 解析失败，保留未解析的数据
         buffer = buffer.substr(pos);
         pos = 0;
+        consumed =0; 
         throw;
     }
-    
+
+    // 解析成功，记录已解析字节数
+    consumed = pos;
+
+    // 保存未解析的数据
+    std::string remaining = buffer.substr(pos);
+        
     // 解析成功，清空缓冲区
     buffer.clear();
     pos = 0;
+
+     // 恢复未解析的数据
+    buffer = remaining;
+    pos = 0;
+    
     return result;
 }
 

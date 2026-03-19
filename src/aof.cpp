@@ -56,34 +56,34 @@ bool AofManager::load() {
 
     // 解析RESP格式的命令
     if (!content.empty()) {
-         size_t pos = 0;
+        size_t pos = 0;
         while (pos < content.size()) {
             RespParser parser;
             try {
                 // 解析单个命令
-                std::vector<std::string> command = parser.parse(content.substr(pos));
+                std::string chunk(content.data() + pos, content.size() - pos);
+                std::vector<std::string> command = parser.parse(chunk);
                 if (!command.empty() && handler) {
                     // 执行命令
                     handler->handle_command(command);
                     
-                    // 计算命令的长度，移动pos指针
-                    // 这里简化处理，实际应该根据解析结果计算长度
-                    // 找到下一个命令的开始位置
-                    size_t next_pos = content.find("*", pos + 1);
-                    if (next_pos != std::string::npos) {
-                        pos = next_pos;
-                    } else {
+                    // 移动pos指针
+                    size_t consumed = parser.get_consumed_bytes();
+                    if (consumed == 0) {
+                        // 防止死循环
                         break;
                     }
+                    pos += consumed;
                 } else {
                     break;
                 }
-                 } catch (const std::exception& e) {
+            } catch (const std::exception& e) {
                 std::cerr << "Error parsing AOF file: " << e.what() << std::endl;
                 break;
             }
         }
     }
+
     return true;
 }
 

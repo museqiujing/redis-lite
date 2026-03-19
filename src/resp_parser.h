@@ -7,16 +7,20 @@
 
 class RespParser {
 public:
-    RespParser() : pos(0) {}
+    RespParser() : pos(0), consumed(0), input_data_size(0)  {}
     
     std::vector<std::string> parse(const std::string& data);
     bool has_complete_request() const;
     std::string get_remaining_data() const;
+     size_t get_consumed_bytes() const { return consumed; }
 
 private:
-    size_t pos;
+    size_t pos;  // 当前解析位置
+    size_t consumed;  // 已消费的字节数
+    size_t input_data_size; // 输入数据的总大小
     std::string buffer;
-    
+
+     
     std::string parse_simple_string();
     std::string parse_error();
     std::string parse_integer();

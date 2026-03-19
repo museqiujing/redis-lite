@@ -14,7 +14,8 @@ private:
         int64_t expire_at;  // 过期时间戳（毫秒），-1表示永不过期
         
         Value(const std::string& str, int64_t expire = -1)
-            : data(str.c_str()), expire_at(expire) {}
+             //: data(str.c_str()), expire_at(expire) {}// 构造函数，将字符串转换为SDS
+             : data(str), expire_at(expire) {} 
     };
     
     std::unordered_map<std::string, std::shared_ptr<Value>> storage;  // 键值存储
