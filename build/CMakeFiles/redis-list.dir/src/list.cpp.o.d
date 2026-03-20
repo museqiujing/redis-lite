@@ -163,10 +163,15 @@ CMakeFiles/redis-list.dir/src/list.cpp.o: \
  /usr/include/c++/13/bits/stl_list.h /usr/include/c++/13/bits/list.tcc \
  /home/autumn/write_cpp/redis-list/src/sds.h /usr/include/c++/13/cstdint \
  /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/13/stdexcept /usr/include/c++/13/vector \
+ /usr/include/c++/13/stdexcept /usr/include/c++/13/functional \
+ /usr/include/c++/13/bits/std_function.h /usr/include/c++/13/vector \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
- /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/chrono \
+ /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/array \
+ /usr/include/c++/13/compare /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h /usr/include/c++/13/chrono \
  /usr/include/c++/13/bits/chrono.h /usr/include/c++/13/ratio \
  /usr/include/c++/13/limits /usr/include/c++/13/ctime \
  /usr/include/c++/13/bits/parse_numbers.h

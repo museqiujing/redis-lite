@@ -3,169 +3,209 @@
 #include <chrono>
 
 // 检查键是否过期
-bool List::is_expired(const std::string& key) const {
+bool List::is_expired(const SDS &key) const
+{
     auto it = storage.find(key);
-    if (it == storage.end()) {
-        return true;  // 键不存在，视为过期
+    if (it == storage.end())
+    {
+        return true; // 键不存在，视为过期
     }
-    
+
     int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
-        std::chrono::system_clock::now().time_since_epoch()).count();
-    
+                      std::chrono::system_clock::now().time_since_epoch())
+                      .count();
+
     return it->second->expire_at != -1 && it->second->expire_at < now;
 }
 
 // 清理过期键
-void List::clean_expired(const std::string& key) {
-    if (is_expired(key)) {
+void List::clean_expired(const SDS &key)
+{
+    if (is_expired(key))
+    {
         storage.erase(key);
     }
 }
 
 // 在链表头部插入元素
-void List::lpush(const std::string& key, const std::string& value) {
+void List::lpush(const SDS &key, const SDS &value)
+{
     clean_expired(key);
-    if (storage.find(key) == storage.end()) {
+    if (storage.find(key) == storage.end())
+    {
         storage[key] = std::make_shared<Value>();
     }
-    storage[key]->data.push_front(SDS(value.c_str()));
+    storage[key]->data.push_front(value);
 }
 
 // 在链表尾部插入元素
-void List::rpush(const std::string& key, const std::string& value) {
+void List::rpush(const SDS &key, const SDS &value)
+{
     clean_expired(key);
-    if (storage.find(key) == storage.end()) {
+    if (storage.find(key) == storage.end())
+    {
         storage[key] = std::make_shared<Value>();
     }
-    storage[key]->data.push_back(SDS(value.c_str()));
+    storage[key]->data.push_back(value);
 }
 
 // 移除并返回链表头部元素
-std::string List::lpop(const std::string& key) {
+SDS List::lpop(const SDS &key)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end() || it->second->data.empty()) {
-        return "";
+    if (it == storage.end() || it->second->data.empty())
+    {
+        return SDS("");
     }
-    std::string value = it->second->data.front().to_string();
+    SDS value = it->second->data.front();
     it->second->data.pop_front();
-    if (it->second->data.empty()) {
+    if (it->second->data.empty())
+    {
         storage.erase(it);
     }
     return value;
 }
 
 // 移除并返回链表尾部元素
-std::string List::rpop(const std::string& key) {
+SDS List::rpop(const SDS &key)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end() || it->second->data.empty()) {
-        return "";
+    if (it == storage.end() || it->second->data.empty())
+    {
+        return SDS("");
     }
-    std::string value = it->second->data.back().to_string();
+    SDS value = it->second->data.back();
     it->second->data.pop_back();
-    if (it->second->data.empty()) {
+    if (it->second->data.empty())
+    {
         storage.erase(it);
     }
     return value;
 }
 
 // 返回链表指定范围的元素
-std::vector<std::string> List::lrange(const std::string& key, int start, int stop) {
+std::vector<SDS> List::lrange(const SDS &key, int start, int stop)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end() || it->second->data.empty()) {
+    if (it == storage.end() || it->second->data.empty())
+    {
         return {};
     }
-    
-    std::vector<std::string> result;
+
+    std::vector<SDS> result;
     int len = it->second->data.size();
-    
+
     // 处理负索引
-    if (start < 0) {
+    if (start < 0)
+    {
         start += len;
-        if (start < 0) start = 0;
+        if (start < 0)
+            start = 0;
     }
-    if (stop < 0) {
+    if (stop < 0)
+    {
         stop += len;
-        if (stop < 0) return {};
+        if (stop < 0)
+            return {};
     }
-    
+
     // 超出范围
-    if (start >= len) return {};
-    if (stop >= len) stop = len - 1;
-    if (start > stop) return {};
-    
+    if (start >= len)
+        return {};
+    if (stop >= len)
+        stop = len - 1;
+    if (start > stop)
+        return {};
+
     int count = 0;
-    for (const auto& element : it->second->data) {
-        if (count >= start && count <= stop) {
-            result.push_back(element.to_string());
+    for (const auto &element : it->second->data)
+    {
+        if (count >= start && count <= stop)
+        {
+            result.push_back(element);
         }
-        if (count > stop) break;
+        if (count > stop)
+            break;
         count++;
     }
-    
+
     return result;
 }
 
 // 返回链表长度
-long long List::llen(const std::string& key) {
+long long List::llen(const SDS &key)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end()) {
+    if (it == storage.end())
+    {
         return 0;
     }
     return it->second->data.size();
 }
 
-std::vector<std::pair<std::string, std::vector<std::string>>> List::get_all_data() {
+std::vector<std::pair<SDS, std::vector<SDS>>> List::get_all_data()
+{
     // 首先收集所有键并清理过期键
-    std::vector<std::string> keys;
-    for (const auto& pair : storage) {
+    std::vector<SDS> keys;
+    for (const auto &pair : storage)
+    {
         keys.push_back(pair.first);
     }
-    for (const auto& key : keys) {
+    for (const auto &key : keys)
+    {
         clean_expired(key);
     }
-    
+
     // 收集所有非过期键的数据
-    std::vector<std::pair<std::string, std::vector<std::string>>> result;
-    for (const auto& pair : storage) {
-        const std::string& key = pair.first;
-        const auto& value = pair.second;
-        std::vector<std::string> elements;
-        for (const auto& element : value->data) {
-            elements.push_back(element.to_string());
+    std::vector<std::pair<SDS, std::vector<SDS>>> result;
+    for (const auto &pair : storage)
+    {
+        const SDS &key = pair.first;
+        const auto &value = pair.second;
+        std::vector<SDS> elements;
+        for (const auto &element : value->data)
+        {
+            elements.push_back(element);
         }
         result.emplace_back(key, elements);
     }
     return result;
 }
 // 设置过期时间（秒）
-bool List::expire(const std::string& key, int seconds) {
+bool List::expire(const SDS &key, int seconds)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end()) {
+    if (it == storage.end())
+    {
         return false;
     }
-    
+
     int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
-        std::chrono::system_clock::now().time_since_epoch()).count();
+                      std::chrono::system_clock::now().time_since_epoch())
+                      .count();
     it->second->expire_at = now + seconds * 1000LL;
     return true;
 }
 
 // 检查键是否存在
-bool List::exists(const std::string& key) {
+bool List::exists(const SDS &key)
+{
     clean_expired(key);
     return storage.find(key) != storage.end();
 }
 
 // 删除键
-bool List::del(const std::string& key) {
+bool List::del(const SDS &key)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end()) {
+    if (it == storage.end())
+    {
         return false;
     }
     storage.erase(it);
@@ -173,22 +213,27 @@ bool List::del(const std::string& key) {
 }
 
 // 获取键的剩余过期时间（秒）
-int List::ttl(const std::string& key) {
+int List::ttl(const SDS &key)
+{
     clean_expired(key);
     auto it = storage.find(key);
-    if (it == storage.end()) {
-        return -2;  // 键不存在
+    if (it == storage.end())
+    {
+        return -2; // 键不存在
     }
-    
-    if (it->second->expire_at == -1) {
-        return -1;  // 永不过期
+
+    if (it->second->expire_at == -1)
+    {
+        return -1; // 永不过期
     }
-    
+
     int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
-        std::chrono::system_clock::now().time_since_epoch()).count();
+                      std::chrono::system_clock::now().time_since_epoch())
+                      .count();
     int64_t ttl_ms = it->second->expire_at - now;
-    if (ttl_ms < 0) {
-        return 0;  // 已过期
+    if (ttl_ms < 0)
+    {
+        return 0; // 已过期
     }
     int ttl_seconds = static_cast<int>(ttl_ms / 1000);
     return ttl_seconds;

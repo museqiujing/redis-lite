@@ -18,9 +18,12 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/asm-generic/int-ll64.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/types.h \
+  /usr/include/c++/13/array \
+  /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -33,6 +36,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/chrono.h \
   /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
@@ -66,6 +70,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
+  /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
@@ -79,10 +84,14 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/std_thread.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -97,6 +106,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
@@ -106,13 +116,16 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
   /usr/include/c++/13/cstring \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -126,6 +139,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
   /usr/include/c++/13/fstream \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -142,11 +156,13 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/random \
+  /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
+  /usr/include/c++/13/thread \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
   /usr/include/c++/13/tr1/ell_integral.tcc \
@@ -310,6 +326,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /home/autumn/write_cpp/redis-list/src/aof.h \
   /home/autumn/write_cpp/redis-list/src/command_handler.h \
   /home/autumn/write_cpp/redis-list/src/list.h \
+  /home/autumn/write_cpp/redis-list/src/resp_parser.h \
   /home/autumn/write_cpp/redis-list/src/resp_serializer.h \
   /home/autumn/write_cpp/redis-list/src/sds.h \
   /home/autumn/write_cpp/redis-list/src/skiplist.h \
@@ -318,9 +335,12 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
+  /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -333,6 +353,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/chrono.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -364,6 +385,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
+  /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
@@ -377,10 +399,14 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/std_thread.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -395,6 +421,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
@@ -404,13 +431,16 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
   /usr/include/c++/13/cstring \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -423,6 +453,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -439,11 +470,13 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/random \
+  /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
+  /usr/include/c++/13/thread \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
   /usr/include/c++/13/tr1/ell_integral.tcc \
@@ -591,9 +624,12 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/socket.h \
   /usr/include/asm-generic/sockios.h \
+  /usr/include/c++/13/array \
+  /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -606,6 +642,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/chrono.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -637,6 +674,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
+  /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
@@ -650,10 +688,14 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/std_thread.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -668,6 +710,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
@@ -677,13 +720,16 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
   /usr/include/c++/13/cstring \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -696,6 +742,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -712,11 +759,13 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/random \
+  /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
+  /usr/include/c++/13/thread \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
   /usr/include/c++/13/tr1/ell_integral.tcc \
@@ -883,9 +932,11 @@ CMakeFiles/redis-list.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -932,10 +983,13 @@ CMakeFiles/redis-list.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -947,6 +1001,7 @@ CMakeFiles/redis-list.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
@@ -957,6 +1012,7 @@ CMakeFiles/redis-list.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
@@ -974,6 +1030,7 @@ CMakeFiles/redis-list.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/limits \
@@ -1101,9 +1158,12 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
+  /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -1116,6 +1176,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/chrono.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -1147,6 +1208,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
+  /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
@@ -1160,10 +1222,14 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/std_thread.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -1178,6 +1244,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
@@ -1187,13 +1254,16 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
   /usr/include/c++/13/cstring \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -1206,6 +1276,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -1222,11 +1293,13 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/random \
+  /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
+  /usr/include/c++/13/thread \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
   /usr/include/c++/13/tr1/ell_integral.tcc \
@@ -1358,13 +1431,21 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
 
 CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-list/src/resp_parser.cpp \
   /home/autumn/write_cpp/redis-list/src/resp_parser.h \
+  /home/autumn/write_cpp/redis-list/src/sds.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
+  /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
+  /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
   /usr/include/c++/13/bits/allocator.h \
+  /usr/include/c++/13/bits/atomic_base.h \
+  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
   /usr/include/c++/13/bits/basic_ios.h \
   /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
@@ -1375,12 +1456,16 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/enable_special_members.h \
+  /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
+  /usr/include/c++/13/bits/hashtable.h \
+  /usr/include/c++/13/bits/hashtable_policy.h \
   /usr/include/c++/13/bits/invoke.h \
   /usr/include/c++/13/bits/ios_base.h \
   /usr/include/c++/13/bits/istream.tcc \
@@ -1394,6 +1479,7 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/bits/move.h \
   /usr/include/c++/13/bits/nested_exception.h \
   /usr/include/c++/13/bits/new_allocator.h \
+  /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
   /usr/include/c++/13/bits/postypes.h \
@@ -1402,22 +1488,33 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/uniform_int_dist.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
+  /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1425,25 +1522,35 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/clocale \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
+  /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/cstring \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
+  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
+  /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/memory \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
@@ -1454,6 +1561,7 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/tuple \
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
+  /usr/include/c++/13/unordered_map \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -1465,8 +1573,11 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/pthread.h \
   /usr/include/sched.h \
   /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
@@ -1489,6 +1600,8 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
@@ -1548,17 +1661,26 @@ CMakeFiles/redis-list.dir/src/resp_parser.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redis-list/src/resp_serializer.cpp \
   /home/autumn/write_cpp/redis-list/src/resp_serializer.h \
+  /home/autumn/write_cpp/redis-list/src/sds.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
+  /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
+  /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
   /usr/include/c++/13/bits/allocator.h \
+  /usr/include/c++/13/bits/atomic_base.h \
+  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
   /usr/include/c++/13/bits/basic_ios.h \
   /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
@@ -1569,12 +1691,16 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/enable_special_members.h \
+  /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
+  /usr/include/c++/13/bits/hashtable.h \
+  /usr/include/c++/13/bits/hashtable_policy.h \
   /usr/include/c++/13/bits/invoke.h \
   /usr/include/c++/13/bits/ios_base.h \
   /usr/include/c++/13/bits/istream.tcc \
@@ -1588,6 +1714,7 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/move.h \
   /usr/include/c++/13/bits/nested_exception.h \
   /usr/include/c++/13/bits/new_allocator.h \
+  /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
   /usr/include/c++/13/bits/postypes.h \
@@ -1596,22 +1723,33 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_atomic.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/uniform_int_dist.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
+  /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1619,25 +1757,34 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/clocale \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
+  /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/cstring \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
+  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/memory \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
@@ -1648,6 +1795,7 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/tuple \
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
+  /usr/include/c++/13/unordered_map \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -1659,8 +1807,11 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/pthread.h \
   /usr/include/sched.h \
   /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
@@ -1683,6 +1834,8 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
@@ -1742,16 +1895,19 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/sds.cpp \
   /home/autumn/write_cpp/redis-list/src/sds.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -1766,12 +1922,16 @@ CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/s
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/enable_special_members.h \
+  /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
+  /usr/include/c++/13/bits/hashtable.h \
+  /usr/include/c++/13/bits/hashtable_policy.h \
   /usr/include/c++/13/bits/invoke.h \
   /usr/include/c++/13/bits/localefwd.h \
   /usr/include/c++/13/bits/memory_resource.h \
@@ -1779,6 +1939,7 @@ CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/s
   /usr/include/c++/13/bits/move.h \
   /usr/include/c++/13/bits/nested_exception.h \
   /usr/include/c++/13/bits/new_allocator.h \
+  /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream_insert.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
@@ -1790,9 +1951,13 @@ CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/s
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
+  /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -1800,15 +1965,20 @@ CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/s
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
+  /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
+  /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
+  /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/clocale \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
@@ -1825,6 +1995,7 @@ CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/s
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/memory \
@@ -1838,6 +2009,8 @@ CMakeFiles/redis-list.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/s
   /usr/include/c++/13/tuple \
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
+  /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -1941,6 +2114,7 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o: /home/autumn/write_cpp/redis-list/
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/c++/13/algorithm \
+  /usr/include/c++/13/array \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
@@ -2002,6 +2176,7 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o: /home/autumn/write_cpp/redis-list/
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
   /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
@@ -2033,6 +2208,7 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o: /home/autumn/write_cpp/redis-list/
   /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
@@ -2051,6 +2227,7 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o: /home/autumn/write_cpp/redis-list/
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -2208,9 +2385,11 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -2256,10 +2435,13 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -2270,6 +2452,7 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
@@ -2280,6 +2463,7 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
@@ -2297,6 +2481,7 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: /home/autumn/write_cpp/redis-li
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/limits \
@@ -2417,9 +2602,11 @@ CMakeFiles/redis-list.dir/src/zset.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/13/array \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
+  /usr/include/c++/13/bits/algorithmfwd.h \
   /usr/include/c++/13/bits/align.h \
   /usr/include/c++/13/bits/alloc_traits.h \
   /usr/include/c++/13/bits/allocated_ptr.h \
@@ -2475,10 +2662,13 @@ CMakeFiles/redis-list.dir/src/zset.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
   /usr/include/c++/13/bits/stl_function.h \
+  /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
@@ -2503,6 +2693,7 @@ CMakeFiles/redis-list.dir/src/zset.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
@@ -2520,6 +2711,7 @@ CMakeFiles/redis-list.dir/src/zset.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -2720,8 +2912,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o:
 
-/usr/lib/x86_64-linux-gnu/libc.so:
-
 /usr/lib/x86_64-linux-gnu/crtn.o:
 
 /usr/lib/x86_64-linux-gnu/crti.o:
@@ -2738,25 +2928,23 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /home/autumn/write_cpp/redis-list/src/string_type.cpp:
 
-/usr/include/errno.h:
+/usr/include/c++/13/algorithm:
 
-/usr/include/c++/13/initializer_list:
+/home/autumn/write_cpp/redis-list/src/skiplist.cpp:
 
-/home/autumn/write_cpp/redis-list/src/zset.h:
+/home/autumn/write_cpp/redis-list/src/resp_serializer.cpp:
 
-/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+/usr/include/c++/13/sstream:
 
-/usr/include/c++/13/tuple:
+/usr/include/c++/13/bits/sstream.tcc:
 
-/usr/include/c++/13/tr1/gamma.tcc:
+/home/autumn/write_cpp/redis-list/src/resp_parser.cpp:
 
-/usr/include/c++/13/tr1/riemann_zeta.tcc:
+/home/autumn/write_cpp/redis-list/src/main.cpp:
 
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+/home/autumn/write_cpp/redis-list/src/list.cpp:
 
-/usr/include/c++/13/tr1/hypergeometric.tcc:
-
-/usr/include/c++/13/cerrno:
+/usr/include/x86_64-linux-gnu/sys/socket.h:
 
 /usr/include/c++/13/tr1/beta_function.tcc:
 
@@ -2764,11 +2952,13 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
-/usr/include/c++/13/string_view:
-
 /usr/include/c++/13/streambuf:
 
 /usr/include/c++/13/bits/new_allocator.h:
+
+/usr/include/c++/13/ratio:
+
+/home/autumn/write_cpp/redis-list/src/list.h:
 
 /usr/include/c++/13/pstl/execution_defs.h:
 
@@ -2782,6 +2972,12 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/iosfwd:
 
+/usr/include/c++/13/initializer_list:
+
+/home/autumn/write_cpp/redis-list/src/zset.h:
+
+/usr/include/errno.h:
+
 /usr/include/c++/13/ext/concurrence.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
@@ -2789,8 +2985,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/c++/13/tr1/ell_integral.tcc:
 
 /usr/include/c++/13/debug/debug.h:
-
-/usr/include/c++/13/algorithm:
 
 /usr/include/c++/13/cwctype:
 
@@ -2802,15 +2996,13 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/cstdlib:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
-
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
 /usr/include/c++/13/cstdio:
 
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
+/usr/include/c++/13/ctime:
 
-/usr/include/c++/13/clocale:
+/usr/include/x86_64-linux-gnu/bits/epoll.h:
 
 /usr/include/c++/13/cmath:
 
@@ -2818,19 +3010,15 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/bits/vector.tcc:
 
-/usr/include/c++/13/ostream:
-
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
-/usr/include/c++/13/bits/unordered_map.h:
-
-/usr/include/x86_64-linux-gnu/sys/epoll.h:
-
 /usr/include/c++/13/bits/unique_ptr.h:
+
+/usr/include/c++/13/bits/this_thread_sleep.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
-/usr/include/c++/13/unordered_map:
+/home/autumn/write_cpp/redis-list/src/sds.cpp:
+
+/usr/include/c++/13/bits/streambuf_iterator.h:
 
 /usr/include/c++/13/bits/streambuf.tcc:
 
@@ -2838,15 +3026,9 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/math.h:
 
-/home/autumn/write_cpp/redis-list/src/resp_serializer.cpp:
-
 /usr/include/c++/13/ext/numeric_traits.h:
 
 /usr/include/c++/13/bits/stl_uninitialized.h:
-
-/usr/include/c++/13/tr1/poly_hermite.tcc:
-
-/usr/include/c++/13/bits/uniform_int_dist.h:
 
 /usr/include/c++/13/bits/stl_numeric.h:
 
@@ -2855,6 +3037,14 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/c++/13/ext/atomicity.h:
 
 /usr/include/c++/13/pstl/pstl_config.h:
+
+/usr/include/c++/13/string_view:
+
+/usr/include/c++/13/clocale:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/linux/falloc.h:
 
 /usr/include/c++/13/bits/string_view.tcc:
 
@@ -2868,6 +3058,8 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/bits/stl_bvector.h:
 
+/usr/include/c++/13/thread:
+
 /usr/include/c++/13/bits/stl_heap.h:
 
 /usr/include/c++/13/ext/string_conversions.h:
@@ -2878,17 +3070,55 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
+/usr/include/c++/13/ostream:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/13/bits/unordered_map.h:
+
+/usr/include/x86_64-linux-gnu/sys/epoll.h:
+
+/usr/include/c++/13/bits/basic_ios.h:
+
+/usr/lib/x86_64-linux-gnu/libc.so:
+
+/usr/include/c++/13/bits/std_function.h:
+
+/usr/include/c++/13/pstl/glue_numeric_defs.h:
+
+/usr/include/c++/13/bits/std_abs.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/c++/13/system_error:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/c++/13/bits/shared_ptr_atomic.h:
+
+/usr/include/c++/13/bits/concept_check.h:
+
+/usr/include/c++/13/exception:
+
+/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
+
+/usr/include/c++/13/ext/type_traits.h:
+
 /home/autumn/write_cpp/redis-list/src/resp_parser.h:
 
-/usr/include/c++/13/tr1/special_function_util.h:
+/usr/include/c++/13/bits/shared_ptr.h:
 
-CMakeFiles/redis-list.dir/src/aof.cpp.o:
+/usr/include/c++/13/debug/assertions.h:
 
-/usr/include/c++/13/bits/ostream.tcc:
+/usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
+/usr/include/c++/13/array:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+/usr/include/c++/13/cerrno:
+
+/usr/include/c++/13/tr1/hypergeometric.tcc:
 
 /usr/include/c++/13/tr1/exp_integral.tcc:
 
@@ -2908,9 +3138,13 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/c++/13/backward/auto_ptr.h:
 
-/usr/include/c++/13/bits/cpp_type_traits.h:
+/usr/include/c++/13/atomic:
 
-/usr/include/c++/13/bits/parse_numbers.h:
+/usr/include/c++/13/tr1/bessel_function.tcc:
+
+/usr/include/c++/13/bits/stl_algo.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
 /usr/include/c++/13/bits/atomic_lockfree_defines.h:
 
@@ -2920,29 +3154,15 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/asm-generic/types.h:
 
-/usr/include/c++/13/bits/stl_algo.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
-
 /usr/include/c++/13/random:
 
 /usr/include/c++/13/list:
-
-/usr/include/linux/errno.h:
-
-/usr/include/asm-generic/int-ll64.h:
 
 /usr/include/c++/13/bits/charconv.h:
 
 /usr/include/c++/13/tr1/legendre_function.tcc:
 
-/home/autumn/write_cpp/redis-list/src/list.h:
-
-/usr/include/c++/13/ratio:
-
 /usr/include/c++/13/bits/hashtable.h:
-
-/usr/include/c++/13/bits/basic_ios.h:
 
 /usr/include/c++/13/bits/random.h:
 
@@ -2951,20 +3171,6 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/c++/13/backward/binders.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
-
-/usr/include/c++/13/system_error:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/include/c++/13/bits/shared_ptr_atomic.h:
-
-/usr/include/c++/13/bits/concept_check.h:
-
-/usr/include/c++/13/exception:
-
-/usr/include/c++/13/ext/type_traits.h:
-
-/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
 
 /home/autumn/write_cpp/redis-list/src/command_handler.h:
 
@@ -2976,9 +3182,15 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/c++/13/bits/chrono.h:
 
-/home/autumn/write_cpp/redis-list/src/resp_parser.cpp:
-
 /home/autumn/write_cpp/redis-list/src/aof.h:
+
+/usr/include/c++/13/functional:
+
+/usr/include/c++/13/bits/allocator.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
 
@@ -2990,16 +3202,6 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/c++/13/bits/locale_classes.h:
 
-/usr/include/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/byteswap.h:
-
-/usr/include/c++/13/vector:
-
-/usr/include/c++/13/bits/codecvt.h:
-
-/usr/include/c++/13/bits/fstream.tcc:
-
 /usr/include/c++/13/cctype:
 
 /usr/include/c++/13/bits/uses_allocator.h:
@@ -3008,25 +3210,25 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h:
 
-/usr/include/c++/13/tr1/poly_laguerre.tcc:
-
 /usr/include/c++/13/cwchar:
 
 /usr/include/asm-generic/errno.h:
 
+/usr/include/c++/13/bits/codecvt.h:
+
+/usr/include/c++/13/bits/fstream.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+
+/usr/include/c++/13/vector:
+
 /usr/include/c++/13/bits/stl_raw_storage_iter.h:
 
-/usr/include/c++/13/bits/allocator.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h:
-
-/usr/include/c++/13/bits/shared_ptr.h:
-
-/usr/include/c++/13/debug/assertions.h:
-
 /usr/include/asm-generic/posix_types.h:
+
+/usr/include/c++/13/bits/cpp_type_traits.h:
+
+/usr/include/c++/13/bits/parse_numbers.h:
 
 /usr/include/c++/13/istream:
 
@@ -3060,8 +3262,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/erase_if.h:
 
-/usr/include/c++/13/tr1/bessel_function.tcc:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
 
 /usr/include/c++/13/bits/ios_base.h:
@@ -3069,10 +3269,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
 /usr/include/c++/13/bits/list.tcc:
-
-/usr/include/c++/13/bits/streambuf_iterator.h:
-
-/home/autumn/write_cpp/redis-list/src/sds.cpp:
 
 /usr/include/stdio.h:
 
@@ -3098,6 +3294,18 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/memoryfwd.h:
 
+/usr/include/c++/13/bits/shared_ptr_base.h:
+
+/usr/include/c++/13/bits/functexcept.h:
+
+/home/autumn/write_cpp/redis-list/src/sds.h:
+
+/usr/include/c++/13/bits/char_traits.h:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/c++/13/compare:
+
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
 /home/autumn/write_cpp/redis-list/src/aof.cpp:
@@ -3105,10 +3313,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
 /usr/include/features-time64.h:
-
-/usr/include/ctype.h:
-
-/usr/include/c++/13/bits/nested_exception.h:
 
 /usr/include/c++/13/numeric:
 
@@ -3119,6 +3323,8 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/fcntl.h:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
 
 /usr/include/c++/13/bits/istream.tcc:
 
@@ -3136,7 +3342,33 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/ostream_insert.h:
 
-/usr/include/c++/13/type_traits:
+/usr/include/c++/13/ios:
+
+/usr/include/c++/13/tr1/gamma.tcc:
+
+/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+
+/usr/include/c++/13/tuple:
+
+/usr/include/c++/13/bits/uniform_int_dist.h:
+
+/usr/include/c++/13/tr1/poly_hermite.tcc:
+
+/usr/include/c++/13/tr1/poly_laguerre.tcc:
+
+/usr/include/c++/13/tr1/riemann_zeta.tcc:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/c++/13/tr1/special_function_util.h:
+
+CMakeFiles/redis-list.dir/src/aof.cpp.o:
+
+/usr/include/c++/13/bits/ostream.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/c++/13/bits/exception.h:
 
@@ -3144,29 +3376,21 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/predefined_ops.h:
 
-/usr/include/c++/13/ios:
+/usr/include/c++/13/type_traits:
 
-/usr/include/c++/13/bits/functexcept.h:
+/usr/include/c++/13/unordered_map:
 
-/home/autumn/write_cpp/redis-list/src/sds.h:
+/usr/include/c++/13/bits/nested_exception.h:
 
-/usr/include/c++/13/bits/char_traits.h:
+/usr/include/ctype.h:
 
-/usr/include/c++/13/bits/move.h:
+/usr/include/asm-generic/int-ll64.h:
 
-/usr/include/c++/13/bits/shared_ptr_base.h:
+/usr/include/linux/errno.h:
 
-/usr/include/c++/13/pstl/glue_numeric_defs.h:
-
-/usr/include/c++/13/bits/std_abs.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/usr/include/endian.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
-
-/usr/include/linux/falloc.h:
 
 /usr/include/linux/posix_types.h:
 
@@ -3207,6 +3431,10 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/c++/13/tr1/modified_bessel_func.tcc:
 
 /usr/include/x86_64-linux-gnu/asm/posix_types.h:
+
+/usr/include/c++/13/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
 
 /usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
 
@@ -3268,14 +3496,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/sched.h:
-
-/usr/include/c++/13/bits/sstream.tcc:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
-
-/usr/include/c++/13/bits/algorithmfwd.h:
-
 /usr/include/x86_64-linux-gnu/bits/stat.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
@@ -3289,8 +3509,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/struct_stat.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/x86_64-linux-gnu/sys/socket.h:
 
 /lib/x86_64-linux-gnu/libm.so.6:
 
@@ -3309,6 +3527,8 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
 /usr/include/c++/13/bits/stl_pair.h:
+
+/usr/include/c++/13/bits/std_thread.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
@@ -3345,8 +3565,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
-
-/home/autumn/write_cpp/redis-list/src/main.cpp:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
 
@@ -3418,18 +3636,8 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
 
-/usr/include/x86_64-linux-gnu/bits/epoll.h:
-
-/usr/include/c++/13/ctime:
-
 /usr/include/x86_64-linux-gnu/bits/sockaddr.h:
 
 /usr/include/x86_64-linux-gnu/bits/socket.h:
 
 /usr/include/x86_64-linux-gnu/bits/socket_type.h:
-
-/home/autumn/write_cpp/redis-list/src/list.cpp:
-
-/usr/include/c++/13/sstream:
-
-/home/autumn/write_cpp/redis-list/src/skiplist.cpp:

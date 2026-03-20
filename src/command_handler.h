@@ -9,52 +9,60 @@
 #include "skiplist.h"
 #include "aof.h"
 #include "zset.h"
-class CommandHandler {
+#include "sds.h"
+
+class CommandHandler
+{
 public:
-    CommandHandler();
-    std::string handle_command(const std::vector<std::string>& command);
+    CommandHandler(AofPolicy policy = AofPolicy::NO);
+    SDS handle_command(const std::vector<SDS> &command);
 
-     // 获取所有String数据
-    std::vector<std::pair<std::string, std::string>> get_all_string_data(); 
+    // AOF管理方法
+    void set_aof_policy(AofPolicy policy);
+    AofPolicy get_aof_policy() const { return aof_policy; }
 
-     // 获取所有List数据
-    std::vector<std::pair<std::string, std::vector<std::string>>> get_all_list_data();
-    
+    // 获取所有String数据
+    std::vector<std::pair<SDS, SDS>> get_all_string_data();
+
+    // 获取所有List数据
+    std::vector<std::pair<SDS, std::vector<SDS>>> get_all_list_data();
+
     // 获取所有ZSet数据
-    std::vector<std::pair<std::string, std::vector<std::pair<double, std::string>>>> get_all_zset_data();
-  
-private:
+    std::vector<std::pair<SDS, std::vector<std::pair<double, SDS>>>> get_all_zset_data();
 
-    String string_type;  
-    List list_type; 
+private:
+    String string_type;
+    List list_type;
     SkipList skiplist_type;
     AofManager aof_manager;
     ZSetManager zset_manager;
-    
-    std::string handle_bgrewriteaof(const std::vector<std::string>& args);
-    std::string handle_get(const std::vector<std::string>& args);
-    std::string handle_set(const std::vector<std::string>& args);
-    std::string handle_setex(const std::vector<std::string>& args);
-    std::string handle_expire(const std::vector<std::string>& args);
-    std::string handle_ttl(const std::vector<std::string>& args);
-    std::string handle_incr(const std::vector<std::string>& args);
-    std::string handle_decr(const std::vector<std::string>& args);
-    std::string handle_incrby(const std::vector<std::string>& args);
-    std::string handle_decrby(const std::vector<std::string>& args);
-    std::string handle_exists(const std::vector<std::string>& args);
-    std::string handle_del(const std::vector<std::string>& args);
-    std::string handle_lpush(const std::vector<std::string>& args);
-    std::string handle_rpush(const std::vector<std::string>& args);
-    std::string handle_lpop(const std::vector<std::string>& args);
-    std::string handle_rpop(const std::vector<std::string>& args);
-    std::string handle_lrange(const std::vector<std::string>& args);
-    std::string handle_llen(const std::vector<std::string>& args);
-    std::string handle_zadd(const std::vector<std::string>& args);
-    std::string handle_zrank(const std::vector<std::string>& args);
-    std::string handle_zrange(const std::vector<std::string>& args);
-    std::string handle_zrem(const std::vector<std::string>& args);
-    std::string handle_ping(const std::vector<std::string>& args);
-    std::string handle_error(const std::string& message);
+    AofPolicy aof_policy; // AOF策略
+    SDS response;         // 响应字符串
+
+    SDS handle_bgrewriteaof(const std::vector<SDS> &args);
+    SDS handle_get(const std::vector<SDS> &args);
+    SDS handle_set(const std::vector<SDS> &args);
+    SDS handle_setex(const std::vector<SDS> &args);
+    SDS handle_expire(const std::vector<SDS> &args);
+    SDS handle_ttl(const std::vector<SDS> &args);
+    SDS handle_incr(const std::vector<SDS> &args);
+    SDS handle_decr(const std::vector<SDS> &args);
+    SDS handle_incrby(const std::vector<SDS> &args);
+    SDS handle_decrby(const std::vector<SDS> &args);
+    SDS handle_exists(const std::vector<SDS> &args);
+    SDS handle_del(const std::vector<SDS> &args);
+    SDS handle_lpush(const std::vector<SDS> &args);
+    SDS handle_rpush(const std::vector<SDS> &args);
+    SDS handle_lpop(const std::vector<SDS> &args);
+    SDS handle_rpop(const std::vector<SDS> &args);
+    SDS handle_lrange(const std::vector<SDS> &args);
+    SDS handle_llen(const std::vector<SDS> &args);
+    SDS handle_zadd(const std::vector<SDS> &args);
+    SDS handle_zrank(const std::vector<SDS> &args);
+    SDS handle_zrange(const std::vector<SDS> &args);
+    SDS handle_zrem(const std::vector<SDS> &args);
+    SDS handle_ping(const std::vector<SDS> &args);
+    SDS handle_error(const SDS &message);
 };
 
 #endif // COMMAND_HANDLER_H

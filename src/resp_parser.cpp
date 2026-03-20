@@ -2,206 +2,283 @@
 #include "resp_parser.h"
 #include <sstream>
 #include <stdexcept>
+#include <iostream>
+std::vector<SDS> RespParser::parse(const SDS &data)
+{
+    input_data_size = data.size();
+    if (buffer.empty() && !data.empty())
+    {
+        buffer = data;
+    }
+    else
+    {
+        buffer += data;
+    }
+    std::vector<SDS> result;
 
-std::vector<std::string> RespParser::parse(const std::string& data) {
-    input_data_size =data.size();
-    buffer += data;
-    std::vector<std::string> result;
-    
-    try {
-        if (pos < buffer.size()) {
+    // 保存解析前的状态，用于错误恢复
+    size_t original_pos = pos;
+    size_t original_buffer_size = buffer.size();
+
+    try
+    {
+        if (pos < buffer.size())
+        {
             char type = buffer[pos];
-            switch (type) {
-                case '*':
-                    result = parse_array();
-                    break;
-                case '+':
-                    result.push_back(parse_simple_string());
-                    break;
-                case '-':
-                    result.push_back(parse_error());
-                    break;
-                case ':':
-                    result.push_back(parse_integer());
-                    break;
-                case '$':
-                    result.push_back(parse_bulk_string());
-                    break;
-                default:
-                    throw std::runtime_error("Invalid RESP type");
+            switch (type)
+            {
+            case '*':
+                result = parse_array();
+                break;
+            case '+':
+                result.push_back(parse_simple_string());
+                break;
+            case '-':
+                result.push_back(parse_error());
+                break;
+            case ':':
+                result.push_back(parse_integer());
+                break;
+            case '$':
+                result.push_back(parse_bulk_string());
+                break;
+            default:
+                throw std::runtime_error("Invalid RESP type: " + std::string(1, type));
             }
         }
-    } catch (const std::exception& e) {
-        // 解析失败，保留未解析的数据
-        buffer = buffer.substr(pos);
+    }
+    catch (const std::exception &e)
+    {
+        // 解析失败，安全地保留未解析的数据
+        if (original_pos < buffer.size())
+        {
+            buffer = buffer.substr(original_pos);
+        }
+        else
+        {
+            // 如果pos超出范围，保留整个缓冲区（可能是数据不完整）
+            buffer.clear();
+        }
         pos = 0;
-        consumed =0; 
+        consumed = 0;
         throw;
     }
 
     // 解析成功，记录已解析字节数
     consumed = pos;
 
-    // 保存未解析的数据
-    std::string remaining = buffer.substr(pos);
-        
-    // 解析成功，清空缓冲区
-    buffer.clear();
-    pos = 0;
+    // 优化缓冲区管理：避免不必要的substr操作
+    if (pos == 0)
+    {
+        // 没有解析任何数据，保持缓冲区不变
+    }
+    else if (pos >= buffer.size())
+    {
+        // 解析了所有数据，清空缓冲区
+        buffer.clear();
+        pos = 0;
+    }
+    else
+    {
+        // 有未解析数据，保留剩余部分
+        buffer = buffer.substr(pos);
+        pos = 0;
+    }
 
-     // 恢复未解析的数据
-    buffer = remaining;
-    pos = 0;
-    
     return result;
 }
 
-bool RespParser::has_complete_request() const {
-    if (buffer.empty()) return false;
-    
-    char type = buffer[0];
-    switch (type) {
-        case '*': {
-            size_t newline_pos = buffer.find("\r\n");
-            if (newline_pos == std::string::npos) return false;
-            
-            std::string length_str = buffer.substr(1, newline_pos - 1);
-            int length = std::stoi(length_str);
-            if (length < 0) return true;
-            
-            size_t current_pos = newline_pos + 2;
-            for (int i = 0; i < length; i++) {
-                if (current_pos >= buffer.size()) return false;
-                
-                char elem_type = buffer[current_pos];
-                size_t elem_end = buffer.find("\r\n", current_pos);
-                if (elem_end == std::string::npos) return false;
-                
-                if (elem_type == '$') {
-                    std::string elem_length_str = buffer.substr(current_pos + 1, elem_end - current_pos - 1);
-                    int elem_length = std::stoi(elem_length_str);
-                    if (elem_length < 0) {
-                        current_pos = elem_end + 2;
-                    } else {
-                        size_t elem_content_end = elem_end + 2 + elem_length + 2;
-                        if (elem_content_end > buffer.size()) return false;
-                        current_pos = elem_content_end;
-                    }
-                } else {
-                    current_pos = elem_end + 2;
-                }
-            }
-            return true;
-        }
+bool RespParser::has_complete_request()
+{
+    if (buffer.empty())
+    {
+        return false;
+    }
+
+    size_t saved_pos = pos;
+
+    try
+    {
+        const_cast<RespParser *>(this)->pos = 0;
+        // 根据第一个字符的类型调用相应的解析函数
+        char type = buffer[0];
+
+        switch (type)
+        {
         case '+':
+            parse_simple_string();
+            break;
         case '-':
-        case ':': {
-            return buffer.find("\r\n") != std::string::npos;
-        }
-        case '$': {
-            size_t newline_pos = buffer.find("\r\n");
-            if (newline_pos == std::string::npos) return false;
-            
-            std::string length_str = buffer.substr(1, newline_pos - 1);
-            int length = std::stoi(length_str);
-            if (length < 0) return true;
-            
-            size_t content_end = newline_pos + 2 + length + 2;
-            return content_end <= buffer.size();
-        }
+            parse_error();
+            break;
+        case ':':
+            parse_integer();
+            break;
+        case '$':
+            parse_bulk_string();
+            break;
+        case '*':
+            parse_array();
+            break;
         default:
+            const_cast<RespParser *>(this)->pos = saved_pos;
+
+            return false; // 无效类型
+        }
+
+        const_cast<RespParser *>(this)->pos = saved_pos;
+
+        return true;
+    }
+    catch (const std::runtime_error &e)
+    {
+        // 恢复解析位置
+        const_cast<RespParser *>(this)->pos = saved_pos;
+        // 如果是"Incomplete"错误，说明数据不完整
+        std::string error_msg = e.what();
+        std::cout << "[DEBUG] 运行时错误: " << error_msg << "\n";
+        if (error_msg.find("Incomplete") != std::string::npos)
+        {
             return false;
+        }
+        // 其他运行时错误说明数据格式错误
+        return false;
+    }
+    catch (const std::exception &e)
+    {
+        // 恢复解析位置
+        const_cast<RespParser *>(this)->pos = saved_pos;
+        std::cout << "[DEBUG] 其他异常: " << e.what() << "\n";
+        // 其他异常说明数据格式错误
+        return false;
     }
 }
 
-std::string RespParser::get_remaining_data() const {
+SDS RespParser::get_remaining_data() const
+{
     return buffer.substr(pos);
 }
 
-std::string RespParser::parse_simple_string() {
+void RespParser::set_buffer(const SDS &data)
+{
+    buffer = data;
+    pos = 0;
+    consumed = 0;
+}
+
+void RespParser::reset_parser()
+{
+    buffer.clear();
+    pos = 0;
+    consumed = 0;
+}
+
+SDS RespParser::parse_simple_string()
+{
     pos++;
-    std::string line = read_line();
+    SDS line = read_line();
     return line;
 }
 
-std::string RespParser::parse_error() {
+SDS RespParser::parse_error()
+{
     pos++;
-    std::string line = read_line();
+    SDS line = read_line();
     return line;
 }
 
-std::string RespParser::parse_integer() {
+SDS RespParser::parse_integer()
+{
     pos++;
-    std::string line = read_line();
+    SDS line = read_line();
     return line;
 }
 
-std::string RespParser::parse_bulk_string() {
+SDS RespParser::parse_bulk_string()
+{
     pos++;
-    std::string length_str = read_line();
+    SDS length_str = read_line();
     int length = std::stoi(length_str);
-    
-    if (length < 0) {
-        return "";
+
+    if (length < 0)
+    {
+        return SDS();
     }
-    
+
     size_t bulk_end = pos + length + 2;
-    if (bulk_end > buffer.size()) {
+    if (bulk_end > buffer.size())
+    {
         throw std::runtime_error("Incomplete bulk string");
     }
-    
-    std::string bulk_str = buffer.substr(pos, length);
+
+    SDS bulk_str = buffer.substr(pos, length);
     skip(length + 2);
     return bulk_str;
 }
 
-std::vector<std::string> RespParser::parse_array() {
+std::vector<SDS> RespParser::parse_array()
+{
     pos++;
-    std::string length_str = read_line();
+    SDS length_str = read_line();
     int length = std::stoi(length_str);
-    
-    if (length < 0) {
+
+    if (length < 0)
+    {
         return {};
     }
-    
-    std::vector<std::string> array;
-    for (int i = 0; i < length; i++) {
+
+    std::vector<SDS> array;
+    for (int i = 0; i < length; i++)
+    {
         char type = buffer[pos];
-        switch (type) {
-            case '+':
-                array.push_back(parse_simple_string());
-                break;
-            case '-':
-                array.push_back(parse_error());
-                break;
-            case ':':
-                array.push_back(parse_integer());
-                break;
-            case '$':
-                array.push_back(parse_bulk_string());
-                break;
-            default:
-                throw std::runtime_error("Invalid RESP type in array");
+        switch (type)
+        {
+        case '+':
+            array.push_back(parse_simple_string());
+            break;
+        case '-':
+            array.push_back(parse_error());
+            break;
+        case ':':
+            array.push_back(parse_integer());
+            break;
+        case '$':
+            array.push_back(parse_bulk_string());
+            break;
+        case '*':
+        {
+            // 处理嵌套数组：递归解析
+            std::vector<SDS> nested_array = parse_array();
+            // 将嵌套数组的元素合并到当前数组中
+            array.insert(array.end(), nested_array.begin(), nested_array.end());
+            break;
+        }
+        default:
+            throw std::runtime_error("Invalid RESP type in array");
         }
     }
-    
+
     return array;
 }
 
-std::string RespParser::read_line() {
+SDS RespParser::read_line()
+{
     size_t end = buffer.find("\r\n", pos);
-    if (end == std::string::npos) {
+    if (end == std::string::npos)
+    {
         throw std::runtime_error("Incomplete line");
     }
-    
-    std::string line = buffer.substr(pos, end - pos);
+
+    SDS line = buffer.substr(pos, end - pos);
     pos = end + 2;
     return line;
 }
 
-void RespParser::skip(size_t length) {
+void RespParser::skip(size_t length)
+{
     pos += length;
-    if (pos > buffer.size()) {
+    if (pos > buffer.size())
+    {
         throw std::runtime_error("Skip beyond buffer");
     }
 }

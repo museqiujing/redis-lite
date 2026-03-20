@@ -1,29 +1,31 @@
-// main.cpp 文件
+// main.cpp 简化版本
 #include "epoll_server.h"
+#include "aof.h"
 
-int main(int argc, char* argv[]) {
-    bool load_aof = true;
-    int port = 6666;  // 改为6666端口，避免权限问题
-    
-    // 解析命令行参数
-    for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "--no-aof") == 0) {
-            load_aof = false;
-        } else if (strcmp(argv[i], "--port") == 0 && i + 1 < argc) {
-            port = std::atoi(argv[i + 1]);
-            i++;
-        } else if (strcmp(argv[i], "-p") == 0 && i + 1 < argc) {
-            port = std::atoi(argv[i + 1]);
+int main(int argc, char *argv[])
+{
+    AofPolicy aof_policy = AofPolicy::NO;
+    int port = 6666;
+
+    // 解析参数
+    for (int i = 1; i < argc; i++)
+    {
+        if (strcmp(argv[i], "--aof-policy") == 0 && i + 1 < argc)
+        {
+            // 直接解析策略
+            if (strcmp(argv[i + 1], "always") == 0)
+                aof_policy = AofPolicy::ALWAYS;
+            else if (strcmp(argv[i + 1], "everysec") == 0)
+                aof_policy = AofPolicy::EVERYSEC;
+            else if (strcmp(argv[i + 1], "no") == 0)
+                aof_policy = AofPolicy::NO;
             i++;
         }
     }
-    
-    // 创建Epoll服务器，监听指定端口
-    EpollServer server(port);
-    std::cout << "EpollServer对象创建成功" << "\n";
-    
-    // 启动服务器
-    std::cout << "开始启动服务器主循环..." << "\n";
+
+    // 创建服务器（服务器内部会处理AOF）
+    EpollServer server(port, aof_policy);
     server.start();
+
     return 0;
 }

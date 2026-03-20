@@ -167,7 +167,12 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: \
  /usr/include/c++/13/pstl/execution_defs.h \
  /home/autumn/write_cpp/redis-list/src/sds.h /usr/include/c++/13/cstdint \
  /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/13/stdexcept \
+ /usr/include/c++/13/stdexcept /usr/include/c++/13/functional \
+ /usr/include/c++/13/bits/std_function.h /usr/include/c++/13/array \
+ /usr/include/c++/13/compare /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h \
  /home/autumn/write_cpp/redis-list/src/list.h /usr/include/c++/13/list \
  /usr/include/c++/13/bits/stl_list.h /usr/include/c++/13/bits/list.tcc \
  /home/autumn/write_cpp/redis-list/src/skiplist.h \
@@ -195,7 +200,6 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
  /usr/include/c++/13/tr1/riemann_zeta.tcc \
  /usr/include/c++/13/bits/random.h \
- /usr/include/c++/13/bits/uniform_int_dist.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
  /usr/include/c++/13/bits/random.tcc /usr/include/c++/13/numeric \
  /usr/include/c++/13/bits/stl_numeric.h \
@@ -218,5 +222,10 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
  /home/autumn/write_cpp/redis-list/src/aof.h \
- /home/autumn/write_cpp/redis-list/src/zset.h \
- /home/autumn/write_cpp/redis-list/src/resp_parser.h
+ /home/autumn/write_cpp/redis-list/src/resp_parser.h \
+ /usr/include/c++/13/atomic /usr/include/c++/13/thread \
+ /usr/include/c++/13/bits/std_thread.h \
+ /usr/include/c++/13/bits/this_thread_sleep.h \
+ /usr/include/c++/13/bits/chrono.h /usr/include/c++/13/ratio \
+ /usr/include/c++/13/ctime /usr/include/c++/13/bits/parse_numbers.h \
+ /usr/include/c++/13/chrono /home/autumn/write_cpp/redis-list/src/zset.h

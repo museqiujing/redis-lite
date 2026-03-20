@@ -11,8 +11,8 @@
 #include <cstring>
 #include <iostream>
 
-EpollServer::EpollServer(int port, int max_events)
-    : port(port), max_events(max_events), epoll_fd(-1), server_fd(-1)
+EpollServer::EpollServer(int port, AofPolicy aof_policy, int max_events)
+    : port(port), epoll_fd(-1), server_fd(-1), max_events(max_events), handler(aof_policy)
 {
     events.resize(max_events);
 }
@@ -158,7 +158,7 @@ void EpollServer::handle_new_connection()
         return;
     }
 
-    clients[client_fd] = {client_fd, ""};
+    clients[client_fd] = ClientInfo{client_fd, SDS()};
     std::cout << " 新连接: " << inet_ntoa(client_addr.sin_addr)
               << ":" << ntohs(client_addr.sin_port) << "\n";
 }
@@ -167,17 +167,17 @@ void EpollServer::handle_client_data(int client_fd)
 {
     // 边缘触发模式下的智能读取策略
     int consecutive_empty_reads = 0;
-    const int max_consecutive_empty = 3; // 连续3次空读取才确认没有数据
+    const int max_consecutive_empty = 2; // 连续2次空读取才确认没有数据
 
     while (consecutive_empty_reads < max_consecutive_empty)
     {
-        char buffer[4096];
+        char buffer[64 * 1024];
         ssize_t n = read(client_fd, buffer, sizeof(buffer));
 
         if (n > 0)
         {
-            consecutive_empty_reads = 0; // 重置计数器，因为有数据
-            clients[client_fd].buffer.append(buffer, n);
+            consecutive_empty_reads = 0;                 // 重置计数器，因为有数据
+            clients[client_fd].buffer.append(buffer, n); // 追加数据到缓冲区
 
             // 如果读取的数据量小于缓冲区大小，可能接近数据末尾
             if (n < static_cast<ssize_t>(sizeof(buffer)))
@@ -225,6 +225,8 @@ void EpollServer::handle_client_data(int client_fd)
         return; // 没有数据需要解析
     }
 
+    clients[client_fd].parser.set_buffer(clients[client_fd].buffer);
+
     // 保存初始缓冲区大小用于进度检测
     size_t initial_buffer_size = clients[client_fd].buffer.size();
     int no_progress_count = 0;
@@ -243,14 +245,14 @@ void EpollServer::handle_client_data(int client_fd)
             }
 
             // 解析命令
-            std::vector<std::string> command = clients[client_fd].parser.parse(clients[client_fd].buffer);
+            std::vector<SDS> command = clients[client_fd].parser.parse(clients[client_fd].buffer);
 
             if (!command.empty())
             {
                 // 处理命令
-                std::string response = handler.handle_command(command);
+                SDS response = handler.handle_command(command);
                 // 发送响应
-                send_response(client_fd, response);
+                send_response(client_fd, response.to_string());
 
                 // 使用get_consumed_bytes()来获取实际消耗的字节数
                 size_t consumed = clients[client_fd].parser.get_consumed_bytes();
@@ -306,9 +308,36 @@ void EpollServer::handle_client_data(int client_fd)
 
 void EpollServer::send_response(int client_fd, const std::string &response)
 {
-    ssize_t n = write(client_fd, response.c_str(), response.size());
-    if (n == -1)
+    const char *data = response.c_str();
+    size_t remaining = response.size();
+    while (remaining > 0)
     {
-        std::cerr << " 发送响应失败: " << strerror(errno) << "\n";
+        ssize_t n = write(client_fd, data, remaining);
+        if (n == -1)
+        {
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
+            {
+                // 非阻塞模式下没有空间，稍后再试
+                break;
+            }
+            else
+            {
+                std::cerr << " 发送响应失败: " << strerror(errno) << "\n";
+                break;
+            }
+        }
+        data += n;
+        remaining -= n;
     }
+}
+
+// 添加AOF管理方法
+void EpollServer::set_aof_policy(AofPolicy policy)
+{
+    handler.set_aof_policy(policy);
+}
+
+AofPolicy EpollServer::get_aof_policy() const
+{
+    return handler.get_aof_policy();
 }

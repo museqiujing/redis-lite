@@ -4,16 +4,17 @@
 
 #include <vector>
 #include <string>
-
-class RespSerializer {
+#include "sds.h"
+class RespSerializer
+{
 public:
-    static std::string serialize_simple_string(const std::string& value);
-    static std::string serialize_error(const std::string& message);
-    static std::string serialize_integer(long long value);
-    static std::string serialize_bulk_string(const std::string& value);
-    static std::string serialize_null_bulk_string();
-    static std::string serialize_array(const std::vector<std::string>& values);
-    static std::string serialize_null_array();
+    static SDS serialize_simple_string(const SDS &value);
+    static SDS serialize_error(const SDS &message);
+    static SDS serialize_integer(long long value);
+    static SDS serialize_bulk_string(const SDS &value);
+    static SDS serialize_null_bulk_string();
+    static SDS serialize_array(const std::vector<SDS> &values);
+    static SDS serialize_null_array();
 };
 
 #endif // RESP_SERIALIZER_H
