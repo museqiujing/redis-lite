@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include <cstring>
 #include <iostream>
+#include <sys/uio.h>
 
 EpollServer::EpollServer(int port, AofPolicy aof_policy, int max_events)
     : port(port), epoll_fd(-1), server_fd(-1), max_events(max_events), handler(aof_policy)
@@ -165,24 +166,73 @@ void EpollServer::handle_new_connection()
 
 void EpollServer::handle_client_data(int client_fd)
 {
-    // 边缘触发模式下的智能读取策略
-    int consecutive_empty_reads = 0;
-    const int max_consecutive_empty = 2; // 连续2次空读取才确认没有数据
+    // 首先处理可写事件（EPOLLOUT）
+    auto it = clients.find(client_fd);
+    if (it != clients.end())
+    {
+        ClientInfo &client = it->second;
 
-    while (consecutive_empty_reads < max_consecutive_empty)
+        // 检查是否有待发送的数据
+        if (!client.write_buffer.empty())
+        {
+            // 尝试发送缓冲区中的数据
+            struct iovec iov[1];
+            iov[0].iov_base = (void *)client.write_buffer.c_str();
+            iov[0].iov_len = client.write_buffer.size();
+
+            ssize_t n = writev(client_fd, iov, 1);
+            if (n == -1)
+            {
+                if (errno != EAGAIN && errno != EWOULDBLOCK)
+                {
+                    std::cerr << " 发送响应失败: " << strerror(errno) << "\n";
+                    // 发送失败，清理连接
+                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
+                    close(client_fd);
+                    clients.erase(client_fd);
+                    return;
+                }
+                // EAGAIN/EWOULDBLOCK 是正常情况，保持可写事件监听
+            }
+            else if (n > 0)
+            {
+                if (n < static_cast<ssize_t>(client.write_buffer.size()))
+                {
+                    // 部分写入，更新缓冲区
+                    client.write_buffer = client.write_buffer.substr(n);
+                    client.writing = true;
+                }
+                else
+                {
+                    // 写入完成，清除缓冲区
+                    client.write_buffer.clear();
+                    client.writing = false;
+
+                    // 移除可写事件监听
+                    struct epoll_event event;
+                    event.events = EPOLLIN | EPOLLET;
+                    event.data.fd = client_fd;
+                    epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &event);
+                }
+            }
+        }
+    }
+
+    // 边缘触发模式下的读取策略
+    while (true)
     {
         char buffer[64 * 1024];
         ssize_t n = read(client_fd, buffer, sizeof(buffer));
 
         if (n > 0)
         {
-            consecutive_empty_reads = 0;                 // 重置计数器，因为有数据
-            clients[client_fd].buffer.append(buffer, n); // 追加数据到缓冲区
+            // 有数据，追加到缓冲区
+            clients[client_fd].buffer.append(buffer, n);
 
-            // 如果读取的数据量小于缓冲区大小，可能接近数据末尾
+            // 如果读取的数据量小于缓冲区大小，说明可能没有更多数据了
             if (n < static_cast<ssize_t>(sizeof(buffer)))
             {
-                consecutive_empty_reads++; // 接近结束，但还要再试一次
+                break; // 可能接近数据末尾，退出循环
             }
         }
         else if (n == 0)
@@ -198,7 +248,8 @@ void EpollServer::handle_client_data(int client_fd)
         {
             if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
-                consecutive_empty_reads++; // 没有数据可读
+                // 没有数据可读，这是正常情况
+                break;
             }
             else
             {
@@ -212,13 +263,6 @@ void EpollServer::handle_client_data(int client_fd)
         }
     }
 
-    // 调试信息
-    if (consecutive_empty_reads >= max_consecutive_empty)
-    {
-        std::cout << " 边缘触发读取完成，缓冲区大小: "
-                  << clients[client_fd].buffer.size() << " 字节" << std::endl;
-    }
-
     // 解析命令 - 使用更智能的退出条件
     if (clients[client_fd].buffer.empty())
     {
@@ -227,97 +271,110 @@ void EpollServer::handle_client_data(int client_fd)
 
     clients[client_fd].parser.set_buffer(clients[client_fd].buffer);
 
-    // 保存初始缓冲区大小用于进度检测
-    size_t initial_buffer_size = clients[client_fd].buffer.size();
-    int no_progress_count = 0;
-    const int max_no_progress = 3; // 连续3次没有进展则退出
-
-    while (!clients[client_fd].buffer.empty() && no_progress_count < max_no_progress)
+    try
     {
-        size_t buffer_size_before = clients[client_fd].buffer.size();
+        // 使用批量解析
+        std::vector<std::vector<SDS>> commands = clients[client_fd].parser.parse_batch(clients[client_fd].buffer);
 
-        try
+        if (!commands.empty())
         {
-            // 检查是否有完整命令
-            if (!clients[client_fd].parser.has_complete_request())
+            // 智能选择处理模式
+            if (commands.size() == 1)
             {
-                break; // 没有完整命令，退出循环
-            }
-
-            // 解析命令
-            std::vector<SDS> command = clients[client_fd].parser.parse(clients[client_fd].buffer);
-
-            if (!command.empty())
-            {
-                // 处理命令
-                SDS response = handler.handle_command(command);
-                // 发送响应
-                send_response(client_fd, response.to_string());
-
-                // 使用get_consumed_bytes()来获取实际消耗的字节数
-                size_t consumed = clients[client_fd].parser.get_consumed_bytes();
-                if (consumed > 0)
-                {
-                    // 保留未解析的数据
-                    clients[client_fd].buffer = clients[client_fd].buffer.substr(consumed);
-                    no_progress_count = 0; // 有进展，重置计数器
-
-                    std::cout << " 成功解析命令，消耗 " << consumed << " 字节，剩余 "
-                              << clients[client_fd].buffer.size() << " 字节" << std::endl;
-                }
-                else
-                {
-                    // 解析成功但未消耗字节，可能是协议问题
-                    std::cerr << "警告：解析成功但未消耗字节，清空缓冲区" << "\n";
-                    clients[client_fd].buffer.clear();
-                    break;
-                }
+                // 单命令模式
+                SDS response = handler.handle_command(commands[0]);
+                send_response(client_fd, response);
             }
             else
             {
-                // 解析返回空命令，清空缓冲区避免死循环
-                std::cerr << "警告：解析返回空命令数组，清空缓冲区" << std::endl;
-                clients[client_fd].buffer.clear();
-                break;
+                // 批量处理模式
+                std::vector<SDS> responses = handler.handle_commands_batch(commands);
+                // 响应合并
+                SDS combined_response;
+                size_t total_size = 0;
+                for (const auto &response : responses)
+                {
+                    total_size += response.size();
+                }
+                combined_response.reserve(total_size); // 预分配空间
+                for (const auto &response : responses)
+                {
+                    combined_response += response;
+                }
+                send_response(client_fd, combined_response);
             }
         }
-        catch (const std::exception &e)
-        {
-            // 解析失败，保留未解析的数据
-            clients[client_fd].buffer = clients[client_fd].parser.get_remaining_data();
-            std::cerr << "Error parsing command: " << e.what() << "\n";
 
-            // 检查是否有进展
-            if (clients[client_fd].buffer.size() >= buffer_size_before)
-            {
-                no_progress_count++; // 没有进展
-            }
-            else
-            {
-                no_progress_count = 0; // 有进展
-            }
+        // 更新缓冲区
+        size_t consumed = clients[client_fd].parser.get_consumed_bytes();
+        if (consumed > 0)
+        {
+            clients[client_fd].buffer = clients[client_fd].buffer.substr(consumed);
+        }
+        else if (!commands.empty())
+        {
+            // 解析成功但未消耗字节，可能是协议问题
+            std::cerr << "警告：解析成功但未消耗字节，清空缓冲区" << "\n";
+            clients[client_fd].buffer.clear();
         }
     }
-
-    if (no_progress_count >= max_no_progress)
+    catch (const std::exception &e)
     {
-        std::cerr << "警告：解析没有进展，保留 " << clients[client_fd].buffer.size()
-                  << " 字节未处理数据" << std::endl;
+        // 解析失败，保留未解析的数据
+        clients[client_fd].buffer = clients[client_fd].parser.get_remaining_data();
+        std::cerr << "Error parsing command: " << e.what() << "\n";
+
+        // 发送错误响应
+        SDS error_response = RespSerializer::serialize_error(e.what());
+        send_response(client_fd, error_response);
     }
 }
-
-void EpollServer::send_response(int client_fd, const std::string &response)
+void EpollServer::send_response(int client_fd, const SDS &response)
 {
-    const char *data = response.c_str();
-    size_t remaining = response.size();
-    while (remaining > 0)
+    if (response.empty())
     {
-        ssize_t n = write(client_fd, data, remaining);
+        return;
+    }
+
+    // 新增：获取客户端信息
+    auto it = clients.find(client_fd);
+    if (it == clients.end())
+        return;
+    ClientInfo &client = it->second;
+
+    // 如果有未完成的写入，追加到写入缓冲区
+    if (!client.write_buffer.empty())
+    {
+        client.write_buffer += response;
+        client.writing = true;
+
+        struct epoll_event event;
+        event.events = EPOLLIN | EPOLLOUT | EPOLLET;
+        event.data.fd = client_fd;
+        epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &event);
+        return;
+    }
+
+    // iovec结构
+    struct iovec iov[1];
+    iov[0].iov_base = (void *)response.c_str();
+    iov[0].iov_len = response.size();
+
+    while (iov[0].iov_len > 0)
+    {
+        ssize_t n = writev(client_fd, iov, 1);
         if (n == -1)
         {
             if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
-                // 非阻塞模式下没有空间，稍后再试
+                // 保存剩余未发送的数据
+                size_t sent = response.size() - iov[0].iov_len;
+                client.write_buffer = response.substr(sent);
+                // 注册可写事件
+                struct epoll_event event;
+                event.events = EPOLLIN | EPOLLOUT | EPOLLET;
+                event.data.fd = client_fd;
+                epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &event);
                 break;
             }
             else
@@ -326,8 +383,27 @@ void EpollServer::send_response(int client_fd, const std::string &response)
                 break;
             }
         }
-        data += n;
-        remaining -= n;
+        else if (n < static_cast<ssize_t>(iov[0].iov_len))
+        {
+            // 部分写入，保存剩余数据
+            size_t sent = response.size() - iov[0].iov_len + n;
+            client.write_buffer = response.substr(sent);
+            client.writing = true;
+            // 注册可写事件
+            struct epoll_event event;
+            event.events = EPOLLIN | EPOLLOUT | EPOLLET;
+            event.data.fd = client_fd;
+            epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &event);
+            break;
+        }
+        else if (n == 0)
+        {
+            // 连接已关闭
+            break;
+        }
+
+        iov[0].iov_base = (char *)iov[0].iov_base + n;
+        iov[0].iov_len -= n;
     }
 }
 
@@ -339,5 +415,5 @@ void EpollServer::set_aof_policy(AofPolicy policy)
 
 AofPolicy EpollServer::get_aof_policy() const
 {
-    return handler.get_aof_policy();
+    return handler.get_current_aof_policy();
 }

@@ -88,70 +88,97 @@ std::vector<SDS> RespParser::parse(const SDS &data)
     return result;
 }
 
-bool RespParser::has_complete_request()
+std::vector<std::vector<SDS>> RespParser::parse_batch(const SDS &data)
 {
-    if (buffer.empty())
+    input_data_size = data.size();
+    if (buffer.empty() && !data.empty())
     {
-        return false;
+        buffer = data;
+    }
+    else
+    {
+        buffer += data;
     }
 
-    size_t saved_pos = pos;
+    std::vector<std::vector<SDS>> result;
+    size_t original_pos = pos;
 
     try
     {
-        const_cast<RespParser *>(this)->pos = 0;
-        // 根据第一个字符的类型调用相应的解析函数
-        char type = buffer[0];
-
-        switch (type)
+        // 批量解析所有完整的请求
+        while (pos < buffer.size() && has_complete_request_internal())
         {
-        case '+':
-            parse_simple_string();
-            break;
-        case '-':
-            parse_error();
-            break;
-        case ':':
-            parse_integer();
-            break;
-        case '$':
-            parse_bulk_string();
-            break;
-        case '*':
-            parse_array();
-            break;
-        default:
-            const_cast<RespParser *>(this)->pos = saved_pos;
+            // 解析单个请求
+            char type = buffer[pos];
+            std::vector<SDS> request;
 
-            return false; // 无效类型
+            switch (type)
+            {
+            case '*':
+                request = parse_array();
+                break;
+            case '+':
+                request.push_back(parse_simple_string());
+                break;
+            case '-':
+                request.push_back(parse_error());
+                break;
+            case ':':
+                request.push_back(parse_integer());
+                break;
+            case '$':
+                request.push_back(parse_bulk_string());
+                break;
+            default:
+                throw std::runtime_error("Invalid RESP type: " + std::string(1, type));
+            }
+
+            result.push_back(request);
         }
-
-        const_cast<RespParser *>(this)->pos = saved_pos;
-
-        return true;
-    }
-    catch (const std::runtime_error &e)
-    {
-        // 恢复解析位置
-        const_cast<RespParser *>(this)->pos = saved_pos;
-        // 如果是"Incomplete"错误，说明数据不完整
-        std::string error_msg = e.what();
-        std::cout << "[DEBUG] 运行时错误: " << error_msg << "\n";
-        if (error_msg.find("Incomplete") != std::string::npos)
-        {
-            return false;
-        }
-        // 其他运行时错误说明数据格式错误
-        return false;
     }
     catch (const std::exception &e)
     {
-        // 恢复解析位置
-        const_cast<RespParser *>(this)->pos = saved_pos;
-        std::cout << "[DEBUG] 其他异常: " << e.what() << "\n";
-        // 其他异常说明数据格式错误
-        return false;
+        // 解析失败，安全地保留未解析的数据
+        if (original_pos < buffer.size())
+        {
+            buffer = buffer.substr(original_pos);
+        }
+        else
+        {
+            buffer.clear();
+        }
+        pos = 0;
+        consumed = 0;
+        throw;
     }
+
+    // 解析成功，记录已解析字节数
+    consumed = pos;
+
+    // 优化缓冲区管理
+    if (pos == 0)
+    {
+        // 没有解析任何数据，保持缓冲区不变
+    }
+    else if (pos >= buffer.size())
+    {
+        // 解析了所有数据，清空缓冲区
+        buffer.clear();
+        pos = 0;
+    }
+    else
+    {
+        // 有未解析数据，保留剩余部分
+        buffer = buffer.substr(pos);
+        pos = 0;
+    }
+
+    return result;
+}
+
+bool RespParser::has_complete_request()
+{
+    return has_complete_request_internal();
 }
 
 SDS RespParser::get_remaining_data() const
@@ -280,5 +307,64 @@ void RespParser::skip(size_t length)
     if (pos > buffer.size())
     {
         throw std::runtime_error("Skip beyond buffer");
+    }
+}
+
+bool RespParser::has_complete_request_internal()
+{
+    if (buffer.empty())
+    {
+        return false;
+    }
+    size_t saved_pos = pos;
+
+    try
+    {
+        // 根据第一个字符的类型调用相应的解析函数
+        char type = buffer[pos];
+
+        switch (type)
+        {
+        case '+':
+            parse_simple_string();
+            break;
+        case '-':
+            parse_error();
+            break;
+        case ':':
+            parse_integer();
+            break;
+        case '$':
+            parse_bulk_string();
+            break;
+        case '*':
+            parse_array();
+            break;
+        default:
+            pos = saved_pos;
+            return false; // 无效类型
+        }
+
+        pos = saved_pos;
+        return true;
+    }
+    catch (const std::runtime_error &e)
+    {
+        // 恢复解析位置
+        pos = saved_pos;
+        // 如果是"Incomplete"错误，说明数据不完整
+        std::string error_msg = e.what();
+        if (error_msg.find("Incomplete") != std::string::npos)
+        {
+            return false;
+        }
+        return false;
+    }
+    catch (const std::exception &e)
+    {
+        // 恢复解析位置
+        pos = saved_pos;
+        // 其他异常说明数据格式错误
+        return false;
     }
 }

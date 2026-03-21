@@ -110,6 +110,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
+  /usr/include/c++/13/bits/unordered_set.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -179,6 +180,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/unordered_set \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -291,6 +293,8 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/uio-ext.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -318,6 +322,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/stat.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/sys/uio.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -425,6 +430,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
+  /usr/include/c++/13/bits/unordered_set.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -493,6 +499,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/unordered_set \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -569,6 +576,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
@@ -579,6 +587,8 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/uio-ext.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -602,6 +612,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/sys/uio.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -612,6 +623,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /home/autumn/write_cpp/redis-list/src/epoll_server.h \
   /home/autumn/write_cpp/redis-list/src/list.h \
   /home/autumn/write_cpp/redis-list/src/resp_parser.h \
+  /home/autumn/write_cpp/redis-list/src/resp_serializer.h \
   /home/autumn/write_cpp/redis-list/src/sds.h \
   /home/autumn/write_cpp/redis-list/src/skiplist.h \
   /home/autumn/write_cpp/redis-list/src/string_type.h \
@@ -714,6 +726,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
+  /usr/include/c++/13/bits/unordered_set.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -782,6 +795,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/unordered_set \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -896,6 +910,8 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/uio-ext.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -922,6 +938,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/socket.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/sys/uio.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -1151,6 +1168,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /home/autumn/write_cpp/redis-list/src/epoll_server.h \
   /home/autumn/write_cpp/redis-list/src/list.h \
   /home/autumn/write_cpp/redis-list/src/resp_parser.h \
+  /home/autumn/write_cpp/redis-list/src/resp_serializer.h \
   /home/autumn/write_cpp/redis-list/src/sds.h \
   /home/autumn/write_cpp/redis-list/src/skiplist.h \
   /home/autumn/write_cpp/redis-list/src/string_type.h \
@@ -1248,6 +1266,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
+  /usr/include/c++/13/bits/unordered_set.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -1316,6 +1335,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/unordered_set \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -1392,6 +1412,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
@@ -1402,6 +1423,8 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/uio-ext.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -1425,6 +1448,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/sys/uio.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -1862,6 +1886,7 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
@@ -1872,6 +1897,8 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/uio-ext.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -1894,6 +1921,7 @@ CMakeFiles/redis-list.dir/src/resp_serializer.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/sys/uio.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -2946,6 +2974,14 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/x86_64-linux-gnu/sys/socket.h:
 
+/usr/include/x86_64-linux-gnu/sys/epoll.h:
+
+/usr/include/x86_64-linux-gnu/bits/socket_type.h:
+
+/usr/include/x86_64-linux-gnu/bits/socket.h:
+
+/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
+
 /usr/include/c++/13/tr1/beta_function.tcc:
 
 /usr/include/c++/13/bits/stl_list.h:
@@ -2984,6 +3020,8 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/tr1/ell_integral.tcc:
 
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
 /usr/include/c++/13/debug/debug.h:
 
 /usr/include/c++/13/cwctype:
@@ -2992,13 +3030,11 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/cstring:
 
+/usr/include/c++/13/bits/unordered_set.h:
+
 /usr/include/c++/13/stdexcept:
 
 /usr/include/c++/13/cstdlib:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
-/usr/include/c++/13/cstdio:
 
 /usr/include/c++/13/ctime:
 
@@ -3076,8 +3112,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/bits/unordered_map.h:
 
-/usr/include/x86_64-linux-gnu/sys/epoll.h:
-
 /usr/include/c++/13/bits/basic_ios.h:
 
 /usr/lib/x86_64-linux-gnu/libc.so:
@@ -3120,9 +3154,9 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/tr1/hypergeometric.tcc:
 
-/usr/include/c++/13/tr1/exp_integral.tcc:
+/usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
 /usr/include/asm-generic/bitsperlong.h:
 
@@ -3131,10 +3165,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
-
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h:
 
 /usr/include/c++/13/backward/auto_ptr.h:
 
@@ -3286,6 +3316,14 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/stl_iterator.h:
 
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/tr1/exp_integral.tcc:
+
+/usr/include/c++/13/cstdio:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
+
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
 /usr/include/c++/13/bits/memory_resource.h:
@@ -3370,15 +3408,9 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/include/c++/13/bits/exception.h:
-
-/usr/include/c++/13/fstream:
-
-/usr/include/c++/13/bits/predefined_ops.h:
-
-/usr/include/c++/13/type_traits:
-
 /usr/include/c++/13/unordered_map:
+
+/usr/include/c++/13/unordered_set:
 
 /usr/include/c++/13/bits/nested_exception.h:
 
@@ -3411,6 +3443,16 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/stdint.h:
 
 /usr/include/stdlib.h:
+
+/usr/include/c++/13/fstream:
+
+/usr/include/c++/13/bits/exception.h:
+
+/usr/include/c++/13/bits/predefined_ops.h:
+
+/usr/include/c++/13/type_traits:
+
+/usr/include/x86_64-linux-gnu/bits/uio-ext.h:
 
 /usr/include/strings.h:
 
@@ -3598,6 +3640,8 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/x86_64-linux-gnu/sys/stat.h:
 
+/usr/include/x86_64-linux-gnu/sys/uio.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
 /usr/include/c++/13/bits/requires_hosted.h:
@@ -3635,9 +3679,3 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/confname.h:
 
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
-
-/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
-
-/usr/include/x86_64-linux-gnu/bits/socket.h:
-
-/usr/include/x86_64-linux-gnu/bits/socket_type.h:

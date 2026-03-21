@@ -9,6 +9,7 @@
 #include "resp_parser.h"
 #include "sds.h"
 #include "aof.h"
+#include "resp_serializer.h"
 class EpollServer
 {
 public:
@@ -32,7 +33,9 @@ private:
     {
         int fd;            // 客户端socket文件描述符
         SDS buffer;        // 接收缓冲区
+        SDS write_buffer;  // 发送缓冲区，用于非阻塞写入
         RespParser parser; // 每个客户端使用一个RespParser实例
+        bool writing;      // 标志位，用于判断是否正在写入响应
     };
     std::unordered_map<int, ClientInfo> clients;
 
@@ -40,7 +43,7 @@ private:
     void handle_new_connection();           // 处理新连接
     void handle_client_data(int client_fd); // 处理客户端数据
     // 发送响应给客户端
-    void send_response(int client_fd, const std::string &response);
+    void send_response(int client_fd, const SDS &response);
 };
 
 #endif // EPOLL_SERVER_H

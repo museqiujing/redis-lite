@@ -137,13 +137,16 @@ namespace std
     {
         size_t operator()(const SDS &sds) const
         {
-            // 直接对底层缓冲区进行哈希计算
-            size_t hash = 0;
+            // 使用更高效的djb2哈希算法
+            size_t hash = 5381; // djb2算法的初始值
             const char *data = sds.c_str();
             size_t len = sds.size();
+
+            // 批量处理，减少循环次数
             for (size_t i = 0; i < len; i++)
             {
-                hash = hash * 31 + data[i];
+                // djb2算法: hash * 33 + c
+                hash = ((hash << 5) + hash) + static_cast<unsigned char>(data[i]);
             }
             return hash;
         }

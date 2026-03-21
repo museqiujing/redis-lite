@@ -10,16 +10,21 @@
 #include "aof.h"
 #include "zset.h"
 #include "sds.h"
-
+#include <unordered_map>
+#include <unordered_set>
 class CommandHandler
 {
 public:
     CommandHandler(AofPolicy policy = AofPolicy::NO);
     SDS handle_command(const std::vector<SDS> &command);
 
+    std::vector<SDS> handle_commands_batch(const std::vector<std::vector<SDS>> &commands);
+
     // AOF管理方法
     void set_aof_policy(AofPolicy policy);
-    AofPolicy get_aof_policy() const { return aof_policy; }
+    // AOF写入控制方法
+    bool is_aof_enabled() const { return aof_policy != AofPolicy::NO; }
+    AofPolicy get_current_aof_policy() const { return aof_policy; }
 
     // 获取所有String数据
     std::vector<std::pair<SDS, SDS>> get_all_string_data();
@@ -31,6 +36,15 @@ public:
     std::vector<std::pair<SDS, std::vector<std::pair<double, SDS>>>> get_all_zset_data();
 
 private:
+    // 命令处理函数类型
+    typedef SDS (CommandHandler::*CommandHandlerFunc)(const std::vector<SDS> &);
+
+    // 静态命令映射表声明
+    static std::unordered_map<SDS, CommandHandlerFunc> command_map;
+
+    // 写命令集合声明
+    static std::unordered_set<SDS> write_commands;
+
     String string_type;
     List list_type;
     SkipList skiplist_type;
@@ -39,6 +53,18 @@ private:
     AofPolicy aof_policy; // AOF策略
     SDS response;         // 响应字符串
 
+    // 响应缓冲区池
+    static thread_local std::vector<SDS> response_buffer_pool;
+    static SDS get_buffer_from_pool();
+    static void return_buffer_to_pool(SDS &buffer);
+    static void init_buffer_pool();
+
+    // 辅助方法：处理写命令的AOF写入
+    void handle_write_command_aof(const std::vector<SDS> &command);
+    bool should_write_aof() const;
+    bool is_write_command(const SDS &cmd) const;
+
+    // 处理命令
     SDS handle_bgrewriteaof(const std::vector<SDS> &args);
     SDS handle_get(const std::vector<SDS> &args);
     SDS handle_set(const std::vector<SDS> &args);

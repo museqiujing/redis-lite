@@ -5,6 +5,36 @@
 #include "list.h"
 #include "skiplist.h"
 #include <stdexcept>
+// 命令映射表
+std::unordered_map<SDS, CommandHandler::CommandHandlerFunc> CommandHandler::command_map = {
+    {"GET", &CommandHandler::handle_get},
+    {"SET", &CommandHandler::handle_set},
+    {"SETEX", &CommandHandler::handle_setex},
+    {"EXPIRE", &CommandHandler::handle_expire},
+    {"TTL", &CommandHandler::handle_ttl},
+    {"INCR", &CommandHandler::handle_incr},
+    {"DECR", &CommandHandler::handle_decr},
+    {"INCRBY", &CommandHandler::handle_incrby},
+    {"DECRBY", &CommandHandler::handle_decrby},
+    {"EXISTS", &CommandHandler::handle_exists},
+    {"DEL", &CommandHandler::handle_del},
+    {"LPUSH", &CommandHandler::handle_lpush},
+    {"RPUSH", &CommandHandler::handle_rpush},
+    {"LPOP", &CommandHandler::handle_lpop},
+    {"RPOP", &CommandHandler::handle_rpop},
+    {"LRANGE", &CommandHandler::handle_lrange},
+    {"LLEN", &CommandHandler::handle_llen},
+    {"ZADD", &CommandHandler::handle_zadd},
+    {"ZRANK", &CommandHandler::handle_zrank},
+    {"ZRANGE", &CommandHandler::handle_zrange},
+    {"ZREM", &CommandHandler::handle_zrem},
+    {"BGREWRITEAOF", &CommandHandler::handle_bgrewriteaof},
+    {"PING", &CommandHandler::handle_ping}};
+
+std::unordered_set<SDS> CommandHandler::write_commands = {
+    "SET", "SETEX", "EXPIRE", "INCR", "DECR",
+    "INCRBY", "DECRBY", "DEL", "LPUSH", "RPUSH",
+    "LPOP", "RPOP", "ZADD", "ZREM"};
 
 // 修改构造函数
 CommandHandler::CommandHandler(AofPolicy aof_policy)
@@ -41,166 +71,25 @@ SDS CommandHandler::handle_command(const std::vector<SDS> &command)
     {
         return handle_error("Empty command");
     }
-
     SDS cmd = command[0];
-    for (char &c : cmd)
+    /*for (char &c : cmd)
     {
         c = toupper(c);
-    }
-
+    }*/
     try
     {
-        if (cmd == "GET")
+        auto it = command_map.find(cmd);
+        if (it != command_map.end())
         {
-            response = handle_get(command);
-        }
-        else if (cmd == "SET")
-        {
-            response = handle_set(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "SETEX")
-        {
-            response = handle_setex(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "EXPIRE")
-        {
-            response = handle_expire(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "TTL")
-        {
-            response = handle_ttl(command);
-        }
-        else if (cmd == "INCR")
-        {
-            response = handle_incr(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "DECR")
-        {
-            response = handle_decr(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "INCRBY")
-        {
-            response = handle_incrby(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "DECRBY")
-        {
-            response = handle_decrby(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "EXISTS")
-        {
-            response = handle_exists(command);
-        }
-        else if (cmd == "DEL")
-        {
-            response = handle_del(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "LPUSH")
-        {
-            response = handle_lpush(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "RPUSH")
-        {
-            response = handle_rpush(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "LPOP")
-        {
-            response = handle_lpop(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "RPOP")
-        {
-            response = handle_rpop(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "LRANGE")
-        {
-            response = handle_lrange(command);
-        }
-        else if (cmd == "LLEN")
-        {
-            response = handle_llen(command);
-        }
-        else if (cmd == "ZADD")
-        {
-            response = handle_zadd(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "ZRANK")
-        {
-            response = handle_zrank(command);
-        }
-        else if (cmd == "ZRANGE")
-        {
-            response = handle_zrange(command);
-        }
-        else if (cmd == "ZREM")
-        {
-            response = handle_zrem(command);
-            if (aof_policy != AofPolicy::NO)
-            {
-                aof_manager.write_command(command);
-            }
-        }
-        else if (cmd == "BGREWRITEAOF")
-        {
-            response = handle_bgrewriteaof(command);
+            // 执行命令处理函数
+            CommandHandlerFunc handler_func = it->second;
+            response = (this->*handler_func)(command);
+
+            handle_write_command_aof(command);
         }
         else if (cmd == "COMMAND")
         {
             response = "*0\r\n"; // 返回一个空数组
-        }
-        else if (cmd == "PING")
-        {
-            response = handle_ping(command);
         }
         else
         {
@@ -271,6 +160,7 @@ SDS CommandHandler::handle_set(const std::vector<SDS> &args)
     }
 
     string_type.set(args[1], args[2]);
+
     return RespSerializer::serialize_simple_string("OK");
 }
 
@@ -283,6 +173,7 @@ SDS CommandHandler::handle_setex(const std::vector<SDS> &args)
 
     int seconds = std::stoi(args[2]);
     string_type.setex(args[1], seconds, args[3]);
+
     return RespSerializer::serialize_simple_string("OK");
 }
 
@@ -295,6 +186,7 @@ SDS CommandHandler::handle_expire(const std::vector<SDS> &args)
 
     int seconds = std::stoi(args[2]);
     bool success = string_type.expire(args[1], seconds);
+
     return RespSerializer::serialize_integer(success ? 1 : 0);
 }
 
@@ -317,6 +209,7 @@ SDS CommandHandler::handle_incr(const std::vector<SDS> &args)
     }
 
     long long value = string_type.incr(args[1]);
+
     return RespSerializer::serialize_integer(value);
 }
 
@@ -373,6 +266,7 @@ SDS CommandHandler::handle_del(const std::vector<SDS> &args)
     }
 
     bool success = string_type.del(args[1]);
+
     return RespSerializer::serialize_integer(success ? 1 : 0);
 }
 
@@ -389,6 +283,7 @@ SDS CommandHandler::handle_lpush(const std::vector<SDS> &args)
     }
 
     long long len = list_type.llen(args[1]);
+
     return RespSerializer::serialize_integer(len);
 }
 
@@ -560,4 +455,123 @@ SDS CommandHandler::handle_ping(const std::vector<SDS> &args)
 SDS CommandHandler::handle_error(const SDS &message)
 {
     return RespSerializer::serialize_error(message);
+}
+
+// 判断是否为写命令（需要写入AOF的命令）
+bool CommandHandler::is_write_command(const SDS &cmd) const
+{
+
+    return write_commands.find(cmd) != write_commands.end();
+}
+
+// 判断是否应该写入AOF
+bool CommandHandler::should_write_aof() const
+{
+    return aof_policy != AofPolicy::NO;
+}
+
+// 处理写命令的AOF写入
+void CommandHandler::handle_write_command_aof(const std::vector<SDS> &command)
+{
+    if (command.empty())
+        return;
+
+    SDS cmd = command[0];
+    for (char &c : cmd)
+    {
+        c = toupper(c);
+    }
+
+    // 双重检查：既是写命令且AOF已启用
+    if (is_write_command(cmd) && should_write_aof())
+    {
+        aof_manager.write_command(command);
+    }
+}
+
+// 初始化响应缓冲区池
+thread_local std::vector<SDS> CommandHandler::response_buffer_pool;
+
+// 初始化缓冲区池
+void CommandHandler::init_buffer_pool()
+{
+    if (response_buffer_pool.empty())
+    {
+        // 预分配10个缓冲区
+        for (int i = 0; i < 10; i++)
+        {
+            response_buffer_pool.push_back(SDS());
+        }
+    }
+}
+
+// 从池获取缓冲区
+SDS CommandHandler::get_buffer_from_pool()
+{
+    init_buffer_pool();
+    if (!response_buffer_pool.empty())
+    {
+        SDS buffer = response_buffer_pool.back();
+        response_buffer_pool.pop_back();
+        buffer.clear();
+        return buffer;
+    }
+    return SDS();
+}
+
+// 归还缓冲区到池
+void CommandHandler::return_buffer_to_pool(SDS &buffer)
+{
+    buffer.clear();
+    response_buffer_pool.push_back(buffer);
+}
+
+std::vector<SDS> CommandHandler::handle_commands_batch(const std::vector<std::vector<SDS>> &commands)
+{
+    std::vector<SDS> responses;
+    responses.reserve(commands.size());
+
+    for (const auto &command : commands)
+    {
+        if (command.empty())
+        {
+            responses.push_back(handle_error("Empty command"));
+            continue;
+        }
+
+        SDS cmd = command[0];
+        for (char &c : cmd)
+        {
+            c = toupper(c);
+        }
+
+        try
+        {
+            auto it = command_map.find(cmd);
+            if (it != command_map.end())
+            {
+                // 执行命令处理函数
+                CommandHandlerFunc handler_func = it->second;
+                SDS response = (this->*handler_func)(command);
+                responses.push_back(response);
+
+                // 处理AOF写入
+                handle_write_command_aof(command);
+            }
+            else if (cmd == "COMMAND")
+            {
+                responses.push_back("*0\r\n"); // 返回一个空数组
+            }
+            else
+            {
+                responses.push_back(handle_error("Unknown command"));
+            }
+        }
+        catch (const std::exception &e)
+        {
+            responses.push_back(handle_error(e.what()));
+        }
+    }
+
+    return responses;
 }
