@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/redis-list.dir/src/epoll_server.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/list.cpp.o"
   "CMakeFiles/redis-list.dir/src/list.cpp.o.d"
+  "CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.o"
+  "CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/main.cpp.o"
   "CMakeFiles/redis-list.dir/src/main.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/resp_parser.cpp.o"

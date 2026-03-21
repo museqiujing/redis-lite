@@ -8,7 +8,7 @@
 #include <vector>
 #include "timewheel.h"
 #include <thread>
-
+#include "lockfree_expiration.h"
 class String
 {
 private:
@@ -24,16 +24,18 @@ private:
     std::unordered_map<SDS, std::shared_ptr<Value>> storage; // 键值存储
 
     // 检查键是否过期
-    bool is_expired(const SDS &key) const;
+    bool is_expired(const SDS &key);
 
     // 清理过期键
     void clean_expired(const SDS &key);
 
     // 新增成员
     TimeWheel time_wheel;
+    LockFreeExpirationManager lockfree_manager;
     std::thread expire_thread;
     std::mutex storage_mutex;
     bool running;
+    bool use_lockfree_{true};
 
     // 启动过期线程
     void start_expire_thread();

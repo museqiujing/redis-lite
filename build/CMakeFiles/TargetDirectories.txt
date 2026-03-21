@@ -3,5 +3,6 @@
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/sds-test.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/string-test.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/list-test.dir
+/home/autumn/write_cpp/redis-list/build/CMakeFiles/lockfree-test.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/edit_cache.dir
 /home/autumn/write_cpp/redis-list/build/CMakeFiles/rebuild_cache.dir

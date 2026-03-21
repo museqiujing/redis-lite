@@ -14,6 +14,7 @@ redis-list: \
   CMakeFiles/redis-list.dir/src/zset.cpp.o \
   CMakeFiles/redis-list.dir/src/main.cpp.o \
   CMakeFiles/redis-list.dir/src/timewheel.cpp.o \
+  CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
@@ -72,6 +73,8 @@ CMakeFiles/redis-list.dir/src/zset.cpp.o:
 CMakeFiles/redis-list.dir/src/main.cpp.o:
 
 CMakeFiles/redis-list.dir/src/timewheel.cpp.o:
+
+CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so:
 

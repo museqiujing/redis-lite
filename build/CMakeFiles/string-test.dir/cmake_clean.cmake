@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/string-test.dir/link.d"
+  "CMakeFiles/string-test.dir/src/lockfree_expiration.cpp.o"
+  "CMakeFiles/string-test.dir/src/lockfree_expiration.cpp.o.d"
   "CMakeFiles/string-test.dir/src/sds.cpp.o"
   "CMakeFiles/string-test.dir/src/sds.cpp.o.d"
   "CMakeFiles/string-test.dir/src/string_type.cpp.o"

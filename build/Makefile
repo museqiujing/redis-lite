@@ -181,6 +181,19 @@ list-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/build
 .PHONY : list-test/fast
 
+#=============================================================================
+# Target rules for targets named lockfree-test
+
+# Build rule for target.
+lockfree-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lockfree-test
+.PHONY : lockfree-test
+
+# fast build rule for target.
+lockfree-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/build
+.PHONY : lockfree-test/fast
+
 src/aof.o: src/aof.cpp.o
 .PHONY : src/aof.o
 
@@ -280,6 +293,36 @@ src/list.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/list.cpp.s
 .PHONY : src/list.cpp.s
 
+src/lockfree_expiration.o: src/lockfree_expiration.cpp.o
+.PHONY : src/lockfree_expiration.o
+
+# target to build an object file
+src/lockfree_expiration.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/lockfree_expiration.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/src/lockfree_expiration.cpp.o
+.PHONY : src/lockfree_expiration.cpp.o
+
+src/lockfree_expiration.i: src/lockfree_expiration.cpp.i
+.PHONY : src/lockfree_expiration.i
+
+# target to preprocess a source file
+src/lockfree_expiration.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/lockfree_expiration.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/src/lockfree_expiration.cpp.i
+.PHONY : src/lockfree_expiration.cpp.i
+
+src/lockfree_expiration.s: src/lockfree_expiration.cpp.s
+.PHONY : src/lockfree_expiration.s
+
+# target to generate assembly for a file
+src/lockfree_expiration.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/lockfree_expiration.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/lockfree_expiration.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/src/lockfree_expiration.cpp.s
+.PHONY : src/lockfree_expiration.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -362,6 +405,7 @@ src/sds.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/src/sds.cpp.o
 .PHONY : src/sds.cpp.o
 
 src/sds.i: src/sds.cpp.i
@@ -374,6 +418,7 @@ src/sds.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/src/sds.cpp.i
 .PHONY : src/sds.cpp.i
 
 src/sds.s: src/sds.cpp.s
@@ -386,6 +431,7 @@ src/sds.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sds-test.dir/build.make CMakeFiles/sds-test.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/sds.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/src/sds.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/src/sds.cpp.s
 .PHONY : src/sds.cpp.s
 
 src/skiplist.o: src/skiplist.cpp.o
@@ -517,6 +563,30 @@ test/list_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-test.dir/build.make CMakeFiles/list-test.dir/test/list_test.cpp.s
 .PHONY : test/list_test.cpp.s
 
+test/lockfree_expiration_test.o: test/lockfree_expiration_test.cpp.o
+.PHONY : test/lockfree_expiration_test.o
+
+# target to build an object file
+test/lockfree_expiration_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/test/lockfree_expiration_test.cpp.o
+.PHONY : test/lockfree_expiration_test.cpp.o
+
+test/lockfree_expiration_test.i: test/lockfree_expiration_test.cpp.i
+.PHONY : test/lockfree_expiration_test.i
+
+# target to preprocess a source file
+test/lockfree_expiration_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/test/lockfree_expiration_test.cpp.i
+.PHONY : test/lockfree_expiration_test.cpp.i
+
+test/lockfree_expiration_test.s: test/lockfree_expiration_test.cpp.s
+.PHONY : test/lockfree_expiration_test.s
+
+# target to generate assembly for a file
+test/lockfree_expiration_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lockfree-test.dir/build.make CMakeFiles/lockfree-test.dir/test/lockfree_expiration_test.cpp.s
+.PHONY : test/lockfree_expiration_test.cpp.s
+
 test/sds_test.o: test/sds_test.cpp.o
 .PHONY : test/sds_test.o
 
@@ -598,6 +668,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... list-test"
+	@echo "... lockfree-test"
 	@echo "... redis-list"
 	@echo "... sds-test"
 	@echo "... skiplist-test"
@@ -614,6 +685,9 @@ help:
 	@echo "... src/list.o"
 	@echo "... src/list.i"
 	@echo "... src/list.s"
+	@echo "... src/lockfree_expiration.o"
+	@echo "... src/lockfree_expiration.i"
+	@echo "... src/lockfree_expiration.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
@@ -641,6 +715,9 @@ help:
 	@echo "... test/list_test.o"
 	@echo "... test/list_test.i"
 	@echo "... test/list_test.s"
+	@echo "... test/lockfree_expiration_test.o"
+	@echo "... test/lockfree_expiration_test.i"
+	@echo "... test/lockfree_expiration_test.s"
 	@echo "... test/sds_test.o"
 	@echo "... test/sds_test.i"
 	@echo "... test/sds_test.s"

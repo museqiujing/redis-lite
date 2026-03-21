@@ -2,7 +2,7 @@
 #include <chrono>
 
 // 检查键是否过期
-bool String::is_expired(const SDS &key) const
+bool String::is_expired(const SDS &key)
 {
     auto it = storage.find(key);
     if (it == storage.end())
@@ -10,7 +10,12 @@ bool String::is_expired(const SDS &key) const
         return true; // 键不存在，视为过期
     }
 
-    // 使用缓存的时间，减少系统调用
+    // 使用无锁过期检查（如果启用）
+    if (use_lockfree_)
+    {
+        return lockfree_manager.check_expiration(key, it->second->expire_at);
+    }
+
     static int64_t last_check_time = 0;
     static int64_t cached_time = 0;
     static const int check_interval = 10; // 10ms
@@ -36,12 +41,20 @@ void String::clean_expired(const SDS &key)
     if (is_expired(key))
     {
         storage.erase(key);
-        // 从时间轮中移除
-        time_wheel.remove_key(key);
+        // 如果使用无锁模式，触发批量清理
+        if (use_lockfree_)
+        {
+            lockfree_manager.batch_cleanup();
+        }
+        else
+        {
+            // 从时间轮中移除
+            time_wheel.remove_key(key);
+        }
     }
 }
 
-String::String() : time_wheel(), running(true)
+String::String() : time_wheel(), lockfree_manager(), running(true)
 {
     start_expire_thread();
 }
@@ -64,15 +77,25 @@ void String::start_expire_thread()
         {
             // 每10ms检查一次
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            
-            // 获取过期的键
-            auto expired_keys = time_wheel.get_expired_keys();
-            
-            // 批量删除过期键
-            std::lock_guard<std::mutex> lock(storage_mutex);
-            for (const auto &key : expired_keys)
+        if (use_lockfree_)
             {
-                storage.erase(key);
+                // 无锁模式：触发批量清理
+                lockfree_manager.batch_cleanup();
+                
+                // 注意：无锁管理器只负责标记过期，实际删除在GET操作时进行
+                // 这样可以避免锁竞争，提高性能
+            }
+            else
+            {
+                // 时间轮模式：获取过期的键并批量删除
+                auto expired_keys = time_wheel.get_expired_keys();
+                
+                // 批量删除过期键
+                std::lock_guard<std::mutex> lock(storage_mutex);
+                for (const auto &key : expired_keys)
+                {
+                    storage.erase(key);
+                }
             }
         } });
 }
@@ -86,8 +109,18 @@ void String::set(const SDS &key, const SDS &value)
     {
         it->second->data = value; // 使用赋值运算符
         it->second->expire_at = -1;
-        // 从时间轮中移除
-        time_wheel.remove_key(key);
+
+        // 如果之前有过期时间，需要从管理器中移除
+        if (use_lockfree_)
+        {
+            // 无锁管理器会自动处理永不过期的键
+            // 这里不需要额外操作
+        }
+        else
+        {
+            // 从时间轮中移除
+            time_wheel.remove_key(key);
+        }
     }
     else
     {
@@ -104,28 +137,42 @@ void String::setex(const SDS &key, int seconds, const SDS &value)
                       .count();
     int64_t expire_at = now + seconds * 1000LL;
     storage[key] = std::make_shared<Value>(value, expire_at);
-    // 添加到时间轮
-    time_wheel.add_key(key, expire_at);
+    // 优先使用无锁管理器
+    if (use_lockfree_)
+    {
+        lockfree_manager.add_expiration(key, expire_at);
+    }
+    else
+    {
+        // 回退到时间轮
+        time_wheel.add_key(key, expire_at);
+    }
 }
 
 // 获取值
 const SDS &String::get(const SDS &key)
 {
-    std::lock_guard<std::mutex> lock(storage_mutex);
-    clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
     {
         static SDS empty_sds; // 静态空对象，避免重复创建
         return empty_sds;
     }
+
+    // 检查是否过期
+    if (is_expired(key))
+    {
+        storage.erase(it);
+        static SDS empty_sds;
+        return empty_sds;
+    }
+
     return it->second->data; // 返回const引用
 }
 
 // 设置过期时间（秒）
 bool String::expire(const SDS &key, int seconds)
 {
-    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
@@ -138,8 +185,16 @@ bool String::expire(const SDS &key, int seconds)
                       .count();
     int64_t expire_at = now + seconds * 1000LL;
     it->second->expire_at = expire_at;
-    // 添加到时间轮
-    time_wheel.add_key(key, expire_at);
+    // 优先使用无锁管理器
+    if (use_lockfree_)
+    {
+        lockfree_manager.add_expiration(key, expire_at);
+    }
+    else
+    {
+        // 回退到时间轮
+        time_wheel.add_key(key, expire_at);
+    }
     return true;
 }
 
@@ -200,22 +255,35 @@ bool String::exists(const SDS &key)
 bool String::del(const SDS &key)
 {
     std::lock_guard<std::mutex> lock(storage_mutex);
-    clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
     {
         return false;
     }
+    // 如果键有过期时间，需要从管理器中移除
+    if (it->second->expire_at != -1)
+    {
+        if (use_lockfree_)
+        {
+            // 无锁管理器会自动处理删除的键
+            // 这里不需要额外操作，因为键被删除后不会再次被检查
+        }
+        else
+        {
+            // 从时间轮中移除
+            time_wheel.remove_key(key);
+        }
+    }
+
     storage.erase(it);
-    // 从时间轮中移除
-    time_wheel.remove_key(key);
+
     return true;
 }
 
 // 获取键的剩余过期时间（秒）
 int String::ttl(const SDS &key)
 {
-    std::lock_guard<std::mutex> lock(storage_mutex);
+    // std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())

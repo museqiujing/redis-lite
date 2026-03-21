@@ -209,4 +209,6 @@ CMakeFiles/redis-list.dir/src/string_type.cpp.o: \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/thread \
  /usr/include/c++/13/bits/std_thread.h \
- /usr/include/c++/13/bits/this_thread_sleep.h /usr/include/c++/13/chrono
+ /usr/include/c++/13/bits/this_thread_sleep.h \
+ /home/autumn/write_cpp/redis-list/src/lockfree_expiration.h \
+ /usr/include/c++/13/atomic /usr/include/c++/13/chrono
