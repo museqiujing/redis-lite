@@ -1,1 +1,1 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/string-test.dir/link.d "CMakeFiles/string-test.dir/src/sds.cpp.o" "CMakeFiles/string-test.dir/src/string_type.cpp.o" "CMakeFiles/string-test.dir/test/string_type_test.cpp.o" -o string-test
+/usr/bin/c++  -g -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/string-test.dir/link.d "CMakeFiles/string-test.dir/src/sds.cpp.o" "CMakeFiles/string-test.dir/src/string_type.cpp.o" "CMakeFiles/string-test.dir/src/timewheel.cpp.o" "CMakeFiles/string-test.dir/test/string_type_test.cpp.o" -o string-test

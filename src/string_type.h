@@ -6,6 +6,8 @@
 #include <memory>
 #include "sds.h"
 #include <vector>
+#include "timewheel.h"
+#include <thread>
 
 class String
 {
@@ -27,9 +29,18 @@ private:
     // 清理过期键
     void clean_expired(const SDS &key);
 
+    // 新增成员
+    TimeWheel time_wheel;
+    std::thread expire_thread;
+    std::mutex storage_mutex;
+    bool running;
+
+    // 启动过期线程
+    void start_expire_thread();
+
 public:
-    String() = default;
-    ~String() = default;
+    String();
+    ~String();
 
     // 设置键值对
     void set(const SDS &key, const SDS &value); // 使用左值引用

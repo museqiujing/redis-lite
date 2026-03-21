@@ -10,9 +10,22 @@ bool String::is_expired(const SDS &key) const
         return true; // 键不存在，视为过期
     }
 
-    int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
-                      std::chrono::system_clock::now().time_since_epoch())
-                      .count();
+    // 使用缓存的时间，减少系统调用
+    static int64_t last_check_time = 0;
+    static int64_t cached_time = 0;
+    static const int check_interval = 10; // 10ms
+
+    int64_t now = cached_time;
+    int64_t current_time = std::chrono::duration_cast<std::chrono::milliseconds>(
+                               std::chrono::system_clock::now().time_since_epoch())
+                               .count();
+
+    if (current_time - last_check_time > check_interval)
+    {
+        cached_time = current_time;
+        last_check_time = current_time;
+        now = current_time;
+    }
 
     return it->second->expire_at != -1 && it->second->expire_at < now;
 }
@@ -23,17 +36,58 @@ void String::clean_expired(const SDS &key)
     if (is_expired(key))
     {
         storage.erase(key);
+        // 从时间轮中移除
+        time_wheel.remove_key(key);
     }
+}
+
+String::String() : time_wheel(), running(true)
+{
+    start_expire_thread();
+}
+
+String::~String()
+{
+    running = false;
+    if (expire_thread.joinable())
+    {
+        expire_thread.join();
+    }
+}
+
+// 启动过期清理线程
+void String::start_expire_thread()
+{
+    expire_thread = std::thread([this]()
+                                {
+        while (running)
+        {
+            // 每10ms检查一次
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            
+            // 获取过期的键
+            auto expired_keys = time_wheel.get_expired_keys();
+            
+            // 批量删除过期键
+            std::lock_guard<std::mutex> lock(storage_mutex);
+            for (const auto &key : expired_keys)
+            {
+                storage.erase(key);
+            }
+        } });
 }
 
 // 设置键值对
 void String::set(const SDS &key, const SDS &value)
 { // 使用左值引用
+    std::lock_guard<std::mutex> lock(storage_mutex);
     auto it = storage.find(key);
     if (it != storage.end())
     {
         it->second->data = value; // 使用赋值运算符
         it->second->expire_at = -1;
+        // 从时间轮中移除
+        time_wheel.remove_key(key);
     }
     else
     {
@@ -44,16 +98,20 @@ void String::set(const SDS &key, const SDS &value)
 // 设置键值对并添加过期时间（秒）
 void String::setex(const SDS &key, int seconds, const SDS &value)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
                       std::chrono::system_clock::now().time_since_epoch())
                       .count();
     int64_t expire_at = now + seconds * 1000LL;
     storage[key] = std::make_shared<Value>(value, expire_at);
+    // 添加到时间轮
+    time_wheel.add_key(key, expire_at);
 }
 
 // 获取值
 const SDS &String::get(const SDS &key)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
@@ -67,6 +125,7 @@ const SDS &String::get(const SDS &key)
 // 设置过期时间（秒）
 bool String::expire(const SDS &key, int seconds)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
@@ -77,7 +136,10 @@ bool String::expire(const SDS &key, int seconds)
     int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
                       std::chrono::system_clock::now().time_since_epoch())
                       .count();
-    it->second->expire_at = now + seconds * 1000LL;
+    int64_t expire_at = now + seconds * 1000LL;
+    it->second->expire_at = expire_at;
+    // 添加到时间轮
+    time_wheel.add_key(key, expire_at);
     return true;
 }
 
@@ -96,6 +158,7 @@ long long String::decr(const SDS &key)
 // 递增指定值
 long long String::incrby(const SDS &key, long long increment)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
 
@@ -114,6 +177,8 @@ long long String::incrby(const SDS &key, long long increment)
 
     value += increment;
     storage[key] = std::make_shared<Value>(SDS(std::to_string(value).c_str()), -1);
+    // 从时间轮中移除（因为设置为永不过期）
+    time_wheel.remove_key(key);
     return value;
 }
 
@@ -126,6 +191,7 @@ long long String::decrby(const SDS &key, long long decrement)
 // 检查键是否存在
 bool String::exists(const SDS &key)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     return storage.find(key) != storage.end();
 }
@@ -133,6 +199,7 @@ bool String::exists(const SDS &key)
 // 删除键
 bool String::del(const SDS &key)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
@@ -140,12 +207,15 @@ bool String::del(const SDS &key)
         return false;
     }
     storage.erase(it);
+    // 从时间轮中移除
+    time_wheel.remove_key(key);
     return true;
 }
 
 // 获取键的剩余过期时间（秒）
 int String::ttl(const SDS &key)
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     clean_expired(key);
     auto it = storage.find(key);
     if (it == storage.end())
@@ -173,6 +243,7 @@ int String::ttl(const SDS &key)
 // 获取所有键值对
 std::vector<std::pair<SDS, SDS>> String::get_all_data()
 {
+    std::lock_guard<std::mutex> lock(storage_mutex);
     std::vector<std::pair<SDS, SDS>> result;
     for (const auto &pair : storage)
     {

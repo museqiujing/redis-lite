@@ -4,6 +4,7 @@ string-test: \
   /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o \
   CMakeFiles/string-test.dir/src/sds.cpp.o \
   CMakeFiles/string-test.dir/src/string_type.cpp.o \
+  CMakeFiles/string-test.dir/src/timewheel.cpp.o \
   CMakeFiles/string-test.dir/test/string_type_test.cpp.o \
   /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
@@ -43,6 +44,8 @@ string-test: \
 CMakeFiles/string-test.dir/src/sds.cpp.o:
 
 CMakeFiles/string-test.dir/src/string_type.cpp.o:
+
+CMakeFiles/string-test.dir/src/timewheel.cpp.o:
 
 CMakeFiles/string-test.dir/test/string_type_test.cpp.o:
 

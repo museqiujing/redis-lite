@@ -195,7 +195,14 @@ bool AofManager::rewrite()
         {
             std::vector<SDS> command = {"SET", pair.first, pair.second};
             SDS resp = command_to_resp(command);
-            write(temp_fd, resp.c_str(), resp.size());
+            ssize_t n = write(temp_fd, resp.c_str(), resp.size());
+            if (n == -1)
+            {
+                std::cerr << "AOF重写时写入失败: " << strerror(errno) << std::endl;
+                close(temp_fd);
+                unlink(temp_filename.c_str());
+                return false;
+            }
         }
 
         // 获取所有List数据
@@ -210,7 +217,14 @@ bool AofManager::rewrite()
                 std::vector<SDS> command = {"RPUSH", key};
                 command.insert(command.end(), values.begin(), values.end());
                 SDS resp = command_to_resp(command);
-                write(temp_fd, resp.c_str(), resp.size());
+                ssize_t n = write(temp_fd, resp.c_str(), resp.size());
+                if (n == -1)
+                {
+                    std::cerr << "AOF重写时写入失败: " << strerror(errno) << std::endl;
+                    close(temp_fd);
+                    unlink(temp_filename.c_str());
+                    return false;
+                }
             }
         }
 
@@ -230,7 +244,14 @@ bool AofManager::rewrite()
                     command.push_back(member.second);
                 }
                 SDS resp = command_to_resp(command);
-                write(temp_fd, resp.c_str(), resp.size());
+                ssize_t n = write(temp_fd, resp.c_str(), resp.size());
+                if (n == -1)
+                {
+                    std::cerr << "AOF重写时写入失败: " << strerror(errno) << std::endl;
+                    close(temp_fd);
+                    unlink(temp_filename.c_str());
+                    return false;
+                }
             }
         }
     }

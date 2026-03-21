@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/autumn/write_cpp/redis-list/src
 
-CXX_FLAGS = -g -std=gnu++17
+CXX_FLAGS =  -g -O3 -DNDEBUG -std=gnu++17
 

@@ -442,6 +442,33 @@ src/string_type.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/string_type.cpp.s
 .PHONY : src/string_type.cpp.s
 
+src/timewheel.o: src/timewheel.cpp.o
+.PHONY : src/timewheel.o
+
+# target to build an object file
+src/timewheel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/timewheel.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/timewheel.cpp.o
+.PHONY : src/timewheel.cpp.o
+
+src/timewheel.i: src/timewheel.cpp.i
+.PHONY : src/timewheel.i
+
+# target to preprocess a source file
+src/timewheel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/timewheel.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/timewheel.cpp.i
+.PHONY : src/timewheel.cpp.i
+
+src/timewheel.s: src/timewheel.cpp.s
+.PHONY : src/timewheel.s
+
+# target to generate assembly for a file
+src/timewheel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/redis-list.dir/build.make CMakeFiles/redis-list.dir/src/timewheel.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/string-test.dir/build.make CMakeFiles/string-test.dir/src/timewheel.cpp.s
+.PHONY : src/timewheel.cpp.s
+
 src/zset.o: src/zset.cpp.o
 .PHONY : src/zset.o
 
@@ -605,6 +632,9 @@ help:
 	@echo "... src/string_type.o"
 	@echo "... src/string_type.i"
 	@echo "... src/string_type.s"
+	@echo "... src/timewheel.o"
+	@echo "... src/timewheel.i"
+	@echo "... src/timewheel.s"
 	@echo "... src/zset.o"
 	@echo "... src/zset.i"
 	@echo "... src/zset.s"

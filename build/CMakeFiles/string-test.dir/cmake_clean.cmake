@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/string-test.dir/src/sds.cpp.o.d"
   "CMakeFiles/string-test.dir/src/string_type.cpp.o"
   "CMakeFiles/string-test.dir/src/string_type.cpp.o.d"
+  "CMakeFiles/string-test.dir/src/timewheel.cpp.o"
+  "CMakeFiles/string-test.dir/src/timewheel.cpp.o.d"
   "CMakeFiles/string-test.dir/test/string_type_test.cpp.o"
   "CMakeFiles/string-test.dir/test/string_type_test.cpp.o.d"
   "string-test"

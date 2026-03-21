@@ -1,1 +1,1 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/sds-test.dir/link.d "CMakeFiles/sds-test.dir/src/sds.cpp.o" "CMakeFiles/sds-test.dir/test/sds_test.cpp.o" -o sds-test
+/usr/bin/c++  -g -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/sds-test.dir/link.d "CMakeFiles/sds-test.dir/src/sds.cpp.o" "CMakeFiles/sds-test.dir/test/sds_test.cpp.o" -o sds-test

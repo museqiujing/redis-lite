@@ -3,6 +3,8 @@
 #include <thread>
 #include <chrono>
 #include "../src/string_type.h"
+#include "../src/timewheel.h"
+
 /*
 void test_basic_operations() {
     std::cout << "=== 测试基本操作 ===" << std::endl;

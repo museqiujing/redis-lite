@@ -157,13 +157,22 @@ CMakeFiles/list-test.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/l
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -201,6 +210,8 @@ CMakeFiles/list-test.dir/src/list.cpp.o: /home/autumn/write_cpp/redis-list/src/l
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
@@ -366,13 +377,22 @@ CMakeFiles/list-test.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/sd
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -410,6 +430,8 @@ CMakeFiles/list-test.dir/src/sds.cpp.o: /home/autumn/write_cpp/redis-list/src/sd
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
@@ -607,13 +629,22 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o: /home/autumn/write_cpp/redis-list
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -651,6 +682,8 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o: /home/autumn/write_cpp/redis-list
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
@@ -708,10 +741,6 @@ CMakeFiles/list-test.dir/src/list.cpp.o:
 /usr/lib/x86_64-linux-gnu/libc.so:
 
 /usr/lib/x86_64-linux-gnu/crtn.o:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
-
-/usr/lib/x86_64-linux-gnu/crti.o:
 
 /lib64/ld-linux-x86-64.so.2:
 
@@ -831,9 +860,19 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
+
 /usr/include/c++/13/bits/unordered_map.h:
 
 /usr/include/c++/13/bits/unique_ptr.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
@@ -871,13 +910,25 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/c++/13/bits/std_abs.h:
+
 /usr/include/c++/13/bits/shared_ptr_base.h:
+
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 
 /usr/include/c++/13/bits/move.h:
 
 /home/autumn/write_cpp/redis-list/src/sds.h:
 
+/usr/include/x86_64-linux-gnu/bits/stdio2-decl.h:
+
 /usr/include/c++/13/bits/requires_hosted.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
 
 /usr/include/c++/13/cstddef:
 
@@ -888,6 +939,8 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o:
 /usr/include/c++/13/bits/predefined_ops.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /usr/include/c++/13/bits/uses_allocator_args.h:
 
@@ -914,6 +967,12 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o:
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
 /usr/include/c++/13/bits/exception.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/x86_64-linux-gnu/crti.o:
+
+/usr/include/x86_64-linux-gnu/bits/select-decl.h:
 
 /home/autumn/write_cpp/redis-list/src/sds.cpp:
 
@@ -968,6 +1027,8 @@ CMakeFiles/list-test.dir/test/list_test.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
 /usr/include/c++/13/bits/stl_algo.h:
+
+/usr/include/x86_64-linux-gnu/bits/select2.h:
 
 /usr/include/c++/13/bits/stl_tempbuf.h:
 
@@ -1113,6 +1174,8 @@ CMakeFiles/list-test.dir/src/sds.cpp.o:
 
 /usr/include/c++/13/ext/aligned_buffer.h:
 
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
 /usr/include/stdio.h:
 
 /usr/include/c++/13/ext/concurrence.h:
@@ -1149,6 +1212,8 @@ CMakeFiles/list-test.dir/src/sds.cpp.o:
 
 /usr/include/c++/13/type_traits:
 
+/usr/include/x86_64-linux-gnu/bits/wchar2-decl.h:
+
 /usr/include/stdlib.h:
 
 /usr/include/c++/13/unordered_map:
@@ -1157,7 +1222,13 @@ CMakeFiles/list-test.dir/src/sds.cpp.o:
 
 /usr/include/errno.h:
 
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
 /usr/include/features-time64.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+
+/usr/include/features.h:
 
 /usr/include/locale.h:
 
@@ -1179,6 +1250,10 @@ CMakeFiles/list-test.dir/src/sds.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
@@ -1197,10 +1272,6 @@ CMakeFiles/list-test.dir/src/sds.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
-/usr/include/features.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
-
 /usr/include/c++/13/new:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
@@ -1208,19 +1279,3 @@ CMakeFiles/list-test.dir/src/sds.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
-
-/usr/include/x86_64-linux-gnu/bits/long-double.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
-
-/usr/include/c++/13/bits/std_abs.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:

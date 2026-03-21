@@ -20,6 +20,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/redis-list.dir/src/skiplist.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/string_type.cpp.o"
   "CMakeFiles/redis-list.dir/src/string_type.cpp.o.d"
+  "CMakeFiles/redis-list.dir/src/timewheel.cpp.o"
+  "CMakeFiles/redis-list.dir/src/timewheel.cpp.o.d"
   "CMakeFiles/redis-list.dir/src/zset.cpp.o"
   "CMakeFiles/redis-list.dir/src/zset.cpp.o.d"
   "redis-list"
