@@ -44,6 +44,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/deque.tcc \
   /usr/include/c++/13/bits/enable_special_members.h \
   /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
@@ -93,6 +94,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
+  /usr/include/c++/13/bits/stl_deque.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -101,6 +103,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/bits/stl_list.h \
   /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_queue.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -136,6 +139,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
+  /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
@@ -162,6 +166,7 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o: /home/autumn/write_cpp/redis-list/src/a
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/queue \
   /usr/include/c++/13/random \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
@@ -395,6 +400,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/deque.tcc \
   /usr/include/c++/13/bits/enable_special_members.h \
   /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
@@ -443,6 +449,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
+  /usr/include/c++/13/bits/stl_deque.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -451,6 +458,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/bits/stl_list.h \
   /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_queue.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -486,6 +494,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
+  /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
@@ -511,6 +520,7 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: /home/autumn/write_cpp/redi
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/queue \
   /usr/include/c++/13/random \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
@@ -731,6 +741,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/deque.tcc \
   /usr/include/c++/13/bits/enable_special_members.h \
   /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
@@ -779,6 +790,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
+  /usr/include/c++/13/bits/stl_deque.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -787,6 +799,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/bits/stl_list.h \
   /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_queue.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -822,6 +835,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
+  /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
@@ -847,6 +861,7 @@ CMakeFiles/redis-list.dir/src/epoll_server.cpp.o: /home/autumn/write_cpp/redis-l
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/queue \
   /usr/include/c++/13/random \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
@@ -1575,6 +1590,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/deque.tcc \
   /usr/include/c++/13/bits/enable_special_members.h \
   /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
@@ -1623,6 +1639,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
+  /usr/include/c++/13/bits/stl_deque.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -1631,6 +1648,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/bits/stl_list.h \
   /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_queue.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -1666,6 +1684,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
+  /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
@@ -1691,6 +1710,7 @@ CMakeFiles/redis-list.dir/src/main.cpp.o: /home/autumn/write_cpp/redis-list/src/
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/queue \
   /usr/include/c++/13/random \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
@@ -3790,13 +3810,11 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h:
 
-/usr/include/c++/13/streambuf:
+/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
 
-/usr/include/c++/13/bits/new_allocator.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
-/usr/include/c++/13/ratio:
-
-/home/autumn/write_cpp/redis-list/src/list.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
 /usr/include/c++/13/pstl/execution_defs.h:
 
@@ -3812,8 +3830,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/initializer_list:
 
-/home/autumn/write_cpp/redis-list/src/zset.h:
-
 /usr/include/errno.h:
 
 /usr/include/c++/13/ext/concurrence.h:
@@ -3828,6 +3844,8 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/uio_lim.h:
 
+/usr/include/c++/13/bits/hashtable.h:
+
 /usr/include/c++/13/debug/debug.h:
 
 /usr/include/c++/13/cwctype:
@@ -3837,10 +3855,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/c++/13/cstring:
 
 /usr/include/c++/13/bits/unordered_set.h:
-
-/usr/include/c++/13/stdexcept:
-
-/usr/include/c++/13/cstdlib:
 
 /usr/include/c++/13/ctime:
 
@@ -3853,8 +3867,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/c++/13/bits/unique_ptr.h:
 
 /usr/include/c++/13/bits/unique_lock.h:
-
-/usr/include/c++/13/bits/this_thread_sleep.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
@@ -3875,6 +3887,12 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h:
 
 /usr/include/c++/13/bits/stl_uninitialized.h:
+
+/home/autumn/write_cpp/redis-list/src/zset.h:
+
+/usr/include/c++/13/bits/stl_queue.h:
+
+/usr/include/c++/13/bits/erase_if.h:
 
 /usr/include/c++/13/bits/stl_numeric.h:
 
@@ -3901,6 +3919,10 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 /usr/include/c++/13/bits/stl_function.h:
 
 /usr/include/c++/13/bits/std_mutex.h:
+
+/usr/include/c++/13/bits/this_thread_sleep.h:
+
+/usr/include/c++/13/unordered_map:
 
 /usr/include/c++/13/bits/utility.h:
 
@@ -4022,8 +4044,6 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
-/usr/include/alloca.h:
-
 /usr/include/asm-generic/types.h:
 
 /usr/include/c++/13/bits/uses_allocator.h:
@@ -4040,15 +4060,15 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
-/usr/include/c++/13/bits/hashtable.h:
+/home/autumn/write_cpp/redis-list/src/list.h:
+
+/usr/include/c++/13/ratio:
 
 /usr/include/c++/13/bits/random.h:
 
 /usr/include/c++/13/bits/basic_ios.tcc:
 
 /home/autumn/write_cpp/redis-list/src/string_type.h:
-
-/usr/include/c++/13/bits/chrono.h:
 
 /home/autumn/write_cpp/redis-list/src/aof.h:
 
@@ -4064,11 +4084,11 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
 
-/usr/include/c++/13/random:
-
 /home/autumn/write_cpp/redis-list/src/epoll_server.cpp:
 
 /usr/include/c++/13/memory:
+
+/usr/include/c++/13/queue:
 
 /home/autumn/write_cpp/redis-list/src/timewheel.h:
 
@@ -4098,6 +4118,14 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o:
 
 /usr/include/c++/13/tr1/legendre_function.tcc:
 
+/usr/include/alloca.h:
+
+/usr/include/c++/13/bits/deque.tcc:
+
+/usr/include/c++/13/cwchar:
+
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
+
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
 /usr/include/c++/13/bits/parse_numbers.h:
@@ -4125,8 +4153,6 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/usr/include/c++/13/bits/erase_if.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
 
@@ -4198,6 +4224,16 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
+/usr/include/c++/13/deque:
+
+/usr/include/c++/13/bits/chrono.h:
+
+/usr/include/c++/13/bits/new_allocator.h:
+
+/usr/include/c++/13/cstdlib:
+
+/usr/include/c++/13/stdexcept:
+
 /usr/include/c++/13/bits/node_handle.h:
 
 /usr/include/netinet/in.h:
@@ -4220,7 +4256,17 @@ CMakeFiles/redis-list.dir/src/skiplist.cpp.o:
 
 /usr/include/c++/13/bits/specfun.h:
 
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
+
+/usr/include/c++/13/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio2-decl.h:
+
 /usr/include/c++/13/bits/ostream_insert.h:
+
+/usr/include/c++/13/random:
+
+/usr/include/c++/13/streambuf:
 
 /usr/include/c++/13/string_view:
 
@@ -4259,8 +4305,6 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/c++/13/bits/hashtable_policy.h:
 
 /usr/include/c++/13/typeinfo:
-
-/usr/include/c++/13/unordered_map:
 
 /usr/include/c++/13/unordered_set:
 
@@ -4334,12 +4378,6 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/x86_64-linux-gnu/asm/posix_types.h:
 
-/usr/include/c++/13/bits/algorithmfwd.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio2-decl.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
-
 /usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
 
 /usr/include/features.h:
@@ -4402,6 +4440,8 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
+/usr/include/c++/13/bits/stl_deque.h:
+
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
@@ -4423,10 +4463,6 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio2.h:
-
-/usr/include/c++/13/cwchar:
-
-/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
@@ -4461,8 +4497,6 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/c++/13/bits/ptr_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/unistd-decl.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
@@ -4511,7 +4545,3 @@ CMakeFiles/redis-list.dir/src/aof.cpp.o:
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:

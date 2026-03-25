@@ -10,6 +10,9 @@
 #include <chrono>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <condition_variable>
+#include <queue>
+#include <mutex>
 
 class CommandHandler; // 前向声明
 
@@ -32,6 +35,65 @@ enum class AofPolicy
     NO        // 不主动刷盘，依赖操作系统
 };
 
+// 无锁环形缓冲区 - 用于 AOF 写入队列
+template <typename T, size_t Capacity>
+class LockFreeRingBuffer
+{
+private:
+    alignas(64) std::atomic<size_t> head_{0}; // 写指针
+    alignas(64) std::atomic<size_t> tail_{0}; // 读指针
+    T buffer_[Capacity];
+
+public:
+    bool push(const T &item)
+    {
+        const size_t head = head_.load(std::memory_order_relaxed);
+        const size_t next_head = (head + 1) % Capacity;
+
+        if (next_head == tail_.load(std::memory_order_acquire))
+        {
+            return false; // 缓冲区满
+        }
+
+        buffer_[head] = item;
+        head_.store(next_head, std::memory_order_release);
+        return true;
+    }
+
+    bool pop(T &item)
+    {
+        const size_t tail = tail_.load(std::memory_order_relaxed);
+
+        if (tail == head_.load(std::memory_order_acquire))
+        {
+            return false; // 缓冲区空
+        }
+
+        item = buffer_[tail];
+        tail_.store((tail + 1) % Capacity, std::memory_order_release);
+        return true;
+    }
+
+    bool empty() const
+    {
+        return head_.load(std::memory_order_acquire) == tail_.load(std::memory_order_acquire);
+    }
+
+    size_t size() const
+    {
+        const size_t head = head_.load(std::memory_order_acquire);
+        const size_t tail = tail_.load(std::memory_order_acquire);
+        return (head >= tail) ? (head - tail) : (Capacity - tail + head);
+    }
+};
+
+// AOF 写入任务
+struct AofWriteTask
+{
+    SDS data;
+    bool needs_fsync; // 标记是否需要 fsync
+};
+
 class AofManager
 {
 private:
@@ -41,28 +103,29 @@ private:
     CommandHandler *handler;
     AofPolicy sync_policy;
     std::atomic<bool> bg_thread_running;
-    std::thread bg_thread;
 
-    // 高性能写入优化配置
-    static const size_t BUFFER_SIZE_LIMIT = 64 * 1024;      // 64KB 缓冲区
-    static const size_t BATCH_WRITE_THRESHOLD = 100;        // 批量写入阈值
-    static const size_t MAX_THREAD_BUFFER_SIZE = 16 * 1024; // 每个线程 16KB 缓冲区
+    // 双缓冲机制：当前写入缓冲和后台刷新缓冲
+    static const size_t WRITE_BUFFER_SIZE = 32 * 1024; // 32KB 单缓冲区
+    SDS write_buffer[2];
+    std::atomic<size_t> current_buffer{0};
+    std::atomic<size_t> buffer_used[2]{0, 0};
 
-    // 主写入缓冲区（由后台线程管理）
-    SDS write_buffer;
-    size_t buffer_size;
+    // 无锁写入队列（用于 ALWAYS 模式）
+    static const size_t AOF_QUEUE_SIZE = 4096;
+    LockFreeRingBuffer<AofWriteTask, AOF_QUEUE_SIZE> write_queue;
 
-    // 高性能写入优化：线程局部缓冲区池
-    struct ThreadLocalBuffer
-    {
-        SDS buffer;
-        size_t size;
-        std::atomic<size_t> ref_count{0};
-    };
+    // 后台线程
+    std::thread fsync_thread; // 专职 fsync 线程
+    std::thread write_thread; // 专职写入线程
+    std::thread bg_thread;    // EVERYSEC 模式使用
 
-    // 原子操作优化
-    std::atomic<size_t> pending_writes{0};
-    std::atomic<bool> flush_scheduled{false};
+    // 同步原语（仅用于 ALWAYS 模式的等待）
+    std::mutex fsync_mutex;
+    std::condition_variable fsync_cv;
+
+    // 写入统计
+    std::atomic<size_t> total_writes{0};
+    std::atomic<size_t> total_fsyncs{0};
 
     // 重写相关配置
     size_t rewrite_base_size;                                     // 上次重写时的文件大小
@@ -74,14 +137,15 @@ private:
     std::atomic<bool> rewrite_in_progress{false};      // 防止并发重写
     std::atomic<size_t> total_writes_since_rewrite{0}; // 重写后的写入次数统计
 
-    // 后台刷盘线程
-    void background_sync_thread();
-
-    // 后台重写线程
+    // 后台线程函数
+    void background_fsync_thread();
+    void background_write_thread();
+    void background_sync_thread(); // EVERYSEC 模式使用
     void background_rewrite_thread();
 
     // 上次刷盘时间
     std::chrono::steady_clock::time_point last_sync_time;
+    std::chrono::steady_clock::time_point last_fsync_time;
 
 public:
     AofManager(const SDS &file = "appendonly.aof", AofPolicy policy = AofPolicy::EVERYSEC);
@@ -93,7 +157,7 @@ public:
     // 启用/禁用 AOF
     void set_enabled(bool enable);
 
-    // 写入命令到 AOF 文件
+    // 写入命令到 AOF 文件（优化版本）
     void write_command(const std::vector<SDS> &command);
 
     // 加载 AOF 文件
@@ -138,8 +202,11 @@ private:
     // 关闭 AOF 文件
     void close_file();
 
-    // 将命令转换为 RESP 格式
-    SDS command_to_resp(const std::vector<SDS> &command);
+    // 将命令转换为 RESP 格式（优化版本，直接写入缓冲区）
+    void append_command_to_buffer(SDS &buffer, const std::vector<SDS> &command);
+
+    // 预分配的序列化缓冲区（线程局部）
+    static thread_local SDS tls_serialize_buffer;
 };
 
 #endif // AOF_H

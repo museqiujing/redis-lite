@@ -7,26 +7,44 @@
 #include <unistd.h>
 #include "resp_parser.h"
 #include "command_handler.h"
-#include <mutex>
+
+// 线程局部序列化缓冲区（避免每次分配内存）
+thread_local SDS AofManager::tls_serialize_buffer;
 
 AofManager::AofManager(const SDS &file, AofPolicy policy)
     : filename(file), file_fd(-1), enabled(true), sync_policy(policy),
-      bg_thread_running(false), buffer_size(0), rewrite_base_size(0),
-      last_sync_time(std::chrono::steady_clock::now()) {}
+      bg_thread_running(false), rewrite_base_size(0),
+      last_sync_time(std::chrono::steady_clock::now()),
+      last_fsync_time(std::chrono::steady_clock::now())
+{
+    // 预分配双缓冲
+    write_buffer[0].reserve(WRITE_BUFFER_SIZE);
+    write_buffer[1].reserve(WRITE_BUFFER_SIZE);
+}
 
 AofManager::~AofManager()
 {
     // 停止后台线程
     bg_thread_running = false;
+
+    // 刷新所有剩余数据
+    flush_all_buffers();
+
+    if (fsync_thread.joinable())
+    {
+        fsync_thread.join();
+    }
+    if (write_thread.joinable())
+    {
+        write_thread.join();
+    }
     if (bg_thread.joinable())
     {
         bg_thread.join();
     }
+
     close_file();
 }
-
-// 文件级 mutex，用于保护主写入缓冲区的合并
-static std::mutex aof_main_buffer_mutex;
 
 bool AofManager::init(CommandHandler *cmd_handler)
 {
@@ -46,11 +64,19 @@ bool AofManager::init(CommandHandler *cmd_handler)
     }
 
     // 根据策略启动后台线程
-    if (sync_policy == AofPolicy::EVERYSEC)
+    if (sync_policy == AofPolicy::ALWAYS)
+    {
+        // ALWAYS 模式：启动专职写入和 fsync 线程
+        bg_thread_running = true;
+        write_thread = std::thread(&AofManager::background_write_thread, this);
+        fsync_thread = std::thread(&AofManager::background_fsync_thread, this);
+    }
+    else if (sync_policy == AofPolicy::EVERYSEC)
     {
         bg_thread_running = true;
         bg_thread = std::thread(&AofManager::background_sync_thread, this);
     }
+
     return open_file();
 }
 
@@ -63,13 +89,35 @@ void AofManager::set_enabled(bool enable)
     }
     else if (!enable && file_fd != -1)
     {
+        flush_all_buffers();
         close_file();
     }
 }
 
-// 线程局部的写入缓冲区，避免锁竞争
-thread_local SDS thread_local_buffer;
-thread_local size_t thread_local_buffer_size = 0;
+// 快速序列化命令到缓冲区
+inline void AofManager::append_command_to_buffer(SDS &buffer, const std::vector<SDS> &command)
+{
+    // 估算大小
+    size_t estimated = 32;
+    for (const auto &arg : command)
+    {
+        estimated += arg.size() + 16;
+    }
+
+    // 直接序列化
+    buffer.append("*");
+    buffer.append(std::to_string(command.size()));
+    buffer.append("\r\n");
+
+    for (const auto &arg : command)
+    {
+        buffer.append("$");
+        buffer.append(std::to_string(arg.size()));
+        buffer.append("\r\n");
+        buffer.append(arg);
+        buffer.append("\r\n");
+    }
+}
 
 void AofManager::write_command(const std::vector<SDS> &command)
 {
@@ -78,103 +126,117 @@ void AofManager::write_command(const std::vector<SDS> &command)
         return;
     }
 
-    // 快速序列化（避免 RespSerializer 的开销）
-    size_t estimated_size = 32; // 基础 RESP 开销
-    for (const auto &arg : command)
+    if (sync_policy == AofPolicy::ALWAYS)
     {
-        estimated_size += arg.size() + 16; // 每个参数的开销
-    }
-
-    // 使用线程局部缓冲区（主要避免锁竞争）。当本地缓冲接近上限时，合并到主缓冲区
-    if (thread_local_buffer_size + estimated_size > MAX_THREAD_BUFFER_SIZE) // 16KB 缓冲区限制
-    {
-        std::lock_guard<std::mutex> lock(aof_main_buffer_mutex);
-
-        write_buffer.append(thread_local_buffer);
-        buffer_size += thread_local_buffer_size;
-
-        // 清空线程局部缓冲区
-        thread_local_buffer.clear();
-        thread_local_buffer_size = 0;
-
-        // 检查主缓冲区是否需要刷盘
-        if (buffer_size >= BUFFER_SIZE_LIMIT) // 64KB 主缓冲区
+        // ALWAYS 模式：使用无锁队列 + 异步 fsync
+        // 使用线程局部缓冲区序列化
+        if (tls_serialize_buffer.empty())
         {
-            flush_buffer();
+            tls_serialize_buffer.reserve(256);
         }
-    }
+        tls_serialize_buffer.clear();
+        append_command_to_buffer(tls_serialize_buffer, command);
 
-    // 快速序列化到线程局部缓冲区
-    thread_local_buffer.append("*");
-    thread_local_buffer.append(std::to_string(command.size()));
-    thread_local_buffer.append("\r\n");
+        // 创建写入任务
+        AofWriteTask task;
+        task.data = tls_serialize_buffer;
+        task.needs_fsync = true;
 
-    for (const auto &arg : command)
-    {
-        thread_local_buffer.append("$");
-        thread_local_buffer.append(std::to_string(arg.size()));
-        thread_local_buffer.append("\r\n");
-        thread_local_buffer.append(arg);
-        thread_local_buffer.append("\r\n");
-    }
-
-    thread_local_buffer_size += estimated_size;
-
-    // 如果当前策略要求尽快持久化（例如 ALWAYS），或采用 EVERYSEC 时
-    // 希望在后台线程的 fsync 前能看到新数据，则需要把线程局部缓冲合并到主缓冲区。
-    // 这里做一个保守的合并：当策略不是 NO 时，将本地缓冲合并到主缓冲区，
-    // 主线程/后台线程会负责最终写磁盘和 fsync。
-    if (sync_policy != AofPolicy::NO)
-    {
-        std::lock_guard<std::mutex> lock(aof_main_buffer_mutex);
-        if (!thread_local_buffer.empty())
+        // 尝试推入无锁队列
+        int retries = 0;
+        while (!write_queue.push(task) && retries < 50)
         {
-            write_buffer.append(thread_local_buffer);
-            buffer_size += thread_local_buffer_size;
-            thread_local_buffer.clear();
-            thread_local_buffer_size = 0;
+            std::this_thread::yield();
+            retries++;
         }
 
-        if (sync_policy == AofPolicy::ALWAYS)
+        if (retries >= 50)
         {
-            // 立即写入并刷盘
-            flush_buffer();
-            if (file_fd != -1)
+            // 队列满，降级为同步写入
+            ssize_t written = write(file_fd, task.data.c_str(), task.data.size());
+            if (written > 0 && file_fd != -1)
+            {
                 fsync(file_fd);
+                total_fsyncs.fetch_add(1, std::memory_order_relaxed);
+            }
         }
+
+        total_writes.fetch_add(1, std::memory_order_relaxed);
+        total_writes_since_rewrite.fetch_add(1, std::memory_order_relaxed);
+        return;
     }
 
-    // 更新写入计数（用于重写判断）
-    total_writes_since_rewrite++;
+    // EVERYSEC 和 NO 模式：使用双缓冲机制
+    size_t buf_idx = current_buffer.load(std::memory_order_relaxed);
 
-    // 检查是否需要自动重写（降低频率）
-    static thread_local size_t rewrite_check_counter = 0;
-    if (++rewrite_check_counter >= 1000) // 每 1000 次写入检查一次（更频繁）
+    // 使用线程局部缓冲区预序列化
+    if (tls_serialize_buffer.empty())
     {
-        rewrite_check_counter = 0;
-        if (should_auto_rewrite())
+        tls_serialize_buffer.reserve(256);
+    }
+    tls_serialize_buffer.clear();
+    append_command_to_buffer(tls_serialize_buffer, command);
+
+    size_t data_size = tls_serialize_buffer.size();
+
+    // 尝试写入当前缓冲
+    size_t used = buffer_used[buf_idx].load(std::memory_order_relaxed);
+
+    if (used + data_size > WRITE_BUFFER_SIZE)
+    {
+        // 缓冲区满，直接写入文件
+        ssize_t written = write(file_fd, tls_serialize_buffer.c_str(), data_size);
+        if (written > 0)
         {
-            // 在后台线程中执行重写
-            std::thread rewrite_thread(&AofManager::background_rewrite_thread, this);
-            rewrite_thread.detach();
+            buffer_used[buf_idx].fetch_add(written, std::memory_order_relaxed);
         }
     }
+    else
+    {
+        // 写入缓冲区
+        write_buffer[buf_idx].append(tls_serialize_buffer);
+        buffer_used[buf_idx].fetch_add(data_size, std::memory_order_relaxed);
+
+        // 缓冲区达到阈值时刷新
+        if (buffer_used[buf_idx].load(std::memory_order_acquire) > WRITE_BUFFER_SIZE * 0.8)
+        {
+            flush_buffer();
+        }
+    }
+
+    total_writes.fetch_add(1, std::memory_order_relaxed);
+    total_writes_since_rewrite.fetch_add(1, std::memory_order_relaxed);
 }
 
 void AofManager::set_sync_policy(AofPolicy policy)
 {
     sync_policy = policy;
 
-    // 重启后台线程
+    // 停止所有后台线程
+    bg_thread_running = false;
+
+    if (fsync_thread.joinable())
+    {
+        fsync_thread.join();
+    }
+    if (write_thread.joinable())
+    {
+        write_thread.join();
+    }
     if (bg_thread.joinable())
     {
-        bg_thread_running = false;
         bg_thread.join();
     }
 
-    if (sync_policy == AofPolicy::EVERYSEC && enabled)
+    // 根据新策略重启线程
+    bg_thread_running = true;
+    if (sync_policy == AofPolicy::ALWAYS)
     {
-        bg_thread_running = true;
+        write_thread = std::thread(&AofManager::background_write_thread, this);
+        fsync_thread = std::thread(&AofManager::background_fsync_thread, this);
+    }
+    else if (sync_policy == AofPolicy::EVERYSEC)
+    {
         bg_thread = std::thread(&AofManager::background_sync_thread, this);
     }
 }
@@ -202,7 +264,95 @@ AofPolicy AofManager::string_to_policy(const SDS &policy_str)
         return AofPolicy::EVERYSEC;
     if (policy_str == "no")
         return AofPolicy::NO;
-    return AofPolicy::EVERYSEC; // 默认值
+    return AofPolicy::EVERYSEC;
+}
+
+// ALWAYS 模式：专职写入线程，批量写入
+void AofManager::background_write_thread()
+{
+    SDS batch_buffer;
+    batch_buffer.reserve(WRITE_BUFFER_SIZE);
+
+    while (bg_thread_running)
+    {
+        batch_buffer.clear();
+        bool has_data = false;
+        int empty_count = 0;
+
+        // 批量收集队列中的数据（最多收集 100μs 内的数据）
+        auto start_time = std::chrono::steady_clock::now();
+
+        while (bg_thread_running)
+        {
+            AofWriteTask task;
+            if (write_queue.pop(task))
+            {
+                batch_buffer.append(task.data);
+                has_data = true;
+            }
+            else
+            {
+                empty_count++;
+                if (empty_count > 10)
+                {
+                    auto now = std::chrono::steady_clock::now();
+                    auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - start_time);
+                    if (elapsed.count() >= 100 || !has_data)
+                    {
+                        break;
+                    }
+                    empty_count = 0;
+                }
+            }
+
+            if (batch_buffer.size() >= WRITE_BUFFER_SIZE)
+            {
+                break;
+            }
+        }
+
+        // 批量写入
+        if (has_data && file_fd != -1)
+        {
+            ssize_t written = write(file_fd, batch_buffer.c_str(), batch_buffer.size());
+            if (written < 0)
+            {
+                std::cerr << "AOF write error: " << strerror(errno) << std::endl;
+            }
+        }
+    }
+}
+
+// ALWAYS 模式：专职 fsync 线程（每 100μs fsync 一次）
+void AofManager::background_fsync_thread()
+{
+    while (bg_thread_running)
+    {
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
+
+        if (file_fd != -1 && sync_policy == AofPolicy::ALWAYS)
+        {
+            fsync(file_fd);
+            total_fsyncs.fetch_add(1, std::memory_order_relaxed);
+            last_fsync_time = std::chrono::steady_clock::now();
+        }
+    }
+}
+
+// EVERYSEC 模式：后台刷盘线程
+void AofManager::background_sync_thread()
+{
+    while (bg_thread_running)
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        if (file_fd != -1 && sync_policy == AofPolicy::EVERYSEC)
+        {
+            flush_buffer();
+            fsync(file_fd);
+            last_sync_time = std::chrono::steady_clock::now();
+        }
+    }
 }
 
 bool AofManager::load()
@@ -214,7 +364,7 @@ bool AofManager::load()
     }
 
     const bool old_enabled = enabled;
-    enabled = false; // 关键：回放期间禁止再次写 AOF
+    enabled = false;
 
     std::cout << "Loading AOF file: " << filename << " ("
               << st.st_size / (1024 * 1024) << "MB)\n";
@@ -279,7 +429,6 @@ bool AofManager::load()
             }
             else
             {
-                // 无更多可完整解析的命令，保留尾部（半包）
                 break;
             }
         }
@@ -331,7 +480,7 @@ bool AofManager::load()
         }
     }
 
-    enabled = old_enabled; // 恢复 AOF 开关
+    enabled = old_enabled;
 
     auto end_time = std::chrono::steady_clock::now();
     auto total_time = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -345,7 +494,6 @@ bool AofManager::load()
 
 bool AofManager::rewrite()
 {
-    // 防止并发重写
     bool expected = false;
     if (!rewrite_in_progress.compare_exchange_strong(expected, true))
     {
@@ -355,10 +503,8 @@ bool AofManager::rewrite()
 
     std::cout << "Starting AOF rewrite...\n";
 
-    // 先刷新缓冲区确保所有数据已写入
     flush_buffer();
 
-    // 创建临时 AOF 文件
     std::string temp_filename = filename + ".tmp";
     int temp_fd = open(temp_filename.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (temp_fd == -1)
@@ -368,17 +514,15 @@ bool AofManager::rewrite()
         return false;
     }
 
-    // 遍历所有数据结构，生成最小命令集
     if (handler)
     {
         size_t keys_written = 0;
 
-        // 获取所有 String 数据
         auto string_data = handler->get_all_string_data();
         for (const auto &pair : string_data)
         {
             std::vector<SDS> command = {"SET", pair.first, pair.second};
-            SDS resp = command_to_resp(command);
+            SDS resp = RespSerializer::serialize_array(command);
             ssize_t n = write(temp_fd, resp.c_str(), resp.size());
             if (n == -1)
             {
@@ -391,18 +535,16 @@ bool AofManager::rewrite()
             keys_written++;
         }
 
-        // 获取所有 List 数据
         auto list_data = handler->get_all_list_data();
         for (const auto &pair : list_data)
         {
             const SDS &key = pair.first;
             const std::vector<SDS> &values = pair.second;
-            // 对于 List，使用 RPUSH 命令恢复所有元素
             if (!values.empty())
             {
                 std::vector<SDS> command = {"RPUSH", key};
                 command.insert(command.end(), values.begin(), values.end());
-                SDS resp = command_to_resp(command);
+                SDS resp = RespSerializer::serialize_array(command);
                 ssize_t n = write(temp_fd, resp.c_str(), resp.size());
                 if (n == -1)
                 {
@@ -416,13 +558,11 @@ bool AofManager::rewrite()
             }
         }
 
-        // 获取所有 ZSet 数据
         auto zset_data = handler->get_all_zset_data();
         for (const auto &pair : zset_data)
         {
             const SDS &key = pair.first;
             const std::vector<std::pair<double, SDS>> &members = pair.second;
-            // 对于 ZSet，使用 ZADD 命令恢复所有成员
             if (!members.empty())
             {
                 std::vector<SDS> command = {"ZADD", key};
@@ -431,7 +571,7 @@ bool AofManager::rewrite()
                     command.push_back(std::to_string(member.first));
                     command.push_back(member.second);
                 }
-                SDS resp = command_to_resp(command);
+                SDS resp = RespSerializer::serialize_array(command);
                 ssize_t n = write(temp_fd, resp.c_str(), resp.size());
                 if (n == -1)
                 {
@@ -448,13 +588,9 @@ bool AofManager::rewrite()
         std::cout << "AOF rewrite: " << keys_written << " keys written\n";
     }
 
-    // 强制刷新到磁盘
     fsync(temp_fd);
-
-    // 关闭临时文件
     close(temp_fd);
 
-    // 替换旧文件
     if (rename(temp_filename.c_str(), filename.c_str()) == -1)
     {
         std::cerr << "Failed to rename temporary AOF file" << std::endl;
@@ -469,7 +605,6 @@ bool AofManager::rewrite()
         size_t old_size = rewrite_base_size;
         rewrite_base_size = new_st.st_size;
 
-        // 重置写入计数
         total_writes_since_rewrite = 0;
 
         std::cout << "AOF rewrite completed: "
@@ -477,7 +612,6 @@ bool AofManager::rewrite()
                   << rewrite_base_size / (1024 * 1024) << "MB\n";
     }
 
-    // 标记重写完成
     rewrite_in_progress = false;
     return true;
 }
@@ -492,22 +626,15 @@ bool AofManager::should_auto_rewrite() const
 
     size_t current_size = st.st_size;
 
-    // 防止并发重写
     if (rewrite_in_progress.load())
     {
         return false;
     }
 
-    // Redis 风格的自动重写逻辑：
-    // 1. 如果 rewrite_base_size 为 0（首次启动），当文件超过最小重写阈值时触发
-    // 2. 否则，当文件增长超过设定百分比时触发
-    // 3. 或者写入次数超过阈值时触发
-
     bool should_rewrite = false;
 
     if (rewrite_base_size == 0)
     {
-        // 首次启动，文件从无到有增长超过阈值
         if (current_size >= AUTO_REWRITE_MIN_SIZE)
         {
             should_rewrite = true;
@@ -515,14 +642,12 @@ bool AofManager::should_auto_rewrite() const
     }
     else
     {
-        // 文件增长超过设定百分比
         if (current_size >= rewrite_base_size * (1.0 + AUTO_REWRITE_PERCENT))
         {
             should_rewrite = true;
         }
     }
 
-    // 或者写入次数超过阈值（即使文件大小未达到阈值）
     if (total_writes_since_rewrite.load() >= AUTO_REWRITE_WRITE_COUNT)
     {
         should_rewrite = true;
@@ -553,30 +678,48 @@ bool AofManager::is_rewrite_in_progress() const
 
 void AofManager::flush_buffer()
 {
-    if (write_buffer.empty() || file_fd == -1)
-    {
-        return;
-    }
+    size_t buf_idx = current_buffer.load(std::memory_order_acquire);
+    size_t other_idx = (buf_idx + 1) % 2;
 
-    ssize_t written = write(file_fd, write_buffer.c_str(), write_buffer.size());
-    if (written != (ssize_t)write_buffer.size())
+    size_t used = buffer_used[other_idx].load(std::memory_order_acquire);
+    if (used > 0 && file_fd != -1)
     {
-        std::cerr << "Failed to write buffer to AOF file\n";
+        ssize_t written = write(file_fd, write_buffer[other_idx].c_str(), used);
+        if (written > 0)
+        {
+            buffer_used[other_idx].store(0, std::memory_order_release);
+            write_buffer[other_idx].clear();
+        }
     }
-
-    // 清空缓冲区
-    write_buffer.clear();
-    buffer_size = 0;
 }
 
-// 强制刷盘所有线程局部缓冲区（在服务器关闭时调用）
 void AofManager::flush_all_buffers()
 {
-    // 这里无法直接访问其他线程的 thread_local 变量
-    // 但我们可以确保在服务器正常关闭时，主线程的缓冲区被刷入
-    flush_buffer();
+    for (size_t i = 0; i < 2; i++)
+    {
+        size_t used = buffer_used[i].load(std::memory_order_acquire);
+        if (used > 0 && file_fd != -1)
+        {
+            ssize_t written = write(file_fd, write_buffer[i].c_str(), used);
+            if (written > 0)
+            {
+                buffer_used[i].store(0, std::memory_order_release);
+                write_buffer[i].clear();
+            }
+        }
+    }
 
-    // 对于 ALWAYS 策略，确保数据落盘
+    // 处理无锁队列中的剩余数据
+    AofWriteTask task;
+    while (write_queue.pop(task))
+    {
+        if (file_fd != -1)
+        {
+            ssize_t written = write(file_fd, task.data.c_str(), task.data.size());
+            (void)written;
+        }
+    }
+
     if (sync_policy == AofPolicy::ALWAYS && file_fd != -1)
     {
         fsync(file_fd);
@@ -598,7 +741,6 @@ void AofManager::background_rewrite_thread()
 
 bool AofManager::open_file()
 {
-    // 以追加模式打开文件
     file_fd = open(filename.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (file_fd == -1)
     {
@@ -617,42 +759,16 @@ void AofManager::close_file()
     }
 }
 
-SDS AofManager::command_to_resp(const std::vector<SDS> &command)
-{
-    return RespSerializer::serialize_array(command);
-}
-
-// 实现后台刷盘线程
-void AofManager::background_sync_thread()
-{
-    while (bg_thread_running)
-    {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-
-        // 每秒刷盘：先刷新缓冲区，然后 fsync
-        if (file_fd != -1 && sync_policy == AofPolicy::EVERYSEC)
-        {
-            // 先把主缓冲区写入文件，确保主缓冲区中的数据被持久化
-            flush_buffer();
-            fsync(file_fd);
-            last_sync_time = std::chrono::steady_clock::now();
-        }
-    }
-}
-
-// 专用 AOF 高性能解析器实现
 std::vector<SDS> AofFastParser::parse_command(const char *data, size_t size, size_t &consumed_bytes)
 {
     std::vector<SDS> result;
     consumed_bytes = 0;
 
     if (size < 3)
-        return result; // 最小 RESP 命令长度
+        return result;
 
-    // 快速解析 RESP 数组格式（AOF 命令都是数组格式）
     if (data[0] == '*')
     {
-        // 解析数组长度
         size_t array_len = 0;
         size_t i = 1;
         while (i < size && data[i] != '\r')
@@ -666,19 +782,17 @@ std::vector<SDS> AofFastParser::parse_command(const char *data, size_t size, siz
 
         if (i + 1 >= size || data[i] != '\r' || data[i + 1] != '\n')
         {
-            return result; // 格式错误
+            return result;
         }
 
-        i += 2; // 跳过\r\n
+        i += 2;
         consumed_bytes = i;
 
-        // 解析数组元素
         for (size_t elem = 0; elem < array_len && i < size; elem++)
         {
             if (data[i] == '$')
             {
-                // 解析批量字符串
-                i++; // 跳过'$'
+                i++;
                 size_t str_len = 0;
                 while (i < size && data[i] != '\r')
                 {
@@ -691,33 +805,32 @@ std::vector<SDS> AofFastParser::parse_command(const char *data, size_t size, siz
 
                 if (i + 2 + str_len >= size || data[i] != '\r' || data[i + 1] != '\n')
                 {
-                    return result; // 格式错误
+                    return result;
                 }
 
-                i += 2; // 跳过\r\n
+                i += 2;
 
-                // 提取字符串内容（避免 SDS 构造函数中的内存分配）
                 if (str_len > 0)
                 {
                     SDS str;
-                    str.append(data + i, str_len); // 直接 append，避免拷贝
+                    str.append(data + i, str_len);
                     result.push_back(std::move(str));
                     i += str_len;
                 }
                 else
                 {
-                    result.emplace_back(""); // 空字符串
+                    result.emplace_back("");
                 }
 
                 if (i + 1 >= size || data[i] != '\r' || data[i + 1] != '\n')
                 {
-                    return result; // 格式错误
+                    return result;
                 }
-                i += 2; // 跳过\r\n
+                i += 2;
             }
             else
             {
-                return result; // 不支持的类型
+                return result;
             }
         }
 
@@ -745,7 +858,6 @@ std::vector<std::vector<SDS>> AofFastParser::parse_commands_batch(const char *da
         }
         else
         {
-            // 解析失败，尝试跳过错误数据
             size_t next_cmd = pos + 1;
             while (next_cmd < size && data[next_cmd] != '*')
             {

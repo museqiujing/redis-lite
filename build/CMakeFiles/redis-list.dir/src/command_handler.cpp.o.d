@@ -265,6 +265,9 @@ CMakeFiles/redis-list.dir/src/command_handler.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/statx-generic.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
+ /usr/include/c++/13/queue /usr/include/c++/13/deque \
+ /usr/include/c++/13/bits/stl_deque.h /usr/include/c++/13/bits/deque.tcc \
+ /usr/include/c++/13/bits/stl_queue.h \
  /home/autumn/write_cpp/redis-list/src/zset.h \
  /home/autumn/write_cpp/redis-list/src/resp_serializer.h \
  /usr/include/x86_64-linux-gnu/sys/uio.h \
