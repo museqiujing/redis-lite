@@ -4,11 +4,11 @@ echo "=== 性能对比测试 ==="
 
 # 测试标准Redis
 echo "1. 标准Redis性能"
-redis-benchmark -h 127.0.0.1 -p 6379 -c 50 -n 100000 -P 16 -t set,get -d 64
+redis-benchmark -h 127.0.0.1 -p 6379 -c 50 -n 100000 -P 16 -t set,get -d 64 -q
 
 # 测试Redis-Lite
 echo "2. Redis-Lite性能" 
-redis-benchmark -h 127.0.0.1 -p 6666 -c 50 -n 100000 -P 16 -t set,get -d 64
+redis-benchmark -h 127.0.0.1 -p 6666 -c 50 -n 100000 -P 16 -t set,get -d 64 -q
 
 
 # 管道性能测试

@@ -143,12 +143,13 @@ SDS CommandHandler::handle_get(const std::vector<SDS> &args)
         return handle_error("Wrong number of arguments for GET");
     }
 
-    SDS value = string_type.get(args[1]);
-
-    if (value.empty())
+    if (!string_type.exists(args[1]))
     {
         return RespSerializer::serialize_null_bulk_string();
     }
+
+    SDS value = string_type.get(args[1]);
+
     return RespSerializer::serialize_bulk_string(value);
 }
 
@@ -310,11 +311,12 @@ SDS CommandHandler::handle_lpop(const std::vector<SDS> &args)
         return handle_error("Wrong number of arguments for LPOP");
     }
 
-    SDS value = list_type.lpop(args[1]);
-    if (value.empty())
+    SDS value;
+    if (!list_type.lpop(args[1], value))
     {
         return RespSerializer::serialize_null_bulk_string();
     }
+
     return RespSerializer::serialize_bulk_string(value);
 }
 
@@ -325,11 +327,12 @@ SDS CommandHandler::handle_rpop(const std::vector<SDS> &args)
         return handle_error("Wrong number of arguments for RPOP");
     }
 
-    SDS value = list_type.rpop(args[1]);
-    if (value.empty())
+    SDS value;
+    if (!list_type.rpop(args[1], value))
     {
         return RespSerializer::serialize_null_bulk_string();
     }
+
     return RespSerializer::serialize_bulk_string(value);
 }
 

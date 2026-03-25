@@ -38,10 +38,10 @@ public:
     void rpush(const SDS &key, const SDS &value);
 
     // 移除并返回链表头部元素
-    SDS lpop(const SDS &key);
+    bool lpop(const SDS &key, SDS &out);
 
     // 移除并返回链表尾部元素
-    SDS rpop(const SDS &key);
+    bool rpop(const SDS &key, SDS &out);
 
     // 返回链表指定范围的元素
     std::vector<SDS> lrange(const SDS &key, int start, int stop);

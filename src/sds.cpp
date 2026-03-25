@@ -190,6 +190,36 @@ void SDS::swap(SDS &other) noexcept
     std::swap(free, other.free);
 }
 
+void SDS::erase(size_t pos, size_t count)
+{
+    if (pos >= len)
+    {
+        return;
+    }
+
+    size_t actual_count = count;
+    if (count == std::string::npos || pos + count > len)
+    {
+        actual_count = len - pos;
+    }
+
+    if (actual_count == 0)
+    {
+        return;
+    }
+
+    // 把后半段数据往前搬，包含结尾 '\0'
+    memmove(buf + pos, buf + pos + actual_count, len - pos - actual_count + 1);
+
+    len -= actual_count;
+    free += actual_count;
+}
+
+void SDS::erase_prefix(size_t count)
+{
+    erase(0, count);
+}
+
 // 追加C风格字符串
 void SDS::append(const char *t)
 {
@@ -235,11 +265,12 @@ void SDS::truncate(size_t new_len)
 {
     if (new_len >= len)
     {
-        return; // 不需要截断
+        return;
     }
 
+    size_t old_len = len;
     len = new_len;
-    free += len - new_len;
+    free += old_len - new_len;
     buf[len] = '\0';
 }
 
@@ -295,12 +326,13 @@ std::string SDS::to_string() const
 // 清空字符串
 void SDS::clear()
 {
+    size_t old_len = len;
     len = 0;
     if (buf)
     {
         buf[0] = '\0';
     }
-    free = (buf ? (len + free) : 0); // 保留原有容量
+    free += old_len;
 }
 
 // 查找C风格字符串

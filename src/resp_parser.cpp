@@ -245,6 +245,12 @@ SDS RespParser::parse_bulk_string()
 
 std::vector<SDS> RespParser::parse_array()
 {
+    // 当前字符必须是 '*'
+    if (pos >= buffer.size() || buffer[pos] != '*')
+    {
+        throw std::runtime_error("Invalid array header");
+    }
+
     pos++;
     SDS length_str = read_line();
     int length = std::stoi(length_str);
@@ -255,31 +261,45 @@ std::vector<SDS> RespParser::parse_array()
     }
 
     std::vector<SDS> array;
+    array.reserve(length);
+
     for (int i = 0; i < length; i++)
     {
+
+        if (pos >= buffer.size())
+        {
+            throw std::runtime_error("Incomplete array");
+        }
+
         char type = buffer[pos];
         switch (type)
         {
         case '+':
             array.push_back(parse_simple_string());
             break;
+
         case '-':
             array.push_back(parse_error());
             break;
+
         case ':':
             array.push_back(parse_integer());
             break;
+
         case '$':
             array.push_back(parse_bulk_string());
             break;
+
         case '*':
         {
-            // 处理嵌套数组：递归解析
+            // 嵌套数组：递归解析
             std::vector<SDS> nested_array = parse_array();
-            // 将嵌套数组的元素合并到当前数组中
+
+            // 保持你当前的“拍平”语义
             array.insert(array.end(), nested_array.begin(), nested_array.end());
             break;
         }
+
         default:
             throw std::runtime_error("Invalid RESP type in array");
         }
@@ -312,7 +332,7 @@ void RespParser::skip(size_t length)
 
 bool RespParser::has_complete_request_internal()
 {
-    if (buffer.empty())
+    if (buffer.empty() || pos >= buffer.size())
     {
         return false;
     }

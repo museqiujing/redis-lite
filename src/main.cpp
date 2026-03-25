@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    AofPolicy aof_policy = AofPolicy::NO;
+    AofPolicy aof_policy = AofPolicy::EVERYSEC;
     int port = 6666;
 
     // 解析参数

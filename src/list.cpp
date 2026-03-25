@@ -50,39 +50,49 @@ void List::rpush(const SDS &key, const SDS &value)
 }
 
 // 移除并返回链表头部元素
-SDS List::lpop(const SDS &key)
+bool List::lpop(const SDS &key, SDS &out)
 {
     clean_expired(key);
+
     auto it = storage.find(key);
     if (it == storage.end() || it->second->data.empty())
     {
-        return SDS("");
+        out.clear();
+        return false;
     }
-    SDS value = it->second->data.front();
+
+    out = it->second->data.front();
     it->second->data.pop_front();
+
     if (it->second->data.empty())
     {
         storage.erase(it);
     }
-    return value;
+
+    return true;
 }
 
 // 移除并返回链表尾部元素
-SDS List::rpop(const SDS &key)
+bool List::rpop(const SDS &key, SDS &out)
 {
     clean_expired(key);
+
     auto it = storage.find(key);
     if (it == storage.end() || it->second->data.empty())
     {
-        return SDS("");
+        out.clear();
+        return false;
     }
-    SDS value = it->second->data.back();
+
+    out = it->second->data.back();
     it->second->data.pop_back();
+
     if (it->second->data.empty())
     {
         storage.erase(it);
     }
-    return value;
+
+    return true;
 }
 
 // 返回链表指定范围的元素

@@ -116,6 +116,11 @@ public:
 
     void swap(SDS &other) noexcept;
 
+    // 删除操作
+    void erase(size_t pos, size_t count = std::string::npos);
+    // 删除前缀
+    void erase_prefix(size_t count);
+
 private:
     uint32_t len;  // 字符串长度
     uint32_t free; // 可用空间

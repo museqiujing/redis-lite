@@ -166,169 +166,153 @@ void EpollServer::handle_new_connection()
 
 void EpollServer::handle_client_data(int client_fd)
 {
-    // 首先处理可写事件（EPOLLOUT）
     auto it = clients.find(client_fd);
-    if (it != clients.end())
+    if (it == clients.end())
     {
-        ClientInfo &client = it->second;
-
-        // 检查是否有待发送的数据
-        if (!client.write_buffer.empty())
-        {
-            // 尝试发送缓冲区中的数据
-            struct iovec iov[1];
-            iov[0].iov_base = (void *)client.write_buffer.c_str();
-            iov[0].iov_len = client.write_buffer.size();
-
-            ssize_t n = writev(client_fd, iov, 1);
-            if (n == -1)
-            {
-                if (errno != EAGAIN && errno != EWOULDBLOCK)
-                {
-                    std::cerr << " 发送响应失败: " << strerror(errno) << "\n";
-                    // 发送失败，清理连接
-                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
-                    close(client_fd);
-                    clients.erase(client_fd);
-                    return;
-                }
-                // EAGAIN/EWOULDBLOCK 是正常情况，保持可写事件监听
-            }
-            else if (n > 0)
-            {
-                if (n < static_cast<ssize_t>(client.write_buffer.size()))
-                {
-                    // 部分写入，更新缓冲区
-                    client.write_buffer = client.write_buffer.substr(n);
-                    client.writing = true;
-                }
-                else
-                {
-                    // 写入完成，清除缓冲区
-                    client.write_buffer.clear();
-                    client.writing = false;
-
-                    // 移除可写事件监听
-                    struct epoll_event event;
-                    event.events = EPOLLIN | EPOLLET;
-                    event.data.fd = client_fd;
-                    epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &event);
-                }
-            }
-        }
+        return;
     }
 
-    // 边缘触发模式下的读取策略
-    while (true)
+    ClientInfo &client = it->second;
+
+    if (!client.write_buffer.empty())
     {
-        char buffer[64 * 1024];
-        ssize_t n = read(client_fd, buffer, sizeof(buffer));
+        struct iovec iov[1];
+        iov[0].iov_base = (void *)client.write_buffer.c_str();
+        iov[0].iov_len = client.write_buffer.size();
 
-        if (n > 0)
+        ssize_t n = writev(client_fd, iov, 1);
+        if (n == -1)
         {
-            // 有数据，追加到缓冲区
-            clients[client_fd].buffer.append(buffer, n);
-
-            // 如果读取的数据量小于缓冲区大小，说明可能没有更多数据了
-            if (n < static_cast<ssize_t>(sizeof(buffer)))
+            if (errno != EAGAIN && errno != EWOULDBLOCK)
             {
-                break; // 可能接近数据末尾，退出循环
-            }
-        }
-        else if (n == 0)
-        {
-            // 连接关闭
-            std::cout << " 客户端 " << client_fd << " 断开连接" << "\n";
-            epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
-            close(client_fd);
-            clients.erase(client_fd);
-            return;
-        }
-        else if (n < 0)
-        {
-            if (errno == EAGAIN || errno == EWOULDBLOCK)
-            {
-                // 没有数据可读，这是正常情况
-                break;
-            }
-            else
-            {
-                // 真正的读取错误
-                std::cerr << " 读取客户端数据失败: " << strerror(errno) << "\n";
+                std::cerr << "发送响应失败: " << strerror(errno) << "\n";
                 epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
                 close(client_fd);
                 clients.erase(client_fd);
                 return;
             }
+            // 写缓冲区还没发出去，等下次 EPOLLOUT
+        }
+        else if (n > 0)
+        {
+            if (n < static_cast<ssize_t>(client.write_buffer.size()))
+            {
+                client.write_buffer.erase_prefix(static_cast<size_t>(n));
+                client.writing = true;
+            }
+            else
+            {
+                client.write_buffer.clear();
+                client.writing = false;
+
+                struct epoll_event event;
+                event.events = EPOLLIN | EPOLLET;
+                event.data.fd = client_fd;
+                epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &event);
+            }
         }
     }
 
-    // 解析命令 - 使用更智能的退出条件
-    if (clients[client_fd].buffer.empty())
+    // 2) ET 模式：必须一直读到 EAGAIN，不能因为 n < bufsize 就停
+    while (true)
     {
-        return; // 没有数据需要解析
+        char tmp[64 * 1024];
+        ssize_t n = read(client_fd, tmp, sizeof(tmp));
+
+        if (n > 0)
+        {
+            client.buffer.append(tmp, n);
+            continue;
+        }
+
+        if (n == 0)
+        {
+            std::cout << "客户端 " << client_fd << " 断开连接\n";
+            epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
+            close(client_fd);
+            clients.erase(client_fd);
+            return;
+        }
+
+        // n < 0
+        if (errno == EAGAIN || errno == EWOULDBLOCK)
+        {
+            break; // 本轮已经读空
+        }
+
+        std::cerr << "读取客户端数据失败: " << strerror(errno) << "\n";
+        epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
+        close(client_fd);
+        clients.erase(client_fd);
+        return;
     }
 
-    clients[client_fd].parser.set_buffer(clients[client_fd].buffer);
+    if (client.buffer.empty())
+    {
+        return;
+    }
 
     try
     {
-        // 使用批量解析
-        std::vector<std::vector<SDS>> commands = clients[client_fd].parser.parse_batch(clients[client_fd].buffer);
+        client.parser.set_buffer(client.buffer);
+
+        std::vector<std::vector<SDS>> commands = client.parser.parse_batch(SDS());
 
         if (!commands.empty())
         {
-            // 智能选择处理模式
             if (commands.size() == 1)
             {
-                // 单命令模式
                 SDS response = handler.handle_command(commands[0]);
                 send_response(client_fd, response);
             }
             else
             {
-                // 批量处理模式
                 std::vector<SDS> responses = handler.handle_commands_batch(commands);
-                // 响应合并
+
                 SDS combined_response;
                 size_t total_size = 0;
-                for (const auto &response : responses)
+                for (const auto &resp : responses)
                 {
-                    total_size += response.size();
+                    total_size += resp.size();
                 }
-                combined_response.reserve(total_size); // 预分配空间
-                for (const auto &response : responses)
+                combined_response.reserve(total_size);
+
+                for (const auto &resp : responses)
                 {
-                    combined_response += response;
+                    combined_response += resp;
                 }
+
                 send_response(client_fd, combined_response);
             }
         }
 
-        // 更新缓冲区
-        size_t consumed = clients[client_fd].parser.get_consumed_bytes();
+        // 4) 只删除已消费的完整请求，残留半包继续保留
+        size_t consumed = client.parser.get_consumed_bytes();
         if (consumed > 0)
         {
-            clients[client_fd].buffer = clients[client_fd].buffer.substr(consumed);
-        }
-        else if (!commands.empty())
-        {
-            // 解析成功但未消耗字节，可能是协议问题
-            std::cerr << "警告：解析成功但未消耗字节，清空缓冲区" << "\n";
-            clients[client_fd].buffer.clear();
+            client.buffer.erase_prefix(consumed);
         }
     }
     catch (const std::exception &e)
     {
-        // 解析失败，保留未解析的数据
-        clients[client_fd].buffer = clients[client_fd].parser.get_remaining_data();
-        std::cerr << "Error parsing command: " << e.what() << "\n";
+        std::string msg = e.what();
+        std::cerr << "Error parsing command: " << msg << "\n";
 
-        // 发送错误响应
-        SDS error_response = RespSerializer::serialize_error(e.what());
+        // 半包：不回错，保留已有缓冲，等下一次 read 补齐
+        if (msg.find("Incomplete") != std::string::npos)
+        {
+            return;
+        }
+
+        // 真协议错误：清空这次坏数据，避免死循环
+        client.buffer.clear();
+        client.parser.reset_parser();
+
+        SDS error_response = RespSerializer::serialize_error(msg);
         send_response(client_fd, error_response);
     }
 }
+
 void EpollServer::send_response(int client_fd, const SDS &response)
 {
     if (response.empty())

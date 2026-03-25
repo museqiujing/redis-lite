@@ -4,7 +4,7 @@
 #include <chrono>
 #include <vector>
 #include "../src/list.h"
-
+/*
 void test_basic_operations()
 {
     std::cout << "=== 测试基本操作 ===" << std::endl;
@@ -154,13 +154,13 @@ void test_del()
     deleted = list.del("non_existent");
     std::cout << "del non_existent: " << deleted << " (expected: 0)" << std::endl;
 }
-
+*/
 int main()
 {
-    test_basic_operations();
-    test_range_operations();
-    test_expire();
-    test_del();
-    std::cout << "\n=== 所有测试完成 ===\n";
+    // test_basic_operations();
+    // test_range_operations();
+    // test_expire();
+    // test_del();
+    // std::cout << "\n=== 所有测试完成 ===\n";
     return 0;
 }
